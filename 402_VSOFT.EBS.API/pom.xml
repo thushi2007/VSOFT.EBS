@@ -13,6 +13,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <junit.version>5.6.2</junit.version>
         <jboss-javaee6-spec.version>1.0.0.Final</jboss-javaee6-spec.version>
+        <okta-jwt.version>0.3.0</okta-jwt.version>
     </properties>
     <dependencies>
         <dependency>
@@ -63,6 +64,11 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.okta.jwt</groupId>
+            <artifactId>okta-jwt-verifier</artifactId>
+            <version>${okta-jwt.version}</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
