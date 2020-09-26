@@ -3,25 +3,56 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>ebs.api</groupId>
-    <artifactId>VSOFT-EBS</artifactId>
+    <groupId>ebs.com</groupId>
+    <artifactId>ebs</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>402_VSOFT.EBS.API</name>
+    <name>ebs</name>
     <packaging>war</packaging>
-
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <junit.version>5.6.2</junit.version>
+        <jboss-javaee6-spec.version>1.0.0.Final</jboss-javaee6-spec.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>8.0.1</version>
             <scope>provided</scope>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.hibernate</groupId>-->
+<!--            <artifactId>hibernate-validator</artifactId>-->
+<!--            <version>4.1.0.Final</version>-->
+<!--            <type>jar</type>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>javax.ejb</groupId>
+            <artifactId>javax.ejb-api</artifactId>
+            <version>3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <version>1.0.2.Final</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.5.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.20</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -36,7 +67,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
