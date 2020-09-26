@@ -3,5 +3,13 @@
     <persistence-unit name="ebsDS" transaction-type="JTA">
         <jta-data-source>jdbc/datasources/ebsDS</jta-data-source>
         <class>ebs.api.model.enumeration.Sprache</class>
+        <class>ebs.api.model.Artikel</class>
+        <class>ebs.api.model.ArtikelSubKategorie</class>
+        <class>ebs.api.model.Hersteller</class>
+        <class>ebs.api.model.Kategorie</class>
+        <class>ebs.api.model.Person</class>
+        <class>ebs.api.model.SubKategorie</class>
+        <class>ebs.api.model.Verkauf</class>
+        <class>ebs.api.model.VerkaufArtikel</class>
     </persistence-unit>
 </persistence>
