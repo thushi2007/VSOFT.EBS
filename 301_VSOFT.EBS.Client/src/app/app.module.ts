@@ -1,8 +1,42 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
+import {PagesModule} from './pages/pages.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {OAuthModule, OAuthStorage} from 'angular-oauth2-oidc';
+import {NgxMaskModule} from 'ngx-mask';
+import {AgmCoreModule} from '@agm/core';
+import {AgmDirectionModule} from 'agm-direction';
+import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/google-maps-autocomplete';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpInterceptor} from '@core/interceptors/httpinterceptor';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {FooterModule} from './footer/footer.module';
+import {HeaderModule} from './header/header.module';
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD.MM.YYYY',
+  },
+  display: {
+    dateInput: 'DD.MM.YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
+export function storageFactory(): OAuthStorage {
+  return localStorage;
+}
+
+export function getLocalStorage(): any {
+  return (typeof window !== 'undefined') ? window.localStorage : null;
+}
 
 @NgModule({
   declarations: [
@@ -10,9 +44,57 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    HeaderModule,
+    FooterModule,
+    PagesModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        sendAccessToken: true
+      }
+    }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDe4ycHAmYcqUu3wfXzL1rnHwPvVDr8fIY',
+      region: 'CH',
+      libraries: ['places']
+    }),
+    AgmDirectionModule,
+    MatGoogleMapsAutocompleteModule,
+    NgxMaskModule.forRoot({validation: false}),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDe4ycHAmYcqUu3wfXzL1rnHwPvVDr8fIY',
+      region: 'CH',
+      libraries: ['places']
+    }),
+    SweetAlert2Module.forRoot(),
+    MatMomentDateModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: OAuthStorage,
+      useFactory: storageFactory
+    },
+    {
+      provide: 'LOCALSTORAGE',
+      useFactory: getLocalStorage
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptor,
+      multi: true
+    },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: MY_FORMATS
+    },
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

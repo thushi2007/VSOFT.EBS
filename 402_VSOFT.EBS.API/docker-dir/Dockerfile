@@ -1,13 +1,13 @@
 FROM jboss/wildfly
 
-ENV WILDFLY_USER admin
+ENV WILDFLY_USER ebsuser
 ENV WILDFLY_PASS Arun0706!
 
 # Database
 ENV DB_NAME ebs
 ENV DB_USER ebsuser
 ENV DB_PASS Arun0706!
-ENV DB_URI localhost:3306
+ENV DB_URI db:3306
 
 ENV MYSQL_VERSION 8.0.20
 ENV JBOSS_CLI /opt/jboss/wildfly/bin/jboss-cli.sh

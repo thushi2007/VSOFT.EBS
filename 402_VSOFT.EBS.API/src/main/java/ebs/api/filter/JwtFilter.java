@@ -21,8 +21,8 @@ public class JwtFilter implements Filter {
     public void init(FilterConfig filterConfig) {
         try {
             jwtVerifier = new JwtHelper()
-                    .setIssuerUrl("https://okta.okta.com/oauth2/default")
-                    .setClientId("{yourClientId}")
+                    .setIssuerUrl("http://localhost:32839")
+                    .setClientId("webapi")
                     .build();
         } catch (IOException | ParseException e) {
             System.err.print("Configuring JWT Verifier failed!");

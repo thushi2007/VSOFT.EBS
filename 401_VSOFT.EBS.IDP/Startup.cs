@@ -1,46 +1,176 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+
+using System.Security.Cryptography.X509Certificates;
+using IdentityServer4.Services;
+using IdentityServer4.Validation;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 
-namespace _401_VSOFT.EBS.IDP
+using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.SwaggerUI;
+
+using VSOFT.EBS.BO;
+using VSOFT.EBS.IDP.Helper;
+
+namespace VSOFT.EBS.IDP
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        ApiContextSetup apiSetup;
+        readonly string MyAllowSpecificOrigins = "allowSpecificOrigins";
+
+        public Startup()
         {
-            Configuration = configuration;
+            apiSetup = new ApiContextSetup(DateTime.Now);
+            apiSetup.LoadAllConfigs();
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            var cultureInfo = new CultureInfo("de-CH");
+            cultureInfo.NumberFormat.CurrencySymbol = "CHF";
+                
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+            apiSetup.ConfigureServices(services);
+
+            //string signingCert = AppContext.BaseDirectory + apiSetup.AppConfigs.Secure.IdentitySigningCert;
+            //var cert = new X509Certificate2(signingCert, "", X509KeyStorageFlags.MachineKeySet);
+
+            services.AddIdentity<AspNetUser, AspNetRole>()
+            .AddEntityFrameworkStores<UserDbContext>()
+            .AddDefaultTokenProviders();
+
+            services.AddIdentityServer(options =>
+            {
+                options.Authentication.CookieLifetime = new TimeSpan(24, 0, 0);
+                options.Authentication.CookieSlidingExpiration = false;
+            })
+             .AddInMemoryApiResources(Config.GetApisResources())
+             .AddInMemoryClients(Config.GetClients())
+             .AddInMemoryApiScopes(Config.GetApiScopes())
+             .AddDeveloperSigningCredential()
+             //.AddSigningCredential(cert)
+             .AddProfileService<ProfileService>();
+
+            services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
+            services.AddTransient<IProfileService, ProfileService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = apiSetup.AppConfigs.AppName,
+                    Description = "eSuperMarket Identity Server for frontend clients like angular and native mobile apps.",
+                    Version = apiSetup.AppConfigs.AppVersion
+                });
+
+                c.ExampleFilters();
+                c.EnableAnnotations();
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description =
+                          "Bearer authorization with an access token issued by Anibis Identity. Example: \"bearer {token}\"",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                    }
+                });
+
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+            services.AddSwaggerExamplesFromAssemblyOf<object>();
+            services.AddHttpContextAccessor();
+            services.AddCors(options =>
+            {               
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    var origins = apiSetup.AppConfigs.ClientOrigin.Split(";");
+                    builder.WithOrigins(origins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                }); 
+            });
+
+            services.AddControllers()
+            .AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                options.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
+                options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Local;
+            }).AddXmlSerializerFormatters();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserDbContext dbContext, UserManager<AspNetUser> userManager, RoleManager<AspNetRole> roleManager)
         {
+            dbContext.Database.EnsureCreated(); 
+            DbInitializer.Initialize(userManager, roleManager);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(MyAllowSpecificOrigins);
+            app.UseIdentityServer();
             app.UseHttpsRedirection();
 
-            app.UseRouting();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", apiSetup.AppConfigs.AppName);
+                c.RoutePrefix = "swagger";
 
-            app.UseAuthorization();
+                c.DefaultModelExpandDepth(2);
+                c.DefaultModelRendering(ModelRendering.Example);
+                c.DefaultModelsExpandDepth(-1);
+                c.DisplayOperationId();
+                c.DisplayRequestDuration();
+                c.DocExpansion(DocExpansion.List);
+                c.EnableDeepLinking();
+                c.EnableFilter();
+                c.ShowExtensions();
+                c.EnableValidator();
+                c.SupportedSubmitMethods(SubmitMethod.Get, SubmitMethod.Head, SubmitMethod.Post, SubmitMethod.Put);
+            });
+
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {

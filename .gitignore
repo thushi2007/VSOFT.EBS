@@ -1,3 +1,11 @@
 /401_VSOFT.EBS.IDP/obj
 /402_VSOFT.EBS.API/.idea
 /402_VSOFT.EBS.API/target
+/401_VSOFT.EBS.IDP/bin
+/001_VSOFT.EBS.Repo/bin
+/001_VSOFT.EBS.Repo/obj
+/002_VSOFT.EBS.BO/bin
+/002_VSOFT.EBS.BO/obj
+/.vs/VSOFT.EBS/DesignTimeBuild/.dtbcache.v2
+/.vs/VSOFT.EBS/config/applicationhost.config
+/.vs/VSOFT.EBS/v16/.suo

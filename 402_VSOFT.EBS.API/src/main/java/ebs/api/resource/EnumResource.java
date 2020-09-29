@@ -1,6 +1,8 @@
 package ebs.api.resource;
 
 import ebs.api.model.enumeration.Sprache;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Path("enum")
+@Api(value = "Example service")
 public class EnumResource {
 
     @PersistenceContext(unitName = "ebsDS")
@@ -23,6 +26,7 @@ public class EnumResource {
     @GET
     @Path("sprache")
     @Produces(MediaType.APPLICATION_JSON)
+    @ApiOperation(value = "Gives all available languages back", notes = "Gives all available languages back",response = Sprache.class)
     public List<Sprache> getSpracheList() {
 
         List<Sprache> allObjs = new ArrayList<Sprache>();

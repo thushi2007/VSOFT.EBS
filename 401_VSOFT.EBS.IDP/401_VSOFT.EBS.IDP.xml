@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>401_VSOFT.EBS.IDP</name>
+    </assembly>
+    <members>
+        <member name="M:VSOFT.EBS.IDP.Helper.ApiContextSetup.LoadAllConfigs">
+            <summary>
+            Loading all resources
+            </summary>
+        </member>
+        <member name="M:VSOFT.EBS.IDP.Helper.ApiContextSetup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Inject all needed services
+            </summary>
+            <param name="services">Services to inject</param>
+        </member>
+        <member name="M:VSOFT.EBS.IDP.Helper.ApiContextSetup.AddConfigurationService">
+            <summary>
+            Loading configuration and inject service to application
+            </summary>
+        </member>
+        <member name="M:VSOFT.EBS.IDP.Helper.ApiContextSetup.AddLoggingService">
+            <summary>
+            Loading logging and inject service to application
+            </summary>
+        </member>
+        <member name="M:VSOFT.EBS.IDP.Helper.ApiContextSetup.AddDataContextService">
+            <summary>   
+            Loading database context and inject service to application
+            </summary>
+        </member>
+        <member name="M:VSOFT.EBS.IDP.Helper.ApiContextSetup.AddAppContext">
+            <summary>
+            Loading the whole web context
+            </summary>
+        </member>
+        <member name="M:VSOFT.EBS.IDP.Helper.ApiContextSetup.LoadEnvironment">
+            <summary>
+            Loading environment 
+            </summary>
+        </member>
+        <member name="M:VSOFT.EBS.IDP.Helper.ApiContextSetup.LoadConfigurations">
+            <summary>
+            Loading local/secure/log configurations
+            </summary>
+        </member>
+        <member name="M:VSOFT.EBS.IDP.Helper.ApiContextSetup.LoadLogger">
+            <summary>
+            Loading logging configurations
+            </summary>
+        </member>
+        <member name="M:VSOFT.EBS.IDP.ProfileService.GetProfileDataAsync(IdentityServer4.Models.ProfileDataRequestContext)">
+            <summary>
+            Getting user profile data
+            </summary>
+            <param name="context">Application context</param>
+            <returns></returns>
+        </member>
+        <member name="M:VSOFT.EBS.IDP.ProfileService.IsActiveAsync(IdentityServer4.Models.IsActiveContext)">
+            <summary>
+            Check if the user exists
+            </summary>
+            <param name="context">Application context</param>
+            <returns></returns>
+        </member>
+        <member name="M:VSOFT.EBS.IDP.ResourceOwnerPasswordValidator.ValidateAsync(IdentityServer4.Validation.ResourceOwnerPasswordValidationContext)">
+            <summary>
+            Validating user before grant a token
+            </summary>
+            <param name="context">Application context</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
