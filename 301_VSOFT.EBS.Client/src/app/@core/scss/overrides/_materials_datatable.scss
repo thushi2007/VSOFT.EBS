@@ -1,0 +1,42 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+.example-table {
+
+  width: 100%;
+  border: 1px solid #cccccc;
+
+  .menucell {
+    text-align: right;
+  }
+
+  .textalignend {
+    text-align: right;
+  }
+
+  .mat-row {
+    font-weight: 400;
+    padding: 10px 10px 10px 10px !important;
+
+    &:hover {
+      background-color: #E0F2F7 !important;
+    }
+  }
+
+  .mat-row:nth-child(even) {
+    background-color: #ffffff;
+  }
+
+  .mat-row:nth-child(odd) {
+    background-color: #FAFAFA;
+  }
+
+  .customheader {
+    background-color: #eeeeee;
+    font-size: 10pt;
+    padding: 0 10px 0 10px;
+    color: #000000;
+    font-weight: 500;
+    border-right: 1px solid #cccccc;
+  }
+}

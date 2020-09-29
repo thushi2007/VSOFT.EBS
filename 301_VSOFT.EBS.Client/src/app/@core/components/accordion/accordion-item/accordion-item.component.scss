@@ -1,0 +1,115 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+:host {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+
+  &:last-child {
+    > .index-container {
+      vertical-align: middle;
+
+      &::before {
+        content: none;
+      }
+    }
+  }
+
+  > .index-container {
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px 0 0 0;
+    text-align: center;
+    width: 150px;
+
+    > .step-index {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: #000000;
+      background: #dddddd;
+      padding: 3px 0 0 0;
+
+      &.selected {
+        background: $site-theme-blue;
+        color: #ffffff;
+      }
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      //max-height: calc(100% - 50px);
+      top: 50px;
+      left: 75px;
+      border: 1px dotted #dddddd;
+    }
+  }
+
+  > .accordion-container {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    max-width: calc(100% - 150px);
+    padding: 0px 20px 0px 20px;
+    border: 1px solid #dddddd;
+
+    > .header {
+      display: block;
+      width: 100%;
+
+      > .title {
+        display: inline-block;
+        width: 100%;
+        max-width: calc(100% - 60px);
+        padding: 10px 0 10px 0;
+
+        font-size: 18pt;
+        border-bottom: 1px solid #dddddd;
+
+        color: $site-theme-blue;
+        font-family: "Quicksand", "Arial";
+        font-weight: 500;
+      }
+
+      > .opencloseicon {
+        display: inline-block;
+        width: 60px;
+        font-size: 30pt;
+        color: $site-theme-blue;
+        text-align: center;
+
+        cursor: pointer;
+      }
+    }
+
+    > .content {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      padding: 20px 0px 0px 0px;
+    }
+
+    > .footer {
+      display: block;
+      width: 100%;
+      padding: 20px 0 20px 0;
+      border-top: 1px solid #dddddd;
+
+      > .left {
+        display: inline-block;
+        width: 50%;
+      }
+
+      > .right {
+        display: inline-block;
+        width: 50%;
+        text-align: right;
+      }
+    }
+  }
+}

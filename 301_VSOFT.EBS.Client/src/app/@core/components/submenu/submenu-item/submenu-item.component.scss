@@ -1,0 +1,29 @@
+@import "../../../../@core/scss/variables/global";
+@import "../../../../@core/scss/mixins/breakpoints";
+
+:host {
+  display: block;
+  width: 100%;
+  font-weight: 600;
+
+  &:hover, &.selected {
+    background-color: $site-theme-blue;
+    color: #ffffff;
+
+    > a {
+      color: #ffffff;
+
+      > i {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  > a {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #000000;
+    padding: 10px;
+  }
+}

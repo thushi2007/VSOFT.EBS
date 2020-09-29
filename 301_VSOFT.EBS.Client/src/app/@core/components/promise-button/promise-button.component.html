@@ -1,0 +1,11 @@
+<button class="button" [disabled]="btnDisabled" [promiseBtn]="promiseFunction" (click)="fireAction()">
+    <span class="spinner">
+        <ebs-promise-button-spinner *ngIf="btnPromise?.isPromiseDone === false"></ebs-promise-button-spinner>
+    </span>
+  <span class="content">
+        <ng-content></ng-content>
+    </span>
+  <span class="icon">
+        <ng-content select="promise-button-icon"></ng-content>
+    </span>
+</button>

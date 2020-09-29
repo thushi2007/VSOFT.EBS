@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  padding: 0;
+
+  > .container {
+    display: block;
+    height: 100%;
+
+    padding: 0px 10px 5px 0;
+
+    //padding-right: 10px;
+    //overflow: visible;
+    //position: relative;
+    //top: 0;
+    //left: 0;
+  }
+}

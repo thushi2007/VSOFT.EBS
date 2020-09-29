@@ -1,0 +1,6 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+.mat-progress-bar.mat-accent .mat-progress-bar-buffer {
+  background-color: #A9D0F5;
+}

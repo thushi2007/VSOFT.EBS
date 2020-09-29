@@ -1,0 +1,51 @@
+@import '../variables/global';
+@import '../mixins/breakpoints';
+
+*::selection{
+  background: $site-theme-blue;
+  color: #ffffff;
+}
+
+body {
+  font-family: $site-font;
+}
+
+.page-container {
+  display: inline-block;
+  width: $site-width;
+  margin: auto;
+  padding: 0;
+  text-align: left;
+  font-family: $site-font;
+
+  @include media-breakpoint-down('md') {
+    display: block;
+    width: 100%;
+    padding: 0 10px 0 10px;
+  }
+
+  .page-sub-menu {
+    display: inline-block;
+    width: 20%;
+    margin-bottom: 20px;
+    vertical-align: top;
+
+    @include media-breakpoint-down('sm') {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  .page-content {
+    display: inline-block;
+    width: 80%;
+    vertical-align: top;
+    padding: 0 0 0 20px;
+
+    @include media-breakpoint-down('sm') {
+      display: block;
+      width: 100%;
+      padding: 0;
+    }
+  }
+}

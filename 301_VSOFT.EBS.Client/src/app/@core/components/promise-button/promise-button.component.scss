@@ -1,0 +1,48 @@
+@import "./src/app/@core/scss/variables/global";
+
+:host {
+  display: inline-block;
+
+  > .button {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    font-family: $site-font;
+    font-size: 10pt;
+    font-weight: 600;
+    color: #000;
+    background-color: #fff;
+    padding: 0 10px 0 15px;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 2px 2px 4px 0px rgba(204, 204, 204, 1);
+    -moz-box-shadow: 2px 2px 4px 0px rgba(204, 204, 204, 1);
+    box-shadow: 2px 2px 4px 0px rgba(204, 204, 204, 1);
+    cursor: pointer;
+
+    .spinner {
+      display: inline-block;
+      overflow: hidden;
+      //padding: 9px 0px 7px 0;
+      vertical-align: middle;
+
+      //border: 1px solid red;
+    }
+
+    .content {
+      display: inline-block;
+      padding: 10px 5px 10px 0;
+      margin: 0;
+    }
+
+    .icon {
+      display: inline-block;
+      margin: 0;
+      padding: 10px 3px 10px 0;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background: #eeeeee;
+    }
+  }
+}

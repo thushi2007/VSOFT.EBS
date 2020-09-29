@@ -1,0 +1,84 @@
+:host {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+
+  .previewIcon {
+    width: 70px;
+    height: 70px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .mainactions {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .drop-item {
+    display: inline-block;
+    width: 100%;
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+    margin-top: 5px;
+
+    -webkit-box-shadow: 0px 0px 12px -7px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 0px 0px 12px -7px rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 0px 12px -7px rgba(0, 0, 0, 0.7);
+
+    &:first-child {
+      margin-top: 0px;
+    }
+
+    .itemtable {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    > div {
+      display: inline-block;
+      vertical-align: top;
+
+
+      &.image {
+        width: 70px;
+        height: 72px;
+      }
+
+      &.description {
+        width: 250px;
+        padding: 12px 5px 0 30px;
+        text-align: left;
+        height: 72px;
+        font-size: 11pt;
+      }
+
+      &.prograssbar-container {
+        width: calc(100% - 420px);
+        height: 72px;
+        vertical-align: middle;
+        padding-top: 30px;
+        text-align: left;
+
+        > .progress {
+          vertical-align: middle;
+        }
+      }
+
+
+      &.actions {
+        width: 100px;
+        height: 72px;
+        padding: 17px 0 0 7px;
+        text-align: left;
+
+
+        i {
+          font-size: 15pt;
+        }
+      }
+    }
+  }
+}

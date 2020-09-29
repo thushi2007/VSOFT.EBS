@@ -1,0 +1,11 @@
+<div class="stepper">
+  <div class="header">
+    <ebs-header *ngFor="let header of steps; let i = index;" [style.width.%]="headerWidth"
+                    [Text]="header.HeaderText"
+                    [Index]="i"
+                    [Pattern]="header.Pattern"></ebs-header>
+  </div>
+  <div class="content">
+    <ebs-step></ebs-step>
+  </div>
+</div>

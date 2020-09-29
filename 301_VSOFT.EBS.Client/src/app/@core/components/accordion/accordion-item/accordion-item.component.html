@@ -1,0 +1,28 @@
+<div class="index-container">
+  <div class="step-index" [@selectedNot]="iamSelected">
+    {{itemIndex + 1}}
+  </div>
+</div>
+<div class="accordion-container" [@slideInOut]="stateOpenClose">
+  <div class="header">
+    <div class="title">
+      {{title}}
+    </div>
+    <div class="opencloseicon" (click)="openCloseContent()" [@rotateUpDown]="stateRotateUpDown">
+      <i class="fal fa-angle-down"></i>
+    </div>
+  </div>
+  <div class="content">
+    <ebs-messager [onlyOneInstance]="true" #itemMsg></ebs-messager>
+    <ng-content></ng-content>
+  </div>
+  <div class="footer">
+    <div class="left">
+      <ebs-promise-button (btnAction)="back()" *ngIf="!iamFirst">zurück</ebs-promise-button>
+    </div>
+    <div class="right">
+      <ebs-promise-button (btnAction)="next()" #btnNext *ngIf="!iamLast">Weiter</ebs-promise-button>
+      <ebs-promise-button (btnAction)="next()" #btnNext *ngIf="iamLast">abschliessen</ebs-promise-button>
+    </div>
+  </div>
+</div>

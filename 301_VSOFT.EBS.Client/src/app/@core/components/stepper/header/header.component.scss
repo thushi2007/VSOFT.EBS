@@ -1,0 +1,67 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+$gray: #eeeeee;
+
+:host {
+  display: inline-block;
+  margin: 0;
+  text-align: center;
+  background: $gray;
+  padding: 10px;
+  position: relative;
+
+  &.selected {
+    background: $site-theme-blue;
+    color: #ffffff;
+
+    .arrownext {
+      border-left: 25px solid $site-theme-blue;
+    }
+
+    .arrowbefore {
+      border-top: 30px solid $site-theme-blue;
+      border-bottom: 30px solid $site-theme-blue;
+    }
+  }
+
+  > .header-item {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  &:first-child {
+    .arrowbefore {
+      display: none;
+    }
+  }
+
+  &:last-child {
+    .arrownext {
+      display: none;
+    }
+  }
+
+  .arrowbefore {
+    position: absolute;
+    top: -8px;
+    left: -3px;
+    border-top: 30px solid $gray;
+    border-bottom: 30px solid $gray;
+    vertical-align: middle;
+    border-left: 30px solid #ffffff;
+    z-index: 3;
+  }
+
+  .arrownext {
+    height: 0;
+    position: absolute;
+    top: -3px;
+    right: -22px;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    vertical-align: middle;
+    border-left: 25px solid $gray;
+    z-index: 5;
+  }
+}

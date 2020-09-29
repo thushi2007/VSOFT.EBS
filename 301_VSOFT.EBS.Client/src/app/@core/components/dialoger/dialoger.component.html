@@ -1,0 +1,15 @@
+<div class="background" [@showHide]="isOpened">
+  <div class="dialog-container" [@heightAnim]="isOpened">
+
+    <div class="title">
+      <div class="text">Benutzerprofil aktualisieren</div>
+      <div class="icon">
+        <button mat-icon-button (click)="isOpened = !isOpened">
+          <i class="fal fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="content" #dialogContainer></div>
+    <div class="footer"></div>
+  </div>
+</div>

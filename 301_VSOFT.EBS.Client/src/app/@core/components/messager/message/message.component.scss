@@ -1,0 +1,120 @@
+@import "./src/app/@core/scss/variables/global";
+
+:host {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 20px 0;
+
+  .msg-container {
+    position: relative;
+    font-family: $site-font;
+    border: 1px solid #bbb;
+    width: 100%;
+    max-width: calc(100% - 2px);
+    vertical-align: middle;
+    margin: 0;
+    text-align: left;
+    font-weight: 500;
+    color: #000;
+    overflow: hidden;
+    -webkit-box-shadow: 2px 2px 4px 0px rgba(204, 204, 204, 1);
+    -moz-box-shadow: 2px 2px 4px 0px rgba(204, 204, 204, 1);
+    box-shadow: 2px 2px 4px 0px rgba(204, 204, 204, 1);
+
+    .msg-content {
+      display: block;
+      width: 100%;
+      max-width: calc(100% - 30px);
+      padding: 15px;
+      /*flex-wrap: wrap;*/
+      flex-flow: row nowrap;
+
+      .msg-icon-container {
+        display: inline-block;
+        width: 100px;
+        max-width: calc(100px - 15px);
+        padding: 0;
+        //margin: 0 25px 0 0;
+        text-align: center;
+        vertical-align: top;
+      }
+
+      .msg-text-container {
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        max-width: calc(100% - 115px);
+        padding-left: 20px;
+
+        -webkit-box-shadow: -10px 0px 8px -8px rgba(0, 0, 0, 0.45);
+        -moz-box-shadow: -10px 0px 8px -8px rgba(0, 0, 0, 0.45);
+        box-shadow: -10px 0px 8px -8px rgba(0, 0, 0, 0.45);
+
+        > .msg-title {
+          padding-bottom: 10px;
+          font-size: 12pt;
+          font-weight: 600;
+        }
+
+        > .msg-text {
+          font-size: 10pt;
+        }
+      }
+    }
+
+    &.msg-error {
+      background-color: #F6CECE;
+
+      .msg-icon {
+        font-size: 25pt;
+        color: #FE2E2E;
+      }
+    }
+
+    &.msg-success {
+      background-color: #CEF6CE;
+
+      .msg-icon {
+        font-size: 25pt;
+        color: #04B404;
+      }
+    }
+
+    &.msg-info {
+      background-color: #A9D0F5;
+
+      .msg-icon {
+        font-size: 25pt;
+        color: #0431B4;
+      }
+    }
+
+    &.msg-warning {
+      background-color: #F7D358;
+
+      .msg-icon {
+        font-size: 25pt;
+        color: #FE642E;
+      }
+    }
+
+    .msg-close-btn {
+      cursor: pointer;
+    }
+
+    .close-btn {
+      display: block;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      text-align: right;
+
+      > i {
+        margin: 5px 6px 0 0;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -1,0 +1,313 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+button {
+  font-family: $site-font;
+  border: 1px solid $site-theme-blue;
+}
+
+button:active, button:focus, button:hover, button:visited {
+  border: none;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+.custom-input-container {
+  display: block;
+  width: 100%;
+
+  > .custom-label {
+    display: inline-block;
+    width: 30%;
+    text-align: right;
+    padding: 0px 10px 0 0;
+    color: $site-theme-blue;
+
+
+    @include media-breakpoint-down('sm') {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding-bottom: 10px;
+
+      &.middle {
+        vertical-align: unset;
+        padding: 0 10px 10px 0 !important;
+      }
+    }
+
+    &.middle {
+      vertical-align: top;
+      padding: 20px 10px 0 0;
+    }
+
+    &.aligntop {
+      padding-top: 10px;
+      vertical-align: top;
+    }
+
+    &.required {
+      font-weight: 600;
+
+      > span {
+        color: red;
+      }
+    }
+  }
+
+  > .custom-input {
+    display: inline-block;
+    width: 70%;
+
+    @include media-breakpoint-down('sm') {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+
+    &.padtopbottom {
+      padding: 15px 0 15px 0;
+    }
+
+    &.rigth-align {
+      text-align: right;
+    }
+
+    &.onlytext {
+      padding: 10px 0px 15px 0px;
+    }
+
+    > .left {
+      display: inline-block;
+      width: 50%;
+      padding-right: 0px;
+
+      @include media-breakpoint-down('sm') {
+        width: 100%;
+      }
+
+      &.sml {
+        width: 30%;
+        font-size: unset !important;
+        padding-right: 5px;
+      }
+
+      &.big {
+        width: 70%;
+        padding-right: 5px;
+      }
+
+      &.half {
+        width: 50%;
+        padding-right: 5px;
+
+        //@include media-breakpoint-down('sm') {
+        //  width: 100%;
+        //  padding-right: 0px;
+        //}
+      }
+    }
+
+    > .right {
+      display: inline-block;
+      width: 50%;
+      padding-left: 0px;
+      vertical-align: top;
+
+      @include media-breakpoint-down('sm') {
+        width: 100%;
+      }
+
+      &.sml {
+        width: 30%;
+        padding-left: 5px;
+      }
+
+      &.big {
+        width: 70%;
+        padding-left: 5px;
+      }
+
+      &.half {
+        width: 50%;
+        padding-left: 5px;
+
+        //@include media-breakpoint-down('sm') {
+        //  width: 100%;
+        //  padding-left: 0px;
+        //}
+      }
+    }
+
+    > .pwdvalidator {
+      display: block;
+      width: 100%;
+      padding: 5px 0 15px 0;
+
+      mat-password-strength-info {
+        font-family: $site-font !Important;
+      }
+    }
+  }
+}
+
+.suffixBtn {
+  cursor: pointer;
+}
+
+.custom-button-container {
+  display: block;
+  width: 100%;
+  padding: 20px 0 0px 0;
+
+  > .left-side {
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+  }
+
+  > .right-side {
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+  }
+
+  > .fullright {
+    display: block;
+    width: 100%;
+    text-align: right;
+  }
+
+  &.border-top {
+    border-top: 10px solid #eeeeee;
+    margin-top: 20px;
+  }
+}
+
+.warn-msg {
+  display: block;
+  width: 100%;
+  padding: 10px 0 10px 0;
+
+  > i {
+    color: #FF8000;
+    font-size: 14pt;
+    margin-right: 10px;
+  }
+}
+
+.custom-form-groupbox {
+  display: block;
+  width: 100%;
+  border: 1px solid #dddddd;
+  padding: 20px 20px 20px 20px;
+  position: relative;
+
+  margin: 0px 0 20px 0;
+  //border-radius: 10px;
+
+  &.shadow {
+    -webkit-box-shadow: 0px 0px 12px -7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 12px -7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 12px -7px rgba(0, 0, 0, 0.3);
+  }
+
+  .info-msg {
+    display: block;
+    width: 100%;
+    padding: 10px 0 10px 0;
+
+    > i {
+      color: $site-theme-blue;
+      font-size: 16pt;
+      margin-right: 10px;
+    }
+  }
+
+  .custom-groupbox-title {
+    display: inline-block;
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    word-break: break-word;
+
+    font-size: 12pt;
+
+    background-color: #ffffff;
+    font-weight: 600;
+    color: $site-theme-blue;
+  }
+
+  .custom-title {
+    display: block;
+    width: 100%;
+    font-weight: 500;
+    color: $site-theme-blue;
+    font-size: 18pt;
+    word-break: break-word;
+    white-space: pre-wrap;
+
+    font-family: 'Quicksand', 'Arial';
+    padding: 0 0 10px 0;
+    margin: 0 0 20px 0;
+    border-bottom: 1px solid #dddddd;
+
+    &.pdtop {
+      padding: 20px 0 10px 0;
+    }
+  }
+}
+
+.customButtonBlueLink {
+  display: inline-block;
+  padding: 10px 20px 10px 20px;
+  background: $site-theme-blue;
+  color: #ffffff;
+  text-decoration: none;
+  border: none;
+
+  > i {
+    font-size: 16pt;
+    padding-right: 10px;
+    vertical-align: middle;
+  }
+
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+> .customLinkBlue {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 20px 0 20px 0;
+
+  > a {
+    display: inline-block;
+    text-decoration: none;
+    padding: 5px;
+    background-color: $site-theme-blue;
+    color: #ffffff;
+
+    border-radius: 25px;
+
+    > span {
+      display: inline-block;
+      margin: 6px 10px 0 10px;
+      font-weight: 500;
+    }
+
+    > i {
+      width: 40px;
+      height: 40px;
+      background: #ffffff;
+      border-radius: 20px;
+      font-size: 30pt;
+      vertical-align: top;
+      color: $site-theme-blue;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+<div class="msg-container
+    {{ isError ? 'msg-error' : ''}}
+    {{ isInfo ? 'msg-info' : ''}}
+    {{ isWarning ? 'msg-warning' : ''}}
+    {{ isSuccess ? 'msg-success' : ''}}" #MsgContainer>
+  <div class="close-btn">
+    <i class="fal fa-times" (click)="hideMessage()"></i>
+  </div>
+  <div class="msg-content">
+    <div class="msg-icon-container">
+      <div class="msg-icon">
+        <i class="fal fa-info-circle" *ngIf="isInfo"></i>
+        <i class="fal fa-times-circle" *ngIf="isError"></i>
+        <i class="fal fa-exclamation-circle" *ngIf="isWarning"></i>
+        <i class="fal fa-check-circle" *ngIf="isSuccess"></i>
+      </div>
+    </div>
+    <div class="msg-text-container">
+      <div class="msg-title">
+        {{ title }}
+      </div>
+      <div class="msg-text" [innerHTML]="message">
+      </div>
+    </div>
+  </div>
+</div>

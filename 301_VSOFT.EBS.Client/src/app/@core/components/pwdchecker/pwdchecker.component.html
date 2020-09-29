@@ -1,0 +1,9 @@
+<mat-password-strength #passwordValidation [password]="pwdControl.value"></mat-password-strength>
+<mat-password-strength-info
+  [passwordComponent]="passwordValidation"
+  [lowerCaseCriteriaMsg]="'Mind. ein kleiner Buchstabe'"
+  [upperCaseCriteriaMsg]="'Mind. ein grosser Buchstabe'"
+  [digitsCriteriaMsg]="'Mind. eine  Ziffer'"
+  [specialCharsCriteriaMsg]="'Mind. ein Sonderzeichen'"
+  [minCharsCriteriaMsg]="'Mind. 8 Zeichen'">
+</mat-password-strength-info>

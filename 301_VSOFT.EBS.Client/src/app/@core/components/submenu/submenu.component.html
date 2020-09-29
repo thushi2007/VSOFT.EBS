@@ -1,0 +1,4 @@
+<div class="submenu-container" [@showhideme]>
+  <ebs-submenu-item *ngFor="let subItem of itemWithChildren?.Children" [url]="subItem.Url"
+                [text]="subItem.Text"></ebs-submenu-item>
+</div>

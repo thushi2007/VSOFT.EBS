@@ -1,0 +1,11 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+mat-button-toggle {
+  font-size: 10pt;
+}
+
+.mat-button-toggle-checked .mat-button-toggle-label-content {
+  background: $site-theme-color !important;
+  color: #ffffff;
+}

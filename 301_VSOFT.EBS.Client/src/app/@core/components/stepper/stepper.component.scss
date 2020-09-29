@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  width: 100%;
+
+  > .stepper {
+    display: block;
+    width: 100%;
+
+    > .header {
+      display: block;
+      width: 100%;
+
+      overflow: hidden;
+      position: relative;
+    }
+
+    > .content {
+      display: block;
+      margin-top: 10px;
+      width: 100%;
+      position: relative;
+      height: content-box;
+    }
+  }
+}

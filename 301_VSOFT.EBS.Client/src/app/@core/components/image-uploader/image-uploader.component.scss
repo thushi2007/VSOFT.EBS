@@ -1,0 +1,117 @@
+:host {
+  display: block;
+  width: 100%;
+
+  .drop-zone {
+    border: dotted 3px lightgray;
+    text-align: center;
+  }
+
+  /* Default class applied to drop zones on over */
+  .invalid-drag {
+    border: dotted 3px red;
+  }
+
+  .valid-drag {
+    border: dotted 3px green;
+  }
+
+  .uploadicon {
+    padding: 0;
+    margin: 0;
+
+    padding: 5px 0 0 0;
+
+    > i {
+      font-size: 45pt;
+      color: #aaaaaa;
+    }
+  }
+
+  .uploadtext {
+    padding: 5px 0 0 0;
+    margin: 0;
+    font-size: 8pt;
+    font-style: italic;
+  }
+
+  .previewIcon {
+    width: 70px;
+    height: 70px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .dragndrop {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    border: solid 1px lightgray;
+
+    > .drop-zone {
+      min-height: 100px;
+      background-color: #eeeeee;
+      //border: dotted 3px lightgray;
+    }
+  }
+
+  .info {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: 10px 0 0 0;
+    font-size: 9pt;
+    font-style: italic;
+  }
+
+  .warn {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: 10px 0 0 0;
+    font-size: 9pt;
+    font-style: italic;
+    color: red;
+  }
+
+  .message-container {
+    display: block;
+    width: 100%;
+
+    >.left {
+      display: inline-block;
+      width: 50%;
+    }
+
+    >.right {
+      display: inline-block;
+      width: 50%;
+      text-align: right;
+    }
+  }
+
+  .mainactions {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+
+    > .left {
+      display: inline-block;
+      width: 50%;
+      text-align: left;
+    }
+
+    > .right {
+
+      > button {
+        &:first-child {
+          margin-right: 10px;
+        }
+      }
+
+      display: inline-block;
+      width: 50%;
+      text-align: right;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+  background: $site-theme-color;
+}
+.mat-vertical-content{
+  padding: 0 24px 24px 24px !important;
+}
+
+//.mat-horizontal-content-container {
+//  display: none;
+//}
+
+.mat-step-header .mat-step-icon-state-edit {
+  background: #0489B1 !important;
+}
+
+.mat-step-header .mat-step-icon-state-done {
+  background: #5FB404 !important;
+}
+
+.mat-step-header .mat-step-icon-state-error {
+  background: #DF0101 !important;
+  color: #ffffff;
+}
+
+.mat-step-text-label {
+  color: #000000;
+  font-size: 11pt;
+}

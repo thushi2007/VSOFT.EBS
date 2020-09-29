@@ -1,0 +1,19 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+.mat-slider-thumb-label {
+  transform: rotate(45deg) !important;
+  border-radius: 50% 50% 0 !important;
+}
+
+.mat-slider-thumb {
+  transform: scale(0) !important;
+
+}
+.mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb, .mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb-label {
+  background-color: $site-theme-blue !important;
+}
+
+.mat-slider-thumb-label-text {
+  opacity: 1 !important;
+}

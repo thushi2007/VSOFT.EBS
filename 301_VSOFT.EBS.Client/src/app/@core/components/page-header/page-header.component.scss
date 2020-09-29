@@ -1,0 +1,118 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+:host {
+  display: block;
+  width: 100%;
+  padding: 0 0 20px 0;
+  overflow: hidden;
+
+  .title-container {
+    display: block;
+    width: 100%;
+    background-color: #eeeeee;
+    overflow: hidden;
+
+    -webkit-box-shadow: inset 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: inset 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+
+    .title {
+      display: block;
+      width: 100%;
+      font-size: 30pt;
+      padding: 10px 0 10px 0;
+      color: $site-theme-blue;
+      //font-family: 'Quicksand', 'Arial';
+      font-weight: 600;
+      color: $site-theme-blue;
+
+      @include media-breakpoint-down('sm') {
+        font-size: 18pt;
+      }
+    }
+
+    .underline {
+      border-top: 1px solid #cccccc;
+      padding-bottom: 20px;
+    }
+  }
+
+  .path-container {
+    display: block;
+    width: 100%;
+
+    background: $site-theme-blue;
+
+    .path {
+      display: block;
+      width: 100%;
+      padding: 10px 0 10px 0;
+      overflow: hidden;
+
+      > span {
+        display: inline-block;
+        padding: 0 10px 0 0;
+        vertical-align: bottom;
+        font-size: 10pt;
+
+        &.home {
+          //padding: 0 10px 0 0;
+
+          > a {
+            display: inline-block;
+            text-decoration: none;
+            color: #ffffff;
+
+            > i {
+              font-size: 15pt;
+              color: #ffffff;
+
+              &:last-child {
+                font-size: 15pt;
+                margin-left: 10px;
+              }
+            }
+          }
+        }
+
+        &.item {
+          vertical-align: middle;
+
+          > a {
+            text-decoration: none;
+            color: #ffffff;
+            vertical-align: middle;
+
+            > i {
+              vertical-align: middle;
+              font-size: 15pt;
+              margin-left: 5px;
+              color: #ffffff;
+            }
+          }
+
+          &:last-child {
+            text-decoration: none;
+            color: #ffffff;
+
+            > a {
+              text-decoration: none;
+              color: #ffffff;
+
+              > i {
+                display: none;
+              }
+            }
+          }
+        }
+
+        > i {
+          vertical-align: middle;
+          font-size: 15pt;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
