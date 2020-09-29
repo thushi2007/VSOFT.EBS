@@ -11,7 +11,7 @@ import {AgmDirectionModule} from 'agm-direction';
 import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/google-maps-autocomplete';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpInterceptor} from '@core/interceptors/httpinterceptor';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -45,6 +45,7 @@ export function getLocalStorage(): any {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FlexLayoutModule,
     HeaderModule,
     FooterModule,

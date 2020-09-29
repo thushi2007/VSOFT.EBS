@@ -4,7 +4,7 @@ import { EventEmitter } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
 @Directive({
-  selector: '[aimScrollon]'
+  selector: '[ebsScrollon]'
 })
 export class ScrollonDirective {
   @Output() fireAction: EventEmitter<any> = new EventEmitter();

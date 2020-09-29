@@ -2,7 +2,7 @@ import {Directive, OnInit} from '@angular/core';
 import {MatSelect} from '@angular/material/select';
 
 @Directive({
-  selector: '[aimEnumSelection]'
+  selector: '[ebsEnumSelection]'
 })
 export class EnumSelectionDirective implements OnInit {
   constructor(public enumSelect: MatSelect) {

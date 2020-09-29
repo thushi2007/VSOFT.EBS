@@ -2,7 +2,7 @@ import {Attribute, Directive, forwardRef} from '@angular/core';
 import {AbstractControl, NG_VALIDATORS, Validator} from '@angular/forms';
 
 @Directive({
-  selector: '[aimInputValidationIf]',
+  selector: '[ebsInputValidationIf]',
   providers: [{
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => InputValidationIfDirective),

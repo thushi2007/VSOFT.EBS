@@ -8,7 +8,7 @@ import {map} from 'rxjs/operators';
 import {AuthService} from '../services/auth.service';
 
 @Directive({
-  selector: '[aimUserNotExistValidation]',
+  selector: '[ebsUserNotExistValidation]',
   providers: [{
     provide: NG_ASYNC_VALIDATORS,
     useExisting: forwardRef(() => UserNotExistValidationDirective),

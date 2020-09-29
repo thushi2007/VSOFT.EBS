@@ -4,7 +4,7 @@ import {map} from 'rxjs/operators';
 import {NgForm} from '@angular/forms';
 
 @Directive({
-  selector: '[aimFormValidation]'
+  selector: '[ebsFormValidation]'
 })
 export class FormValidationDirective {
 

@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs';
 import {Router, ActivatedRoute} from '@angular/router';
 
 @Directive({
-  selector: '[aimMenueSelected]'
+  selector: '[ebsMenueSelected]'
 })
 export class MenueSelectedDirective implements OnInit, OnDestroy {
   @HostBinding('class.selected') isSelectedMenu = false;

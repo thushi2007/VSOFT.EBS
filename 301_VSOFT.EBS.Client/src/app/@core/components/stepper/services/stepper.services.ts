@@ -2,7 +2,7 @@
 import {Injectable, OnDestroy, OnInit, QueryList} from '@angular/core';
 import {Subject, Subscription} from 'rxjs';
 import {NavigationEnd, NavigationStart, Router} from '@angular/router';
-import {AimStepperStepComponent} from '@core/components/stepper/step/step.component';
+import {StepComponent} from '@core/components/stepper/step/step.component';
 
 @Injectable()
 export class StepperService implements OnDestroy {
@@ -23,7 +23,7 @@ export class StepperService implements OnDestroy {
 
   }
 
-  registerStep(url: string, stepComponent: AimStepperStepComponent) {
+  registerStep(url: string, stepComponent: StepComponent): Promise<any> {
     return new Promise<number>((resolve) => {
       this.totalSteps += 1;
 
@@ -37,14 +37,14 @@ export class StepperService implements OnDestroy {
     });
   }
 
-  registerStepHeader() {
+  registerStepHeader(): Promise<any> {
     return new Promise<number>((resolve) => {
       this.totalStepHeaders += 1;
       resolve((this.totalStepHeaders - 1));
     });
   }
 
-  next() {
+  next(): void {
     if ((this.totalSteps - 1) > this.selectedStep) {
       this.selectedStep += 1;
     }
@@ -54,7 +54,7 @@ export class StepperService implements OnDestroy {
     });
   }
 
-  previous() {
+  previous(): void {
     if (0 < this.selectedStep) {
       this.selectedStep -= 1;
     }
@@ -64,7 +64,7 @@ export class StepperService implements OnDestroy {
     });
   }
 
-  redirectToViewByUrl() {
+  redirectToViewByUrl(): Promise<any> {
     return new Promise((resolve) => {
       const step: any = this.stepsUrls.filter((obj: any) => {
         return obj.stepUrl === this.router.url;
@@ -80,7 +80,7 @@ export class StepperService implements OnDestroy {
     });
   }
 
-  redirectToView(stepIndx) {
+  redirectToView(stepIndx): Promise<any> {
     return new Promise((resolve) => {
       const step: any = this.stepsUrls.filter((obj: any) => {
         return obj.stepIndex === stepIndx;
@@ -96,7 +96,7 @@ export class StepperService implements OnDestroy {
     });
   }
 
-  checkIfPrevStepValid(steps: QueryList<AimStepperStepComponent>) {
+  checkIfPrevStepValid(steps: QueryList<StepComponent>): Promise<any> {
     if (!steps) {
       return;
     }

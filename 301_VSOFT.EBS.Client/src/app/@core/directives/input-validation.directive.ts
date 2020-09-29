@@ -2,7 +2,7 @@ import {Directive, HostListener, Input, OnChanges, SimpleChanges} from '@angular
 import {NgControl} from '@angular/forms';
 
 @Directive({
-  selector: '[aimInputValidation]'
+  selector: '[ebsInputValidation]'
 })
 export class InputValidationDirective implements OnChanges {
   @Input() update: boolean;

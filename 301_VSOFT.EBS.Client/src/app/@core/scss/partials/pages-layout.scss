@@ -7,7 +7,11 @@
 }
 
 body {
+  display: block;
+  width: 100%;
   font-family: $site-font;
+  margin: 0;
+  padding: 0;
 }
 
 .page-container {
