@@ -45,4 +45,4 @@ RUN echo "=> Starting WildFly server" && \
       rm -f /tmp/*.jar
 
 #ADD ../target/ebs?.war /opt/jboss/wildfly/standalone/deployments/
-ADD ./target/ebs*.war /opt/jboss/wildfly/standalone/deployments/
+ADD ./target/ebs*.war $DEPLOYMENT_DIR
