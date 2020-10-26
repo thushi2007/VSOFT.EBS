@@ -44,4 +44,4 @@ RUN echo "=> Starting WildFly server" && \
       rm -rf $JBOSS_HOME/standalone/configuration/standalone_xml_history/ $JBOSS_HOME/standalone/log/* && \
       rm -f /tmp/*.jar
 
-ADD ./402_VSOFT.EBS.API/target/*.war ${DEPLOYMENT_DIR}
+ADD ../target/ebs?.war ${DEPLOYMENT_DIR}
