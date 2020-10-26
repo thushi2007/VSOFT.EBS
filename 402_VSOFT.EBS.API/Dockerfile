@@ -45,4 +45,4 @@ RUN echo "=> Starting WildFly server" && \
       rm -f /tmp/*.jar
 
 #ADD ../target/ebs?.war /opt/jboss/wildfly/standalone/deployments/
-ADD /var/jenkins_home/workspace/ebs-api/402_VSOFT.EBS.API/target/ebs?.war /opt/jboss/wildfly/standalone/deployments/
+ADD ./target/ebs*.war /opt/jboss/wildfly/standalone/deployments/
