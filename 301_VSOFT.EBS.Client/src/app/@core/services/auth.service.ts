@@ -1,55 +1,25 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {StorageService} from './storage.service';
-import {Observable, throwError} from 'rxjs';
-import {environment} from '../../../environments/environment';
-import {catchError, map} from 'rxjs/operators';
-
-import * as jwt_decode from 'jwt-decode';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  jwttokenkey = 'auth';
 
   constructor(private httpClient: HttpClient,
-              private router: Router,
-              private storageService: StorageService) {
+              private oauthService: OAuthService) {
+
   }
 
-  login(username, password): Observable<any> {
-    const basicAuth = btoa(environment.idpUser + ':' + environment.idpPwd);
-
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Accept: 'application/json',
-        Authorization: 'Basic ' + basicAuth
-      })
-    };
-
-    const body = new HttpParams()
-      .set('grant_type', 'password')
-      .set('scope', environment.apiScope)
-      .set('username', username)
-      .set('password', password);
-
-    return this.httpClient.post(environment.idpUrl + '/connect/token', body, options)
-      .pipe(
-        map((data: any) => {
-          this.storageService.setItem(this.jwttokenkey, data.access_token);
-        }),
-        catchError(this.errorHandl)
-      );
-  }
-
-  registerUserIdp(username: string, pwd: string): Promise<any> {
+  async registerUserIdp(username: string, pwd: string, fullname: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const body = {
         Email: username,
-        Password: pwd
+        Password: pwd,
+        FullName: fullname
       };
 
       const options = {
@@ -67,7 +37,7 @@ export class AuthService {
     });
   }
 
-  acitvateUserIdp(activationCode: string): Promise<any> {
+  async acitvateUserIdp(activationCode: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const options = {
         headers: new HttpHeaders({
@@ -84,7 +54,7 @@ export class AuthService {
     });
   }
 
-  resetUserPwd(email: string): Promise<any> {
+  async resetUserPwd(email: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const options = {
         headers: new HttpHeaders({
@@ -101,7 +71,7 @@ export class AuthService {
     });
   }
 
-  setUserNewPwd(code: string): Promise<any> {
+  async setUserNewPwd(code: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const options = {
         headers: new HttpHeaders({
@@ -122,90 +92,64 @@ export class AuthService {
     return this.httpClient.get(environment.idpUrl + '/account/exists' + '?uname=' + username);
   }
 
-  logoff(): void {
-    this.storageService.removeItem(this.jwttokenkey).then(() => {
-      //this.router.navigate(['/anmelden']);
-    });
-  }
+  async userInRole(roles: string[]): Promise<boolean> {
+    let isInRole = false;
 
-  isUserLoggedIn(): boolean {
-    let loggedIn = false;
-    const jwttoken = this.storageService.getItem(this.jwttokenkey);
+    if (this.oauthService.hasValidAccessToken()) {
+      const claims = this.oauthService.getIdentityClaims() as any;
 
-    if (jwttoken) {
-      const decoded = jwt_decode(jwttoken);
-      const currentDate = new Date();
-      const expirationDate = new Date(decoded.exp * 1000);
-
-      const dif = expirationDate.getTime() - currentDate.getTime();
-      //const dif = decoded.exp - currentDate;
-      //console.log(expirationDate - currentDate);
-
-      loggedIn = dif > 0;
-
-      // console.log(dateStart.getUTCDate());
-      // console.log(dateStart);
-      // const dif = decoded.exp - decoded.iat;
-      // console.log(dif);
-      // console.log(decoded);
-    }
-
-    // console.log(loggedIn);
-
-    return loggedIn;
-  }
-
-  tokenIfUserLoggedIn(): string {
-    let token = '';
-
-    if (this.isUserLoggedIn()) {
-      // token = this.storageService.getItem(this.jwttokenkey);
-      //
-      // const decoded = jwt_decode(token);
-      //
-      // const dif = decoded.exp - decoded.iat;
-      // console.log(dif);
-      // if
-      //
-      // if (jwttoken.access_token) {
-      //   token = jwttoken.access_token;
-      // }
-    }
-
-    return token;
-  }
-
-  /*
-  Checks if a user is in specific roles
-  * */
-  userInRole(roles: string[]): boolean {
-    let exists = false;
-    // const token = this.jwtHelper.decodeToken(this.tokenIfUserLoggedIn());
-    //
-    // roles.forEach((item) => {
-    //   if (token.role.indexOf(item) !== -1) {
-    //     exists = true;
-    //   }
-    // });
-
-    return exists;
-  }
-
-  /*
-  Error handling in
-  * */
-  errorHandl(error): any {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      if (error.error.error_description) {
-        errorMessage = error.error.error_description;
-      } else if (error.error.message) {
-        errorMessage = error.error.message;
+      if (claims && claims.role && Array.isArray(claims.role)) {
+        claims.role.forEach((item) => {
+          if (roles.indexOf(item) !== -1) {
+            isInRole = true;
+          }
+        });
+      } else {
+        if (roles.indexOf(claims.role) !== -1) {
+          isInRole = true;
+        }
       }
     }
-    return throwError(errorMessage);
+
+    return isInRole;
+  }
+
+  isUserAdmin() {
+    let isAdmin = false;
+
+    if (this.oauthService.hasValidAccessToken()) {
+      const claims = this.oauthService.getIdentityClaims() as any;
+
+      if (claims?.role?.indexOf('Admin') !== -1) {
+        isAdmin = true;
+      }
+    }
+
+    return isAdmin;
+  }
+
+  isNormalUser() {
+    let isNormalUser = false;
+
+    if (this.oauthService.hasValidAccessToken()) {
+      const claims = this.oauthService.getIdentityClaims() as any;
+
+      if (claims?.role?.indexOf('Benutzer') !== -1) {
+        isNormalUser = true;
+      }
+    }
+
+    return isNormalUser;
+  }
+
+  getUsername() {
+    let name = '';
+
+    if (this.oauthService.hasValidAccessToken()) {
+      const claims = this.oauthService.getIdentityClaims() as any;
+      name = claims?.fullname;
+    }
+
+    return name;
   }
 }

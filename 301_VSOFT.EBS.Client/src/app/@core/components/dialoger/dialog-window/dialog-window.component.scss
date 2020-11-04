@@ -1,0 +1,93 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+:host {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+
+  > .dialog-bg {
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.4);
+
+    @include media-breakpoint-down('sm') {
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+
+    > .dialog-window {
+      display: inline-block;
+      padding: 0;
+      background-color: #ffffff;
+      margin-top: 50px;
+
+      -webkit-box-shadow: 0px 0px 87px -45px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0px 0px 87px -45px rgba(0, 0, 0, 0.75);
+      box-shadow: 0px 0px 87px -45px rgba(0, 0, 0, 0.75);
+
+      > .dialog-header {
+        display: block;
+        width: 100%;
+        color: #ffffff;
+        padding: 15px 15px 15px 15px;
+        background-color: $site-theme-blue;
+
+        > .title {
+          display: inline-block;
+          width: 100%;
+          max-width: calc(100% - 50px);
+          text-align: left;
+          font-family: $site-font;
+          font-size: 18pt;
+        }
+
+        > .actions {
+          display: inline-block;
+          width: 50px;
+          text-align: right;
+
+          > i {
+            font-size: 20pt;
+            cursor: pointer;
+          }
+        }
+      }
+
+      > .dialog-content {
+        display: block;
+        width: 100%;
+        padding: 15px 15px 15px 15px;
+        margin: 0;
+      }
+
+      > .dialog-footer {
+        display: block;
+        width: 100%;
+        min-height: 60px;
+        padding: 15px 15px 15px 15px;
+        background-color: #eeeeee;
+
+        > .left {
+          display: inline-block;
+          width: 50%;
+          text-align: left;
+        }
+
+        > .right {
+          display: inline-block;
+          width: 50%;
+          text-align: right;
+        }
+      }
+    }
+  }
+}

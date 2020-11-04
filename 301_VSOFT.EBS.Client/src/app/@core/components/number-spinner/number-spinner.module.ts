@@ -6,7 +6,6 @@ import {FormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRippleModule} from '@angular/material/core';
 import {NgxMaskModule} from 'ngx-mask';
-import {DirectivesModule} from '@core/directives.module';
 
 @NgModule({
   declarations: [
@@ -18,8 +17,7 @@ import {DirectivesModule} from '@core/directives.module';
     FormsModule,
     MatIconModule,
     MatRippleModule,
-    NgxMaskModule,
-    DirectivesModule,
+    NgxMaskModule
   ],
   exports: [
     NumberSpinnerComponent

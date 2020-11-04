@@ -1,11 +1,18 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
 .mat-calendar-header {
-  background: #0160e7 !important;
+  background: $site-theme-blue !important;
   color: #ffffff !important;
 }
 
-.mat-calendar-previous-button, .mat-calendar-next-button{
+.mat-calendar-previous-button, .mat-calendar-next-button {
   color: #ffffff !important;
 }
 
 .mat-calendar-table {
+}
+
+.mat-calendar-body-disabled {
+  background-color: rgba(0, 29, 69, 0.1) !important;
 }

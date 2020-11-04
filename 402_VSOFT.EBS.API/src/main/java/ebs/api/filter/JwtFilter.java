@@ -19,15 +19,15 @@ public class JwtFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        try {
-            jwtVerifier = new JwtHelper()
-                    .setIssuerUrl("http://localhost:32839")
-                    .setClientId("webapi")
-                    .build();
-        } catch (IOException | ParseException e) {
-            System.err.print("Configuring JWT Verifier failed!");
-            e.printStackTrace();
-        }
+//        try {
+//            jwtVerifier = new JwtHelper()
+//                    .setIssuerUrl("http://localhost:32839")
+//                    .setClientId("webapi")
+//                    .build();
+//        } catch (IOException | ParseException e) {
+//            System.err.print("Configuring JWT Verifier failed!");
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -35,23 +35,23 @@ public class JwtFilter implements Filter {
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        System.out.println("In JwtFilter, path: " + request.getRequestURI());
-        // Get access token from authorization header
-        String authHeader = request.getHeader("authorization");
-        if (authHeader == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access denied.");
-            return;
-        } else {
-            String accessToken = authHeader.substring(authHeader.indexOf("Bearer ") + 7);
-            try {
-                Jwt jwt = jwtVerifier.decodeAccessToken(accessToken);
-                System.out.println("Hello, " + jwt.getClaims().get("sub"));
-            } catch (JoseException e) {
-                e.printStackTrace();
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access denied.");
-                return;
-            }
-        }
+//        System.out.println("In JwtFilter, path: " + request.getRequestURI());
+//        // Get access token from authorization header
+//        String authHeader = request.getHeader("authorization");
+//        if (authHeader == null) {
+//            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access denied.");
+//            return;
+//        } else {
+//            String accessToken = authHeader.substring(authHeader.indexOf("Bearer ") + 7);
+//            try {
+//                Jwt jwt = jwtVerifier.decodeAccessToken(accessToken);
+//                System.out.println("Hello, " + jwt.getClaims().get("sub"));
+//            } catch (JoseException e) {
+//                e.printStackTrace();
+//                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access denied.");
+//                return;
+//            }
+//        }
         chain.doFilter(request, response);
     }
 

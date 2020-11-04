@@ -1,35 +1,66 @@
 // core modules
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 // own modules
-import {TotopModule} from './components/totop/totop.module';
-import {PromiseButtonModule} from './components/promise-button/promise-button.module';
-import {SubmenuModule} from './components/submenu/submenu.module';
-import {PageHeaderModule} from './components/page-header/page-header.module';
-import {MessagerModule} from './components/messager/messager.module';
-import {DialogerModule} from './components/dialoger/dialoger.module';
-import {PwdcheckerModule} from './components/pwdchecker/pwdchecker.module';
-import {StepperModule} from './components/stepper/stepper.module';
-import {AccordionModule} from './components/accordion/accordion.module';
-import {NumberSpinnerModule} from './components/number-spinner/number-spinner.module';
-import {ImageUploaderModule} from '@core/components/image-uploader/image-uploader.module';
+import {
+  TotopModule,
+  PromiseButtonModule,
+  SubmenuModule,
+  PageHeaderModule,
+  MessagerModule,
+  ImageSliderModule,
+  PwdcheckerModule,
+  StepperModule,
+  AccordionModule,
+  NumberSpinnerModule,
+  ImageUploaderModule
+} from '@core/components';
+
+import {DialogerModule} from '@core/components/dialoger/dialoger.module';
+
+// own directives
+import {
+  EnumSelectionDirective,
+  FormValidationDirective,
+  InputMatchValidationDirective,
+  InputNotNullIfDirective,
+  InputValidationDirective,
+  InputValidationIfDirective,
+  MenueSelectedDirective,
+  ScrollonDirective,
+  UserExistValidationDirective,
+  UserNotExistValidationDirective,
+  OnlyNumberDirective,
+  DndDirective
+} from '@core/directives';
 
 // own services
-import {StorageService} from './services/storage.service';
-import {MenuService} from './services/menu.service';
-import {AuthService} from './services/auth.service';
-import {ApiService} from './services/api.service';
+import {
+  StorageService,
+  MenuService,
+  AuthService,
+  DialogerService
+} from '@core/services';
 
 // guards
-import {AuthGuardService} from './guards/auth-guard.service';
-import {DirectivesModule} from '@core/directives.module';
-
+import {AuthGuardService} from '@core/guards/auth-guard.service';
 
 @NgModule({
   declarations: [
     // own directives
-
+    EnumSelectionDirective,
+    FormValidationDirective,
+    InputMatchValidationDirective,
+    InputNotNullIfDirective,
+    InputValidationDirective,
+    InputValidationIfDirective,
+    MenueSelectedDirective,
+    ScrollonDirective,
+    UserExistValidationDirective,
+    UserNotExistValidationDirective,
+    OnlyNumberDirective,
+    DndDirective
   ],
   imports: [
     // own modules
@@ -40,6 +71,7 @@ import {DirectivesModule} from '@core/directives.module';
     PageHeaderModule,
     MessagerModule,
     DialogerModule,
+    ImageSliderModule,
     PwdcheckerModule,
     StepperModule,
     AccordionModule,
@@ -48,26 +80,44 @@ import {DirectivesModule} from '@core/directives.module';
   ],
   exports: [
     // own modules
-    DirectivesModule,
     TotopModule,
     PromiseButtonModule,
     SubmenuModule,
     PageHeaderModule,
     MessagerModule,
     DialogerModule,
+    ImageSliderModule,
     PwdcheckerModule,
     StepperModule,
     AccordionModule,
     NumberSpinnerModule,
-    ImageUploaderModule
-  ],
-  providers: [
-    StorageService,
-    ApiService,
-    AuthGuardService,
-    AuthService,
-    MenuService
+    ImageUploaderModule,
+    // own directives
+    EnumSelectionDirective,
+    FormValidationDirective,
+    InputMatchValidationDirective,
+    InputNotNullIfDirective,
+    InputValidationDirective,
+    InputValidationIfDirective,
+    MenueSelectedDirective,
+    ScrollonDirective,
+    UserExistValidationDirective,
+    UserNotExistValidationDirective,
+    OnlyNumberDirective,
+    DndDirective
   ]
 })
 export class CoreModule {
+  static forRoot(): ModuleWithProviders<any> {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        StorageService,
+        AuthGuardService,
+        DialogerService,
+        AuthService,
+        MenuService,
+      ]
+    };
+  }
 }

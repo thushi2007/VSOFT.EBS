@@ -1,0 +1,25 @@
+<div class="dialog-bg">
+  <div class="dialog-window">
+    <div class="dialog-header">
+      <div class="title">{{title}}</div>
+      <div class="actions">
+        <i class="fal fa-times" (click)="closeMe()"></i>
+      </div>
+    </div>
+    <div class="dialog-content">
+      <ng-content></ng-content>
+    </div>
+    <div class="dialog-footer">
+      <div class="left">
+        <ebs-promise-button (btnAction)="closeMe()">Abbrechen</ebs-promise-button>
+      </div>
+      <div class="right">
+        <ebs-promise-button #speichern (btnAction)="runPromise()">Speichern
+          <ebs-promise-button-icon>
+            <i class="far fa-chevron-right"></i>
+          </ebs-promise-button-icon>
+        </ebs-promise-button>
+      </div>
+    </div>
+  </div>
+</div>

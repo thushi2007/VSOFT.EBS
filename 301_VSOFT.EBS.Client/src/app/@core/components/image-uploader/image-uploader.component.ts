@@ -10,83 +10,87 @@ import {Subscription} from 'rxjs';
   providers: [ImageUploaderService]
 })
 export class ImageUploaderComponent implements OnDestroy {
-  @Input() uploadEntpoint: string;
-  @Output() updateParent: EventEmitter<any> = new EventEmitter<any>();
+  @Input() acceptedTypes: any[];
+  @Input() maxSize: number;
+  @Output() infoUpload: EventEmitter<any> = new EventEmitter<any>();
 
-  uploadIsRunnig = false;
+  set files(value) {
+    this.uploaderService.files = value;
+  }
 
-  files: File[] = [];
-
-  lastFileAt: Date;
-
-  dragFiles: any;
-  validComboDrag: any;
-  lastInvalids: any;
-  fileDropDisabled: any;
-  maxSize: any = 5000000;
-
-  errorMessage = '';
+  get files(): any[] {
+    return this.uploaderService.files;
+  }
 
   removeItemSub: Subscription;
-  uploadRunning: Subscription;
 
   constructor(private uploaderService: ImageUploaderService,
               public httpClient: HttpClient) {
     this.removeItemSub = this.uploaderService.removeItem.subscribe((index: number) => {
       this.removeImage(index);
     });
+  }
 
-    this.uploadRunning = this.uploaderService.uploadRunnig.subscribe((state: boolean) => {
-      this.uploadIsRunnig = state;
+  uploadFile(event) {
+    for (let index = 0; index < event.length; index++) {
+      let element = event[index];
+      let elName = element.name;
+      let elSize = element.size;
+      let elType = element.type;
+
+      if (this.maxSize > elSize) {
+        const reader = new FileReader();
+        reader.readAsDataURL(element);
+        reader.onload = (event) => { // called once readAsDataURL is completed
+          let elUrl = event.target.result;
+          this.files.push({
+            file: element,
+            name: elName,
+            url: elUrl,
+            size: elSize,
+            type: elType
+          });
+
+          this.infoUpload.emit(this.files);
+        };
+      }
+    }
+  }
+
+  getAcceptedTypes() {
+    let acceptedTypes = '';
+
+    this.acceptedTypes.forEach(el => {
+      if (acceptedTypes) {
+        acceptedTypes += ',' + el;
+      } else {
+        acceptedTypes += el;
+      }
     });
+
+    return acceptedTypes;
   }
 
   removeImage(index: number): void {
     this.files.splice(index, 1);
   }
 
-  cancelUpload(): void {
-    this.uploaderService.cancelUploadImages();
-  }
-
   getDate(): any {
     return new Date();
   }
 
-  uploadAll(): void {
-    this.uploaderService.uploadAll();
-    this.updateParent?.emit();
+  uploadAll(uploadUrl: string): void {
+    this.uploaderService.uploadAll(uploadUrl);
   }
 
   clearAllImages(): void {
     this.files = [];
-  }
-
-  updateParentOfChild(): void {
-    this.updateParent?.emit();
-  }
-
-  invalidErrorMessage(event: any[]): void {
-    event?.forEach((element) => {
-      if (element.file.type.indexOf('image') === -1) {
-        this.errorMessage = 'Format nicht unterstützt';
-      } else if (element.file.size > this.maxSize) {
-        this.errorMessage = 'Bild(er) zu gross.';
-      }
-    });
-
-    setTimeout(() => {
-      this.errorMessage = '';
-    }, 3000);
+    this.infoUpload.emit(this.files);
   }
 
   ngOnDestroy(): void {
     if (this.removeItemSub) {
       this.removeItemSub.unsubscribe();
-    }
-
-    if (this.uploadRunning) {
-      this.uploadRunning.unsubscribe();
     }
   }
 }

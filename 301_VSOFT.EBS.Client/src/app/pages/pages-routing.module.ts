@@ -1,14 +1,21 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-const routes: Routes = [{
-  path: 'anmelden',
-  loadChildren: () => import(`./login/login.module`).then(m => m.LoginModule)
-}, {
-  path: '**',
-  redirectTo: 'anmelden',
-  pathMatch: 'full'
-}];
+const routes: Routes = [
+  {
+    path: 'anmelden',
+    loadChildren: () => import(`./login/login.module`).then(m => m.LoginModule)
+  },
+  {
+    path: 'registrieren',
+    loadChildren: () => import(`./register/register.module`).then(m => m.RegisterModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'anmelden',
+    pathMatch: 'full'
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {

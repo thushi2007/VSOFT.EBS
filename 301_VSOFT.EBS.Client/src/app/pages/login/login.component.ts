@@ -4,7 +4,8 @@ import {FormValidationDirective} from '@core/directives/form-validation.directiv
 import {PromiseButtonComponent} from '@core/components/promise-button/promise-button.component';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {Router} from '@angular/router';
-import {Title} from '@angular/platform-browser';
+import {Meta, Title} from '@angular/platform-browser';
+import {AuthService} from '@core/services';
 
 @Component({
   selector: 'ebs-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   @ViewChild(FormValidationDirective, {static: false}) loginForm: FormValidationDirective;
   @ViewChild('loginBtn', {static: false}) loginBtn: PromiseButtonComponent;
 
+  paths: any;
   showPwd1 = false;
 
   loginDto = {
@@ -25,8 +27,21 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(private titleService: Title,
+              private metaService: Meta,
               private router: Router,
+              private authService: AuthService,
               private oauthService: OAuthService) {
+    this.paths = {
+      Title: 'Anmelden',
+      Paths: [{
+        Url: '/anmelden',
+        Text: 'Anmelden'
+      }]
+    };
+
+    this.titleService.setTitle('Anmelden | immosketch.ch');
+    // this.metaService.addTags(AppConfig.metadata);
+    this.metaService.updateTag({name: 'description', content: 'Melden Sie sich an, um zu Ihr Benutzerkonto zu gelangen.'});
   }
 
   reset(): void {
@@ -35,12 +50,15 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser(): void {
-    this.loginForm.isValid.then((valid) => {
+    this.loginForm.isValid.then(async (valid) => {
       if (valid) {
         this.loginBtn.promiseFunction = this.oauthService
-          .fetchTokenUsingPasswordFlow(this.loginDto.username, this.loginDto.pwd).then(() => {
-            console.log(this.oauthService.getAccessToken());
-            this.router.navigateByUrl('/benutzerkonto');
+          .fetchTokenUsingPasswordFlowAndLoadUserProfile(this.loginDto.username, this.loginDto.pwd).then(() => {
+            if (this.authService.isUserAdmin()) {
+              this.router.navigateByUrl('/benutzerkonto/admin');
+            } else if (!this.authService.isUserAdmin()) {
+              this.router.navigateByUrl('/benutzerkonto/benutzer');
+            }
           });
       } else {
         this.oauthService.logOut();
@@ -51,6 +69,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.oauthService.logOut();
   }
-
 }

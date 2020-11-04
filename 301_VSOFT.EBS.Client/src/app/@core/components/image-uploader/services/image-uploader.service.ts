@@ -1,38 +1,53 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ImageUploaderService {
+export class ImageUploaderService implements OnDestroy {
+  files: any[] = [];
+
   private removeItemSubscriber = new Subject<any>();
   removeItem = this.removeItemSubscriber.asObservable();
 
   private uploadImageSubscriber = new Subject<any>();
   uploadImage = this.uploadImageSubscriber.asObservable();
 
-  private cancelUploadSubscriber = new Subject<any>();
-  cancelUpload = this.cancelUploadSubscriber.asObservable();
-
-  private uploadRunnigSubscriber = new Subject<any>();
-  uploadRunnig = this.uploadRunnigSubscriber.asObservable();
-
   constructor() {
+  }
+
+  getimagesDataList() {
+    let lst = [];
+
+    for (let index = 0; index < this.files.length; index++) {
+
+      const album = {
+        src: this.files[index].url,
+        caption: this.files[index].name,
+        thumb: this.files[index].url
+      };
+
+      lst.push(album);
+    }
+
+    return lst;
   }
 
   removeImage(index: number): void {
     this.removeItemSubscriber.next(index);
   }
 
-  uploadAll(): void {
-    this.uploadImageSubscriber.next();
+  uploadAll(uploadUrl: string): void {
+    this.uploadImageSubscriber.next(uploadUrl);
   }
 
-  cancelUploadImages(): void {
-    this.cancelUploadSubscriber.next();
-  }
+  ngOnDestroy(): void {
+    if (this.removeItemSubscriber) {
+      this.removeItemSubscriber.unsubscribe();
+    }
 
-  uploadIsRunning(running: boolean): void {
-    this.uploadRunnigSubscriber.next(running);
+    if (this.uploadImageSubscriber) {
+      this.uploadImageSubscriber.unsubscribe();
+    }
   }
 }

@@ -25,8 +25,8 @@ $mat-fusedark: (
   200: #A9D0F5,
   300: #81BEF7,
   400: #58ACFA,
-  500: #0160e7,
-  600: #0160e7,
+  500: #0049b1,
+  600: #0049b1,
   700: #0431B4,
   800: #08298A,
   900: #0B2161,
@@ -58,7 +58,7 @@ $custom-typography: mat-typography-config(
   //$display-1: mat-typography-level(32px, 48px, 600),
   $body-1: mat-typography-level(16px, 24px, 500),
   //$body-2: mat-typography-level(16px, 24px, 500),
-  $input:  mat-typography-level(inherit, 1.125, 500),
+  $input:  mat-typography-level(12px, 1.125, 500),
 );
 
 // Palettes
@@ -76,21 +76,24 @@ $foreground: map-get($theme, foreground);
 // Include theme styles for core and each component used in your app.
 @include angular-material-theme($theme);
 
-//.mat-ripple, .mat-radio-ripple, .mat-ripple-element {
-//  display: none;
-//}
-
 .mat-divider {
   border: 1px solid #A4A4A4;
   margin-bottom: 15px !important;
 }
 
-.mat-progress-bar-fill::after {
-  background: #5FB404;
+.mat-dialog-container{
+  //padding: 0 !important;
+  overflow: visible !important;
+  font-family: $site-font !important;
 }
 
-.mat-icon.mat-primary {
-  font-size: 11pt ;
-  color: #5FB404;
-  font-weight: 800;
+.mat-dialog-content {
+  padding: 20px 20px 20px 20px !important;
+}
+
+.mat-dialog-title {
+  margin: -24px -24px 0px -24px !important;
+}
+.mat-dialog-actions {
+  margin: -24px -24px -30px -24px !important;
 }

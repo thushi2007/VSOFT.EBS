@@ -7,7 +7,9 @@ import {catchError} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
 import {AuthService} from '@core/services/auth.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HttpwrapperService {
 
   constructor(private httpClient: HttpClient,
@@ -17,14 +19,12 @@ export class HttpwrapperService {
 
   public get(url: string, options?: any): Observable<any> {
     const urlDest = environment.apiUrl + url;
-    const token = this.authService.tokenIfUserLoggedIn();
 
     if (!options) {
       options = {
         headers: new HttpHeaders({
           'Content-Type': `application/json; charset=utf-8`,
-          Accept: 'application/json',
-          Authorization: token ? `Bearer ${this.authService.tokenIfUserLoggedIn()}` : ''
+          Accept: 'application/json'
         })
       };
     }
@@ -40,14 +40,12 @@ export class HttpwrapperService {
   public post(url: string, body: any, options?: any): Observable<any> {
     const bodyJson = JSON.stringify(body);
     const urlDest = environment.apiUrl + url;
-    const token = this.authService.tokenIfUserLoggedIn();
 
     if (!options) {
       options = {
         headers: new HttpHeaders({
           'Content-Type': `application/json; charset=utf-8`,
-          Accept: 'application/json',
-          Authorization: token ? `Bearer ${this.authService.tokenIfUserLoggedIn()}` : ''
+          Accept: 'application/json'
         })
       };
     }
@@ -63,14 +61,12 @@ export class HttpwrapperService {
   public put(url: string, body: string, options?: any): Observable<any> {
     const bodyJson = JSON.stringify(body);
     const urlDest = environment.apiUrl + url;
-    const token = this.authService.tokenIfUserLoggedIn();
 
     if (!options) {
       options = {
         headers: new HttpHeaders({
           'Content-Type': `application/json; charset=utf-8`,
-          Accept: 'application/json',
-          Authorization: token ? `Bearer ${this.authService.tokenIfUserLoggedIn()}` : ''
+          Accept: 'application/json'
         })
       };
     }
@@ -85,14 +81,12 @@ export class HttpwrapperService {
 
   public delete(url: string, options?: any): Observable<any> {
     const urlDest = environment.apiUrl + url;
-    const token = this.authService.tokenIfUserLoggedIn();
 
     if (!options) {
       options = {
         headers: new HttpHeaders({
           'Content-Type': `application/json; charset=utf-8`,
-          Accept: 'application/json',
-          Authorization: token ? `Bearer ${this.authService.tokenIfUserLoggedIn()}` : ''
+          Accept: 'application/json'
         })
       };
     }
@@ -108,14 +102,12 @@ export class HttpwrapperService {
   public patch(url: string, body: string, options?: any): Observable<any> {
     const bodyJson = JSON.stringify(body);
     const urlDest = environment.apiUrl + url;
-    const token = this.authService.tokenIfUserLoggedIn();
 
     if (!options) {
       options = {
         headers: new HttpHeaders({
           'Content-Type': `application/json; charset=utf-8`,
-          Accept: 'application/json',
-          Authorization: token ? `Bearer ${this.authService.tokenIfUserLoggedIn()}` : ''
+          Accept: 'application/json'
         })
       };
     }

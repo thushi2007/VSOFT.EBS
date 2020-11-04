@@ -10,7 +10,6 @@
   > header {
     display: block;
     width: 100%;
-    max-width: calc(100% - 20px);
     padding: 10px;
     margin: 0;
     text-align: center;
@@ -28,6 +27,7 @@
     .account {
       display: inline-block;
       width: 100px;
+      text-align: right;
 
       > i {
         font-size: 15pt;

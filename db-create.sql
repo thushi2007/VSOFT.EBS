@@ -14,6 +14,26 @@ values ('deutsch', now(), now());
 insert into `ebs`.`VS_E_SPRACHE`(`sprache`,`erstelltam`,`geaendertam`)
 values ('english', now(), now());
 
+create table if not exists `ebs`.`VS_E_SALUTATION` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NULL,
+  `value` VARCHAR(100) NULL,
+  `erstelltam` DATETIME NULL,
+  `geaendertam` DATETIME NULL,
+  PRIMARY KEY (`id`));
+  
+insert into `ebs`.`VS_E_SALUTATION`(`name`, `value`, `erstelltam`,`geaendertam`)
+values ('frau', 'Frau', now(), now());
+
+insert into `ebs`.`VS_E_SALUTATION`(`name`, `value`, `erstelltam`,`geaendertam`)
+values ('herr', 'Herr', now(), now());
+
+insert into `ebs`.`VS_E_SALUTATION`(`name`, `value`, `erstelltam`,`geaendertam`)
+values ('familie', 'Familie', now(), now());
+
+insert into `ebs`.`VS_E_SALUTATION`(`name`, `value`, `erstelltam`,`geaendertam`)
+values ('firma', 'Firma', now(), now());
+
 create table if not exists `ebs`.`VS_T_HERSTELLER` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `verlag` VARCHAR(100) NULL,

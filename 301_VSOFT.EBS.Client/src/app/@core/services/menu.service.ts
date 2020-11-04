@@ -14,6 +14,10 @@ export const menuitemLst: any[] = [
         Url: '/transportservice/paketlieferung'
       },
       {
+        Text: 'Tourlieferungen',
+        Url: '/transportservice/tourlieferung'
+      },
+      {
         Text: 'Weitere Transporte',
         Url: '/transportservice/weiterelieferung'
       }

@@ -1,82 +1,48 @@
-import {Component, ComponentFactoryResolver, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 import {Subscription} from 'rxjs';
-
-import {animate, animateChild, group, query, state, style, transition, trigger} from '@angular/animations';
-import {DialogerService} from '@core/components/dialoger/services/dialoger.service';
+import {DialogerService} from '@core/components/dialoger/dialoger.service';
 
 @Component({
   selector: 'ebs-dialoger',
   templateUrl: './dialoger.component.html',
-  styleUrls: ['./dialoger.component.scss'],
-  animations: [
-    trigger('showHide', [
-      state('0', style({
-        'background-color': 'rgba(0, 0, 0, 0.7)',
-        'z-index': '-100',
-        opacity: '0'
-      })),
-      state('1', style({
-        'background-color': 'rgba(0, 0, 0, 0.7)',
-        'z-index': '100',
-        opacity: '1'
-      })),
-      transition('1 => 0', [
-        group([
-          query('@heightAnim', animateChild()),
-          animate('400ms')
-        ])
-      ]),
-      transition('0 => 1', [
-        group([
-          query('@heightAnim', animateChild()),
-          animate('400ms')
-        ])
-      ])
-    ]),
-    trigger('heightAnim', [
-      state('0', style({
-        transform: 'translateY(-100%)'
-      })),
-      state('1', style({
-        transform: 'translateY(0%)'
-      })),
-      transition('1 => 0', animate('300ms')),
-      transition('0 => 1', animate('300ms'))
-    ])
-  ]
+  styleUrls: ['./dialoger.component.scss']
 })
 export class DialogerComponent implements OnInit, OnDestroy {
-  @ViewChild('dialogContainer', {read: ViewContainerRef, static: false}) container;
+  @ViewChild('dialogerContainer', {read: ViewContainerRef, static: true}) container;
+
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    this.closeDialog();
+  }
 
   openDialogSubscription: Subscription;
-  isOpened = false;
-  interntemplate: TemplateRef<any>;
+  closeDialogSubscription: Subscription;
 
-  constructor(private resolver: ComponentFactoryResolver,
-              private dialogService: DialogerService) {
-
+  constructor(private dialogService: DialogerService) {
   }
 
   ngOnInit(): void {
-    this.openDialogSubscription = this.dialogService.openDialogSub.subscribe((template: TemplateRef<any>) => {
-      this.openDialog(template);
+    this.openDialogSubscription = this.dialogService.showDialog.subscribe((templateRef: TemplateRef<any>) => {
+      this.openDialog(templateRef);
+    });
+    this.closeDialogSubscription = this.dialogService.closeDialog.subscribe(() => {
+      this.closeDialog();
     });
   }
 
-  public openDialog(template: TemplateRef<any>): void {
-    this.isOpened = true;
-    // this.interntemplate = template;
-    this.container.clear();
-    this.container.createEmbeddedView(template);
-    // const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(MessageComponent);
-    // componentRef = this.container.createComponent(factory);
+  openDialog(templateRef: TemplateRef<any>) {
+    this.container.createEmbeddedView(templateRef);
+  }
 
-    //this.hideContainerTimer(this.componentRef);
+  public closeDialog() {
+    this.container.clear();
   }
 
   ngOnDestroy(): void {
     if (this.openDialogSubscription) {
       this.openDialogSubscription.unsubscribe();
+    }
+    if (this.closeDialogSubscription) {
+      this.closeDialogSubscription.unsubscribe();
     }
   }
 }
