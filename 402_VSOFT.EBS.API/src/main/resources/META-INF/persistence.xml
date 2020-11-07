@@ -2,15 +2,15 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="ebsDS" transaction-type="JTA">
         <jta-data-source>jdbc/datasources/ebsDS</jta-data-source>
-        <class>ebs.api.model.enumeration.Sprache</class>
-        <class>ebs.api.model.enumeration.Salutation</class>
-        <class>ebs.api.model.Artikel</class>
-        <class>ebs.api.model.ArtikelSubKategorie</class>
-        <class>ebs.api.model.Hersteller</class>
-        <class>ebs.api.model.Kategorie</class>
-        <class>ebs.api.model.Person</class>
-        <class>ebs.api.model.SubKategorie</class>
-        <class>ebs.api.model.Verkauf</class>
-        <class>ebs.api.model.VerkaufArtikel</class>
+        <class>de.ebs.api.model.enumeration.Sprache</class>
+        <class>de.ebs.api.model.enumeration.Salutation</class>
+        <class>de.ebs.api.model.Artikel</class>
+        <class>de.ebs.api.model.ArtikelSubKategorie</class>
+        <class>de.ebs.api.model.Hersteller</class>
+        <class>de.ebs.api.model.Kategorie</class>
+        <class>de.ebs.api.model.Person</class>
+        <class>de.ebs.api.model.SubKategorie</class>
+        <class>de.ebs.api.model.Verkauf</class>
+        <class>de.ebs.api.model.VerkaufArtikel</class>
     </persistence-unit>
 </persistence>

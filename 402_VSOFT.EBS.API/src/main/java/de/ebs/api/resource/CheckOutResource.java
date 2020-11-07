@@ -3,7 +3,7 @@ package de.ebs.api.resource;
 import de.ebs.api.model.Artikel;
 import de.ebs.api.model.Verkauf;
 import de.ebs.api.model.VerkaufArtikel;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,7 +20,7 @@ import java.util.List;
 @Path("checkout")
 public class CheckOutResource {
 
-    private static final Logger log = Logger.getLogger(CheckOutResource.class);
+//    private static final Logger log = Logger.getLogger(CheckOutResource.class);
 
     @PersistenceContext()
     private EntityManager em;
@@ -76,7 +76,7 @@ public class CheckOutResource {
             vk.setTotal(TotalCHF);
             em.persist(vk);
         } catch (Exception exc) {
-            log.error(exc);
+//            log.error(exc);
             return Response.serverError().entity("checkout faild!").build();
         }
 

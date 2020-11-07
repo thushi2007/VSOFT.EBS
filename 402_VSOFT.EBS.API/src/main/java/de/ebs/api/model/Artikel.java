@@ -1,7 +1,5 @@
 package de.ebs.api.model;
 
-import de.ebs.api.model.enumeration.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -63,7 +61,7 @@ public class Artikel implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "SPRACHEID")
-    public Sprache Sprache;
+    public de.ebs.api.model.enumeration.Sprache Sprache;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "HERSTELLERID")

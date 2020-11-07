@@ -4,7 +4,7 @@ ENV WILDFLY_USER ebsuser
 ENV WILDFLY_PASS Arun0706!
 
 # Database
-ENV DB_NAME ebs
+ENV DB_NAME de.ebs
 ENV DB_USER ebsuser
 ENV DB_PASS Arun0706!
 ENV DB_URI db:3306

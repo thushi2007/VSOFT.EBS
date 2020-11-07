@@ -1,0 +1,7 @@
+<jboss-deployment-structure>
+    <deployment>
+        <dependencies>
+            <module name="deployment.test-1.0-SNAPSHOT.war" export="TRUE"/>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>

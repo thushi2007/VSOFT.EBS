@@ -4,11 +4,8 @@ import de.ebs.api.dto.EnumDto;
 import de.ebs.api.model.enumeration.Salutation;
 import de.ebs.api.model.enumeration.Sprache;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.hibernate.Session;
+//import io.swagger.annotations.ApiOperation;
 
-import javax.ejb.Singleton;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,9 +30,11 @@ public class EnumResource {
     @PersistenceContext(unitName = "ebsDS")
     private EntityManager em;
 
+    private ModelMapper autoMapper;
+
     @GET
     @Path("sprache")
-    @ApiOperation(value = "Gives all available languages back", response = Sprache.class)
+//    @ApiOperation(value = "Gives all available languages back", response = Sprache.class)
     public List<Sprache> getSpracheList() {
 
         List<Sprache> allObjs;
@@ -55,14 +54,23 @@ public class EnumResource {
 
     @GET
     @Path("salutations")
-    @ApiOperation(value = "Gives all available salutations back", response = Salutation.class)
+//    @ApiOperation(value = "Gives all available salutations back", response = Salutation.class)
     public List<Salutation> getAllSalutations() {
+        Thread.currentThread().setContextClassLoader(EnumDto.class.getClassLoader());
+        Thread.currentThread().setContextClassLoader(Salutation.class.getClassLoader());
+
         List<Salutation> allObjs = null;
-        ModelMapper modelMapper = new ModelMapper();
 
         try {
             Query q = em.createNamedQuery("Salutation.getAllSalutation");
-            allObjs = (List<Salutation>) q.getResultList();
+            allObjs = ((List<Salutation>) q.getResultList());
+//                    .stream()
+//                    .map(salutation -> modelMapper.map(salutation, EnumDto.class))
+//                    .collect(Collectors.toList());
+
+            for (Salutation salut: allObjs){
+                String name = salut.getName();
+            }
         } catch (Exception exc) {
             allObjs = new ArrayList<Salutation>();
         }

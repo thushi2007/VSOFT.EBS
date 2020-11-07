@@ -1,9 +1,9 @@
 package de.ebs.api.resource;
 
-import de.ebs.api.model.Kategorie;
 import de.ebs.api.dto.menu.MenuCollectionDto;
 import de.ebs.api.dto.menu.MenuItemDto;
 import de.ebs.api.dto.menu.MenuSubCollectionDto;
+import de.ebs.api.model.Kategorie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

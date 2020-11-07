@@ -1,4 +1,4 @@
-package de.ebs.api.model.enumeration;
+package api.resources.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
