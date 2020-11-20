@@ -1,0 +1,137 @@
+package ebs.api.model;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Collection;
+
+@Entity(
+        name = "Subcategory"
+)
+@Table(
+        name = "VS_T_SUBCATEGORY",
+        schema = "ebs"
+)
+@NamedQueries({
+        @NamedQuery(
+                name = "Subcategory.findAll",
+                query = "SELECT s FROM Subcategory s"
+        )
+})
+public class SubcategoryEntity {
+    private int id;
+    private String icon;
+    private String name;
+    private Integer mainCategoryId;
+    private Timestamp createdOn;
+    private Timestamp modifiedOn;
+    private Collection<ArticleEntity> vsTArticlesById;
+    private CategoryEntity vsTCategoryByMainCategoryId;
+
+    @Id
+    @Column(name = "Id", nullable = false)
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name = "Icon", nullable = true, length = 100)
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    @Basic
+    @Column(name = "Name", nullable = true, length = 100)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String subCategory) {
+        this.name = subCategory;
+    }
+
+    @Basic
+    @Column(name = "MainCategoryId", nullable = true, insertable = false, updatable = false)
+    public Integer getMainCategoryId() {
+        return mainCategoryId;
+    }
+
+    public void setMainCategoryId(Integer mainCategoryId) {
+        this.mainCategoryId = mainCategoryId;
+    }
+
+    @Basic
+    @Column(name = "CreatedOn", nullable = true)
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Timestamp createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    @Basic
+    @Column(name = "ModifiedOn", nullable = true)
+    public Timestamp getModifiedOn() {
+        return modifiedOn;
+    }
+
+    public void setModifiedOn(Timestamp modifiedOn) {
+        this.modifiedOn = modifiedOn;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SubcategoryEntity that = (SubcategoryEntity) o;
+
+        if (id != that.id) return false;
+        if (icon != null ? !icon.equals(that.icon) : that.icon != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (mainCategoryId != null ? !mainCategoryId.equals(that.mainCategoryId) : that.mainCategoryId != null)
+            return false;
+        if (createdOn != null ? !createdOn.equals(that.createdOn) : that.createdOn != null) return false;
+        if (modifiedOn != null ? !modifiedOn.equals(that.modifiedOn) : that.modifiedOn != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (icon != null ? icon.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (mainCategoryId != null ? mainCategoryId.hashCode() : 0);
+        result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
+        result = 31 * result + (modifiedOn != null ? modifiedOn.hashCode() : 0);
+        return result;
+    }
+
+    @OneToMany(mappedBy = "vsTSubcategoryBySubCategoryId")
+    public Collection<ArticleEntity> getVsTArticlesById() {
+        return vsTArticlesById;
+    }
+
+    public void setVsTArticlesById(Collection<ArticleEntity> vsTArticlesById) {
+        this.vsTArticlesById = vsTArticlesById;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "MainCategoryId", referencedColumnName = "Id")
+    public CategoryEntity getVsTCategoryByMainCategoryId() {
+        return vsTCategoryByMainCategoryId;
+    }
+
+    public void setVsTCategoryByMainCategoryId(CategoryEntity vsTCategoryByMainCategoryId) {
+        this.vsTCategoryByMainCategoryId = vsTCategoryByMainCategoryId;
+    }
+}

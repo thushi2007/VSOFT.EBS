@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jboss-web>
-    <context-root>ebs</context-root>
-<!--    <loader-repository>-->
-<!--        api:archive=test-1.0-SNAPSHOT-->
-<!--    </loader-repository>-->
-</jboss-web>
