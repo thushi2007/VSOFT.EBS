@@ -22,6 +22,23 @@
       max-width: calc(100% - 100px);
       padding: 0;
       margin: 0;
+
+      > .menu-icon {
+        display: inline-block;
+      }
+
+      > .item {
+        display: inline-block;
+
+        > a {
+          text-decoration: none;
+          color: #ffffff;
+
+          &:last-child {
+            margin-left: 10px;
+          }
+        }
+      }
     }
 
     .account {
@@ -29,13 +46,18 @@
       width: 100px;
       text-align: right;
 
-      > i {
-        font-size: 15pt;
+      > a {
+        color: #ffffff;
 
-        &:first-child {
-          font-size: 17pt;
-          padding-right: 10px;
+        > span {
+          font-size: 15pt;
+
+          &:first-child {
+            font-size: 17pt;
+            padding-right: 10px;
+          }
         }
+
       }
     }
   }

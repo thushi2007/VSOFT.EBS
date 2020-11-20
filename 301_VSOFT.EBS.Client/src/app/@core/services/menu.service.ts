@@ -6,43 +6,33 @@ export const menuitemLst: any[] = [
     Url: '/home'
   },
   {
-    Text: 'Transport',
-    UrlPattern: 'transportservice',
+    Text: 'Benutzerkonto',
+    UrlPattern: 'benutzerkonto',
+    Url: '/benutzerkonto/admin',
     Children: [
       {
-        Text: 'Paketlieferung',
-        Url: '/transportservice/paketlieferung'
+        Text: 'Anrede',
+        Url: '/benutzerkonto/admin/anreden'
       },
       {
-        Text: 'Tourlieferungen',
-        Url: '/transportservice/tourlieferung'
+        Text: 'Sprachen',
+        Url: '/benutzerkonto/admin/sprachen'
       },
       {
-        Text: 'Weitere Transporte',
-        Url: '/transportservice/weiterelieferung'
-      }
-    ]
-  },
-  {
-    Text: 'Umzugsservice',
-    UrlPattern: 'umzugsservice',
-    Url: '',
-    Children: [
-      {
-        Text: 'Geschäftsumzug',
-        Url: '/umzugsservice/geschaeftsumzug'
+        Text: 'Kategorien',
+        Url: '/benutzerkonto/admin/kategorien'
       },
       {
-        Text: 'Privatumzug',
-        Url: '/umzugsservice/privatumzug'
+        Text: 'Subkategorien',
+        Url: '/benutzerkonto/admin/subkategorien'
       },
       {
-        Text: 'Weitere Umzüge',
-        Url: '/umzugsservice/weitereumzuege'
+        Text: 'Artikel',
+        Url: '/benutzerkonto/admin/artikel'
       },
       {
-        Text: 'Anfrage',
-        Url: '/umzugsservice/anfrage'
+        Text: 'Bestellungen',
+        Url: '/benutzerkonto/admin/kaeufe'
       }
     ]
   },
@@ -112,39 +102,6 @@ export const menuitemLst: any[] = [
       {
         Text: 'Passwort vergessen',
         Url: '/pwtvergessen'
-      }
-    ]
-  },
-  {
-    Text: 'Benutzerkonto',
-    OnlyMobile: true,
-    LoggedInUser: true,
-    Url: '',
-    UrlPattern: 'benutzerkontolggedIn',
-    Children: [
-      {
-        Text: 'Übersicht',
-        Url: '/benutzerkonto/uebersicht'
-      },
-      {
-        Text: 'Meine Anfragen',
-        Url: '/benutzerkonto/anfragen'
-      },
-      {
-        Text: 'Meine Offerten',
-        Url: '/benutzerkonto/offerten'
-      },
-      {
-        Text: 'Meine Aufträge',
-        Url: '/benutzerkonto/auftraege'
-      },
-      {
-        Text: 'Benutzerprofil',
-        Url: '/benutzerkonto/benutzerprofil'
-      },
-      {
-        Text: 'Abmelden',
-        Url: '/anmelden'
       }
     ]
   }

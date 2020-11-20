@@ -1,0 +1,8 @@
+<div class="page-container">
+  <div class="category-container">
+    <ebs-category *ngFor="let cat of categoryMenu; let i = index;" [category]="cat"></ebs-category>
+  </div>
+  <div class="filter-container">
+    <ebs-article *ngFor="let article of articles; let i = index;" [article]="article" [delay]="i"></ebs-article>
+  </div>
+</div>

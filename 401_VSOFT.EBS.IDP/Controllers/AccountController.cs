@@ -63,8 +63,8 @@ namespace VSOFT.EBS.IDP.Controllers
             user.ModifiedDate = DateTime.Now;
             user.Modifier = "IDP";
             user.Creator = "IDP";
-            user.Active = false;
-            user.EmailConfirmed = false;
+            user.Active = true;
+            user.EmailConfirmed = true;
 
             var identityResult = await m_userManager.CreateAsync(user, registerData.Password);
 

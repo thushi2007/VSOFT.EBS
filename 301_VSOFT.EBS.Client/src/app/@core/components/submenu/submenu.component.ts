@@ -6,40 +6,40 @@ import {animate, group, query, style, transition, trigger} from '@angular/animat
   selector: 'ebs-submenu',
   templateUrl: './submenu.component.html',
   styleUrls: ['./submenu.component.scss'],
-  animations: [
-    trigger(
-      'showHideSubMenu',
-      [
-        transition(':enter',
-          group([
-            query('.submenu-container', [
-              style({
-                opacity: 0,
-                transform: 'translateY(100%)'
-              }), animate('0.3s',
-                style({
-                  opacity: 1,
-                  transform: 'translateY(0%)'
-                }))], {optional: true})
-          ])),
-        transition(':leave',
-          group([
-            query('.submenu-container', [
-              style({
-                opacity: 1,
-                transform: 'translateY(0%)'
-              }), animate('0.3s',
-                style({
-                  opacity: 0,
-                  transform: 'translateY(100%)'
-                }))], {optional: true})
-          ]))
-      ]
-    )
-  ]
+  // animations: [
+  //   trigger(
+  //     'showHideSubMenu',
+  //     [
+  //       transition(':enter',
+  //         group([
+  //           query('.submenu-container', [
+  //             style({
+  //               opacity: 0,
+  //               transform: 'translateY(100%)'
+  //             }), animate('0.3s',
+  //               style({
+  //                 opacity: 1,
+  //                 transform: 'translateY(0%)'
+  //               }))], {optional: true})
+  //         ])),
+  //       transition(':leave',
+  //         group([
+  //           query('.submenu-container', [
+  //             style({
+  //               opacity: 1,
+  //               transform: 'translateY(0%)'
+  //             }), animate('0.3s',
+  //               style({
+  //                 opacity: 0,
+  //                 transform: 'translateY(100%)'
+  //               }))], {optional: true})
+  //         ]))
+  //     ]
+  //   )
+  // ]
 })
 export class SubmenuComponent implements OnInit {
-  @HostBinding('@showHideSubMenu') showHideSubMenu: any;
+/*  @HostBinding('@showHideSubMenu') showHideSubMenu: any;*/
 
   @Input() url;
 

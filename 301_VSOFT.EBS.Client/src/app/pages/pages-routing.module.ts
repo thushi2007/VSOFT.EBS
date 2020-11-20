@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
+import {AuthGuardService} from '@core/guards/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -9,6 +10,14 @@ const routes: Routes = [
   {
     path: 'registrieren',
     loadChildren: () => import(`./register/register.module`).then(m => m.RegisterModule)
+  },
+  {
+    path: 'benutzerkonto',
+    loadChildren: () => import(`./account/account.module`).then(m => m.AccountModule)
+  },
+  {
+    path: 'ebooks',
+    loadChildren: () => import(`./ebooks/ebooks.module`).then(m => m.EbooksModule)
   },
   {
     path: '**',

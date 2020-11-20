@@ -16,7 +16,7 @@ export class ApiService {
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
-  public get(url: string, reCaptchaV3?: any, options?: any): Observable<any> {
+  public get(url: string, options?: any): Observable<any> {
     const urlDest = environment.apiUrl + url;
     const token = this.oauthService.hasValidAccessToken() ? this.oauthService.getAccessToken() : '';
 

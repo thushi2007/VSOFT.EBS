@@ -17,8 +17,7 @@ namespace VSOFT.EBS.IDP.Helper
     public class SecureConfig
     {
         public string SqlConnectionString { get; set; }
-        public string IdentitySigningCert { get; set; }
-        public string IdentitySigningPwd { get; set; }
+        public string IssuerUrl { get; set; }
     }
 
     public class LoggingConfig

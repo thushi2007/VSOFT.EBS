@@ -16,6 +16,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FooterModule} from './footer/footer.module';
 import {HeaderModule} from './header/header.module';
+import {CoreModule} from '@core/core.module';
 
 export const MY_FORMATS = {
   parse: {
@@ -49,6 +50,7 @@ export function getLocalStorage(): any {
     HeaderModule,
     FooterModule,
     PagesModule,
+    CoreModule.forRoot(),
     OAuthModule.forRoot({
       resourceServer: {
         sendAccessToken: true
@@ -62,11 +64,6 @@ export function getLocalStorage(): any {
     AgmDirectionModule,
     MatGoogleMapsAutocompleteModule,
     NgxMaskModule.forRoot({validation: false}),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDe4ycHAmYcqUu3wfXzL1rnHwPvVDr8fIY',
-      region: 'CH',
-      libraries: ['places']
-    }),
     SweetAlert2Module.forRoot(),
     MatMomentDateModule
   ],
@@ -80,6 +77,10 @@ export function getLocalStorage(): any {
       useFactory: getLocalStorage
     },
     {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'de-CH'
+    },
+    {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
@@ -87,6 +88,10 @@ export function getLocalStorage(): any {
     {
       provide: MAT_DATE_FORMATS,
       useValue: MY_FORMATS
+    },
+    {
+      provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+      useValue: {useUtc: true}
     },
   ],
   bootstrap: [AppComponent]

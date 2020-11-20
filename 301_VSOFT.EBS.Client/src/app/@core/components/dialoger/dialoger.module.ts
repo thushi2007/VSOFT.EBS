@@ -6,7 +6,6 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {PromiseButtonModule} from '@core/components';
 import {DialogWindowComponent} from './dialog-window/dialog-window.component';
-import {DialogerService} from '@core/components/dialoger/dialoger.service';
 import {BasedialogcompComponent} from '@core/components/dialoger/inheritance/basedialogcomp/basedialogcomp.component';
 
 @NgModule({

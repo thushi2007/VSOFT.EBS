@@ -1,0 +1,24 @@
+<div class="line">
+  <div class="image" [style.background-image]="'url(/assets/images/buch.jpg)'"></div>
+</div>
+<div class="line prices">
+  <div class="title">
+    <b>{{article.Title}}</b>
+  </div>
+  <div class="price">
+    <b>{{article.Price | currency: "CHF " }}</b>
+  </div>
+</div>
+<div class="line description">
+  {{article.Description}}
+</div>
+<div class="line details">
+  <p><b>Verlag</b>: {{article.Publisher}}</p>
+  <p><b>Sprache</b>: {{article.Language}}</p>
+  <p><b>EAN</b>: {{article.EAN}}</p>
+  <p><b>Ausgabejahr</b>: {{article.ReleaseYear}}</p>
+  <p><b>Anzahl Seiten</b>: {{article.Sites}}</p>
+</div>
+<div class="line warenkorb aligncenter">
+  <button mat-raised-button [color]="'primary'">in den Warenkorb</button>
+</div>

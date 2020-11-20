@@ -1,11 +1,16 @@
 <header>
   <div class="page-container">
     <div class="menu">
-      <div class="item">eBooks</div>
+      <div class="item">
+        <a [routerLink]="'/home'">Home</a>
+      </div>
+      <div class="item">
+        <a [routerLink]="'/ebooks'">eBooks</a>
+      </div>
     </div>
     <div class="account">
-      <i class="fal fa-user-circle"></i>
-      <i class="fal fa-shopping-cart"></i>
+      <a [routerLink]="'/anmelden'"><span class="fal fa-user-circle"></span></a>
+      <a [routerLink]="'/warenkorb'"><span class="fal fa-shopping-cart"></span></a>
     </div>
   </div>
 </header>

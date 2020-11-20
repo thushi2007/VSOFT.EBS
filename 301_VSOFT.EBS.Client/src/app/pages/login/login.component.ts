@@ -52,14 +52,14 @@ export class LoginComponent implements OnInit {
   loginUser(): void {
     this.loginForm.isValid.then(async (valid) => {
       if (valid) {
-        this.loginBtn.promiseFunction = this.oauthService
+        this.oauthService
           .fetchTokenUsingPasswordFlowAndLoadUserProfile(this.loginDto.username, this.loginDto.pwd).then(() => {
-            if (this.authService.isUserAdmin()) {
-              this.router.navigateByUrl('/benutzerkonto/admin');
-            } else if (!this.authService.isUserAdmin()) {
-              this.router.navigateByUrl('/benutzerkonto/benutzer');
-            }
-          });
+          if (this.authService.isUserAdmin()) {
+            this.router.navigateByUrl('/benutzerkonto/admin');
+          } else if (!this.authService.isUserAdmin()) {
+            this.router.navigateByUrl('/benutzerkonto/kunde');
+          }
+        });
       } else {
         this.oauthService.logOut();
         this.msg.hide();

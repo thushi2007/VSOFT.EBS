@@ -1,11 +1,9 @@
-import {Component, EventEmitter, HostBinding, Input, OnDestroy, Output} from '@angular/core';
-import {HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpParams, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Component, HostBinding, Input, OnDestroy} from '@angular/core';
+import {HttpClient, HttpEventType} from '@angular/common/http';
 import {Subscription} from 'rxjs';
 import {ImageUploaderService} from '@core/components/image-uploader/services/image-uploader.service';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {Lightbox} from 'ngx-lightbox';
-import {HttpwrapperService} from '@core/services';
-import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'ebs-image-uploader-item',
