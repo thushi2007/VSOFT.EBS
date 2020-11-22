@@ -38,7 +38,7 @@ public class ArticleEntity {
     private PublisherEntity vsTPublisherByPublisherId;
     private AuthorEntity vsTAuthorByAuthorId;
     private SubcategoryEntity vsTSubcategoryBySubCategoryId;
-    private Collection<ArticleImagesEntity> vsTArticleImagesById;
+    //    private Collection<ArticleImagesEntity> vsTArticleImagesById;
     private Collection<BuyArticleEntity> vsTBuyArticlesById;
 
     public ArticleEntity() {
@@ -270,14 +270,14 @@ public class ArticleEntity {
         this.vsTSubcategoryBySubCategoryId = vsTSubcategoryBySubCategoryId;
     }
 
-    @OneToMany(mappedBy = "vsTArticleByArticleId")
-    public Collection<ArticleImagesEntity> getVsTArticleImagesById() {
-        return vsTArticleImagesById;
-    }
-
-    public void setVsTArticleImagesById(Collection<ArticleImagesEntity> vsTArticleImagesById) {
-        this.vsTArticleImagesById = vsTArticleImagesById;
-    }
+//    @OneToMany(mappedBy = "vsTArticleByArticleId")
+//    public Collection<ArticleImagesEntity> getVsTArticleImagesById() {
+//        return vsTArticleImagesById;
+//    }
+//
+//    public void setVsTArticleImagesById(Collection<ArticleImagesEntity> vsTArticleImagesById) {
+//        this.vsTArticleImagesById = vsTArticleImagesById;
+//    }
 
     @OneToMany(mappedBy = "vsTArticleByArticleId")
     public Collection<BuyArticleEntity> getVsTBuyArticlesById() {

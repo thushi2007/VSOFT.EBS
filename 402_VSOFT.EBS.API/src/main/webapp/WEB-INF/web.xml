@@ -7,8 +7,4 @@
         <filter-name>corsFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-<!--    <filter-mapping>-->
-<!--        <filter-name>jwtFilter</filter-name>-->
-<!--        <url-pattern>/api/*</url-pattern>-->
-<!--    </filter-mapping>-->
 </web-app>

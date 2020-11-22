@@ -1,7 +1,6 @@
 package ebs;
 
 import ebs.api.filter.CorsFilter;
-import ebs.api.formatter.JsonCaseFilter;
 import ebs.api.jwt.JWTAuthedFilter;
 import ebs.api.jwt.JWTService;
 import ebs.api.resource.*;
@@ -63,7 +62,6 @@ public class RestApplication extends Application {
 
         classes.add(JWTService.class);
         classes.add(JWTAuthedFilter.class);
-        classes.add(JsonCaseFilter.class);
         classes.add(CorsFilter.class);
 
         classes.add(io.swagger.jaxrs.listing.ApiListingResource.class);

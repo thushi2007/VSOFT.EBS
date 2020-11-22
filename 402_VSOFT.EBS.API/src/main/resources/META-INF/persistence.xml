@@ -5,7 +5,6 @@
         <class>ebs.api.model.enumeration.LanguageEntity</class>
         <class>ebs.api.model.enumeration.SalutationEntity</class>
         <class>ebs.api.model.ArticleEntity</class>
-        <class>ebs.api.model.ArticleImagesEntity</class>
         <class>ebs.api.model.AuthorEntity</class>
         <class>ebs.api.model.BuyEntity</class>
         <class>ebs.api.model.BuyArticleEntity</class>
