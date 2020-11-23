@@ -1,5 +1,7 @@
 package ebs.api.dto.menu;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class MenuItemDto {
         this.SubCategories = new ArrayList<MenuSubItemDto>();
     }
 
+    @JsonProperty("Id")
     public long getId() {
         return Id;
     }
@@ -20,6 +23,7 @@ public class MenuItemDto {
         Id = id;
     }
 
+    @JsonProperty("Category")
     public String getCategory() {
         return Category;
     }
@@ -28,6 +32,7 @@ public class MenuItemDto {
         Category = category;
     }
 
+    @JsonProperty("SubCategories")
     public List<MenuSubItemDto> getSubCategories() {
         return SubCategories;
     }

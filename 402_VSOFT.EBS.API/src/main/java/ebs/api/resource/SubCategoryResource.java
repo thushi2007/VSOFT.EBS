@@ -2,6 +2,7 @@ package ebs.api.resource;
 
 import ebs.api.dto.EnumDto;
 import ebs.api.dto.menu.MenuItemDto;
+import ebs.api.formatter.ModelAutoMapper;
 import ebs.api.jwt.JWTAuthed;
 import ebs.api.model.CategoryEntity;
 import ebs.api.model.SubcategoryEntity;
@@ -13,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
@@ -40,21 +42,8 @@ public class SubCategoryResource {
     @PersistenceContext()
     private EntityManager em;
 
-    private ModelMapper autoMapper;
-    private Jsonb jsonb;
-
-    public SubCategoryResource() {
-        autoMapper = new ModelMapper();
-        JsonbConfig jsonbConfig = new JsonbConfig()
-                .withPropertyNamingStrategy(PropertyNamingStrategy.UPPER_CAMEL_CASE)
-                .withPropertyOrderStrategy(PropertyOrderStrategy.LEXICOGRAPHICAL)
-                .withStrictIJSON(true)
-                .withFormatting(true)
-                .withDateFormat("dd.MM.yyyy hh:mm:ss", Locale.GERMANY)
-                .withNullValues(true);
-
-        jsonb = JsonbBuilder.create(jsonbConfig);
-    }
+    @Inject
+    private ModelAutoMapper modelAutoMapper;
 
     @GET
     @JWTAuthed(roles = {"Admin"})
@@ -71,11 +60,9 @@ public class SubCategoryResource {
         Query q = em.createNamedQuery("Subcategory.findAll");
         List<MenuItemDto> allObjs = ((List<SubcategoryEntity>) q.getResultList())
                 .stream()
-                .map(categoryEntity -> autoMapper.map(categoryEntity, MenuItemDto.class))
+                .map(categoryEntity -> modelAutoMapper.getAutoMapper().map(categoryEntity, MenuItemDto.class))
                 .collect(Collectors.toList());
-
-        String jsonString = jsonb.toJson(allObjs);
-        return Response.ok(jsonString).build();
+        return Response.ok(allObjs).build();
     }
 
     @GET
@@ -91,20 +78,11 @@ public class SubCategoryResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getAllSubCategoriesAsEnum() {
-        autoMapper.typeMap(SubcategoryEntity.class, EnumDto.class)
-                .addMappings(mapper -> {
-                    mapper.map(src -> src.getId(), EnumDto::setId);
-                    mapper.map(src -> src.getName(), EnumDto::setName);
-                    mapper.map(src -> src.getName(), EnumDto::setValue);
-                });
-
         Query q = em.createNamedQuery("Subcategory.findAll");
         List<EnumDto> allObjs = ((List<SubcategoryEntity>) q.getResultList())
                 .stream()
-                .map(subCategory -> autoMapper.map(subCategory, EnumDto.class))
+                .map(subCategory -> modelAutoMapper.getAutoMapper().map(subCategory, EnumDto.class))
                 .collect(Collectors.toList());
-
-        String jsonString = jsonb.toJson(allObjs);
-        return Response.ok(jsonString).build();
+        return Response.ok(allObjs).build();
     }
 }

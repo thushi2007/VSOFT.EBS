@@ -96,44 +96,44 @@ values ('Sachbücher', now(), now());
 create table if not exists `ebs`.`VS_T_SUBCATEGORY` (
   `Id` INT NOT NULL AUTO_INCREMENT,
   `Icon` VARCHAR(100) NULL, 
-  `SubCategory` VARCHAR(100) NULL,
+  `Name` VARCHAR(100) NULL,
   `MainCategoryId` INT NULL,
   `CreatedOn` DATETIME NULL,
   `ModifiedOn` DATETIME NULL,
   FOREIGN KEY (MainCategoryId) REFERENCES VS_T_CATEGORY(Id),
   PRIMARY KEY (`Id`));
   
-insert into `ebs`.`VS_T_SUBCATEGORY`(`SubCategory`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
+insert into `ebs`.`VS_T_SUBCATEGORY`(`Name`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
 values ('Liebesromane', 1, now(), now());
 
-insert into `ebs`.`VS_T_SUBCATEGORY`(`SubCategory`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
+insert into `ebs`.`VS_T_SUBCATEGORY`(`Name`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
 values ('Historische Romane', 1, now(), now());
 
-insert into `ebs`.`VS_T_SUBCATEGORY`(`SubCategory`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
+insert into `ebs`.`VS_T_SUBCATEGORY`(`Name`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
 values ('Historische Krimis', 2, now(), now());
 
-insert into `ebs`.`VS_T_SUBCATEGORY`(`SubCategory`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
+insert into `ebs`.`VS_T_SUBCATEGORY`(`Name`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
 values ('Krimis', 2, now(), now());
 
-insert into `ebs`.`VS_T_SUBCATEGORY`(`SubCategory`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
+insert into `ebs`.`VS_T_SUBCATEGORY`(`Name`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
 values ('Thriller', 2, now(), now());
 
-insert into `ebs`.`VS_T_SUBCATEGORY`(`SubCategory`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
+insert into `ebs`.`VS_T_SUBCATEGORY`(`Name`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
 values ('Fantasy', 3, now(), now());
 
-insert into `ebs`.`VS_T_SUBCATEGORY`(`SubCategory`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
+insert into `ebs`.`VS_T_SUBCATEGORY`(`Name`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
 values ('Science Fiction', 3, now(), now());
 
-insert into `ebs`.`VS_T_SUBCATEGORY`(`SubCategory`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
+insert into `ebs`.`VS_T_SUBCATEGORY`(`Name`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
 values ('Reise', 4, now(), now());
 
-insert into `ebs`.`VS_T_SUBCATEGORY`(`SubCategory`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
+insert into `ebs`.`VS_T_SUBCATEGORY`(`Name`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
 values ('Abenteuer', 4, now(), now());
 
-insert into `ebs`.`VS_T_SUBCATEGORY`(`SubCategory`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
+insert into `ebs`.`VS_T_SUBCATEGORY`(`Name`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
 values ('Politik, Wirtschaft & Gesellschaft', 5, now(), now());
 
-insert into `ebs`.`VS_T_SUBCATEGORY`(`SubCategory`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
+insert into `ebs`.`VS_T_SUBCATEGORY`(`Name`, `MainCategoryId`, `CreatedOn`,`ModifiedOn`)
 values ('Geschichte', 5, now(), now());
 
 create table if not exists `ebs`.`VS_T_ARTICLE` (

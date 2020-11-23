@@ -7,9 +7,8 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package
 
 #
-##
-## Package stage
-##
+# Package stage
+#
 FROM jboss/wildfly
 
 ENV WILDFLY_USER ebsuser
@@ -21,10 +20,19 @@ ENV DB_USER ebsuser
 ENV DB_PASS Arun0706!
 ENV DB_URI db:3306
 
+# Environment properties
+ENV IDP http://idp:80
+ENV IDPCLIENTURL http://127.0.0.1:32839
+
 ENV MYSQL_VERSION 8.0.20
 ENV JBOSS_CLI /opt/jboss/wildfly/bin/jboss-cli.sh
 ENV DEPLOYMENT_DIR /opt/jboss/wildfly/standalone/deployments/
+ENV DEPLOYMENT_CONFIG /opt/jboss/wildfly/standalone/configuration/application.properties
 ENV SOURCE_DIR /home/app/target/ebs-1.0.0-SNAPSHOT.war
+
+# Generating properties file
+RUN echo "idp=${IDP}" >> ${DEPLOYMENT_CONFIG}
+RUN echo "idpclienturl=${IDPCLIENTURL}" >> ${DEPLOYMENT_CONFIG}
 
 RUN echo "=> Adding WildFly administrator"
 RUN $JBOSS_HOME/bin/add-user.sh -u $WILDFLY_USER -p $WILDFLY_PASS --silent
@@ -38,7 +46,6 @@ RUN echo "=> Starting WildFly server" && \
     echo "=> Adding MySQL module" && \
       $JBOSS_CLI --connect --command="module add --name=com.mysql --resources=/tmp/mysql-connector-java-${MYSQL_VERSION}.jar --dependencies=javax.api,javax.transaction.api" && \
     echo "=> Adding MySQL driver" && \
-                                     #/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql.driver,driver-class-name=com.mysql.jdbc.Driver)
       $JBOSS_CLI --connect --command="/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql,driver-xa-datasource-class-name=com.mysql.cj.jdbc.MysqlXADataSource)" && \
     echo "=> Creating a new datasource" && \
       $JBOSS_CLI --connect --command="data-source add \

@@ -1,6 +1,7 @@
 package ebs.api.resource;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,8 +16,10 @@ import java.util.List;
 
 import java.util.stream.Collectors;
 
+import ebs.api.config.AppProperties;
 import ebs.api.dto.EnumDto;
 import ebs.api.dto.enumuration.ListEnumItemDto;
+import ebs.api.formatter.ModelAutoMapper;
 import ebs.api.jwt.JWTAuthed;
 import ebs.api.model.enumeration.LanguageEntity;
 import ebs.api.model.enumeration.SalutationEntity;
@@ -31,14 +34,12 @@ import org.apache.log4j.Logger;
 @Api(value = "Enum")
 public class EnumResource {
     private static final Logger log = Logger.getLogger(CheckOutResource.class);
-    private ModelMapper autoMapper;
 
     @PersistenceContext()
     private EntityManager em;
 
-    public EnumResource() {
-        autoMapper = new ModelMapper();
-    }
+    @Inject
+    private ModelAutoMapper modelAutoMapper;
 
     @GET
     @Path("salutations")
@@ -55,7 +56,7 @@ public class EnumResource {
         Query q = em.createNamedQuery("Salutation.findAll");
         List<EnumDto> salutations = ((ArrayList<SalutationEntity>) q.getResultList())
                 .stream()
-                .map(salutation -> autoMapper.map(salutation, EnumDto.class))
+                .map(salutation -> modelAutoMapper.getAutoMapper().map(salutation, EnumDto.class))
                 .collect(Collectors.toList());
 
         return Response.ok(salutations).build();
@@ -76,7 +77,7 @@ public class EnumResource {
         Query q = em.createNamedQuery("Language.findAll");
         List<EnumDto> languages = ((ArrayList<LanguageEntity>) q.getResultList())
                 .stream()
-                .map(salutation -> autoMapper.map(salutation, EnumDto.class))
+                .map(salutation -> modelAutoMapper.getAutoMapper().map(salutation, EnumDto.class))
                 .collect(Collectors.toList());
 
         return Response.ok(languages).build();
@@ -101,7 +102,7 @@ public class EnumResource {
         Query q = em.createNamedQuery("Language.findAll");
         List<ListEnumItemDto> languages = ((ArrayList<LanguageEntity>) q.getResultList())
                 .stream()
-                .map(language -> autoMapper.map(language, ListEnumItemDto.class))
+                .map(language -> modelAutoMapper.getAutoMapper().map(language, ListEnumItemDto.class))
                 .collect(Collectors.toList());
 
         return Response.ok(languages).build();
@@ -126,7 +127,7 @@ public class EnumResource {
         Query q = em.createNamedQuery("Salutation.findAll");
         List<ListEnumItemDto> languages = ((ArrayList<SalutationEntity>) q.getResultList())
                 .stream()
-                .map(language -> autoMapper.map(language, ListEnumItemDto.class))
+                .map(language -> modelAutoMapper.getAutoMapper().map(language, ListEnumItemDto.class))
                 .collect(Collectors.toList());
 
         return Response.ok(languages).build();

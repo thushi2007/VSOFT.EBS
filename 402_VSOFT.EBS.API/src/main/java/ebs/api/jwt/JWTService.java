@@ -6,6 +6,7 @@ import com.okta.jwt.JoseException;
 import com.okta.jwt.Jwt;
 import com.okta.jwt.JwtHelper;
 import com.okta.jwt.JwtVerifier;
+import ebs.api.config.AppProperties;
 import net.minidev.json.JSONArray;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -14,14 +15,14 @@ import java.util.Map;
 
 @ApplicationScoped
 public class JWTService {
+    private static final AppProperties appProperties = new AppProperties();
 
     private JwtVerifier jwtVerifier;
 
     public JWTService() {
         try {
-
             jwtVerifier = new JwtHelper()
-                    .setIssuerUrl("http://idp:80")
+                    .setIssuerUrl(appProperties.getIdpUrl())
                     .setAudience("webapi")
                     .build();
         } catch (IOException | ParseException e) {
@@ -29,7 +30,7 @@ public class JWTService {
             e.printStackTrace();
         }
     }
-    
+
     public Boolean validateToken(String token, String[] roles) {
         try {
             String rawToken = token.replace("Barear ", "");
