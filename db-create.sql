@@ -213,3 +213,8 @@ create table if not exists `ebs`.`VS_T_BUY_ARTICLE` (
    FOREIGN KEY (BuyId) REFERENCES VS_T_BUY(id),
   PRIMARY KEY (`Id`));
   
+CREATE USER if not exists 'ebsuser'@'%' IDENTIFIED BY 'Arun0706!';
+GRANT ALL PRIVILEGES ON ebs.* TO 'ebsuser'@'%';
+  
+  
+  

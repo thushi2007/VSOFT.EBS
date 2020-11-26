@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ebsapi-deployment
+spec:
+  replicas: 3
+  selector:
+     matchLabels:
+       app: ebsapi
+  template:
+    metadata:
+      labels:
+        app: ebsapi
+    spec:
+      terminationGracePeriodSeconds: 30
+      hostname: ebsapiinst
+      securityContext:
+        fsGroup: 10001
+      containers:
+      - name: ebsapi
+        image: thushi2007/ebsapi:v2
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always
+        env:
+            - name: APPVERSION
+              value: "78654"
+            - name: IDP
+              valueFrom:
+                secretKeyRef:
+                    name: ebsapi-idp
+                    key: IDP                    
+            - name: IDPCLIENTURL
+              valueFrom:
+                secretKeyRef:
+                    name: ebsapi-idpclient
+                    key: IDPCLIENTURL
+            - name: DB_URI
+              valueFrom:
+                secretKeyRef:
+                    name: ebsapi-dbcon
+                    key: DB_URI
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ebsapi-service
+spec:
+  selector:
+    app: ebsapi
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer

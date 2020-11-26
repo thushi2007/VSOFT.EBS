@@ -1,0 +1,113 @@
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" get nodes
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" apply -f deployment.yaml --record
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" delete pod doks-example-8fcccb546-tt4sj
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" delete replicaset doks-example-8fcccb546
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" delete deployment doks-example
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" delete deployment mysql-deployment
+
+
+
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" delete pod wildfly-rc-ckkn8
+
+
+o
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" delete service wildfly-service
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" delete -n default replicationcontroller wildfly-rc
+
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" get nodes
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" get pods
+
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml"  port-forward wildfly-service 80:8080
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" get pod -n wildfly
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" get services
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" describe services wildfly-service
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" get svc wildfly-service
+
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" create deployment --image nginx my-nginx
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" scale deployment --replicas 2 my-nginx
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" expose deployment my-nginx --port=80 --type=LoadBalancer
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" get services
+
+
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" apply -f mysql.yaml --record
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" delete service nginx
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" delete deployment nginx-deployment
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" delete replicationcontroller wildfly-rc
+
+
+
+kubectl --kubeconfig="ebskubernetescluster-kubeconfig.yaml" apply -f frontend.yaml --record
+
+docker login --username thushi2007
+docker tag mysql thushi2007/mysql
+docker push thushi2007/mysql
+
+
+
+docker login --username thushi2007
+docker tag mcr.microsoft.com/mssql/server thushi2007/sqlserver
+docker push thushi2007/ebsidp:v1
+
+
+docker tag mcr.microsoft.com/mssql/server thushi2007/sqlserver
+
+docker commit 6e7ecce1bbb6 thushi2007/mysql:v6
+
+docker commit ebsidp thushi2007/ebsidp:v1
+
+docker tag thushi2007/mysql:v4 thushi2007/mysql:v5
+
+docker tag thushi2007/mysql:v3 thushi2007/mysql:v4
+
+docker run -d -p 127.0.0.1:3306:3306 --name mysql thushi2007/mysql:v6 --rm -it -v ~/mysql:/var/lib/mysql  --env MYSQL_ROOT_PASSWORD=Arun0706!
+
+
+docker run -p 127.0.0.1:3306:3306 --name mysql -h thushi2007/mysql:v6 --rm -it -v ~/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=Arun0706! -e MYSQL_USER=ebsuser -e MYSQL_PASSWORD=Arun0706! -e MYSQL_DATABASE=ebs thushi2007/mysql:v6
+
+
+
+
+docker run -p 127.0.0.1:3306:3306 --name mysql . 
+
+docker build -t mysql .
+
+docker run --name mysql -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=Arun0706! thushi2007
+docker run --name ebsidp --link sqlserver:sqldb -d -p 32839:80 thushi2007/ebsidp:v1
+
+
+Commit new changes IDP
+======================
+docker commit ebsidp thushi2007/ebsidp:v1
+docker push thushi2007/ebsidp:v1
+
+docker run --name ebsidp --link sqlserver:sqldb -d -p 32839:80 thushi2007/ebsidp:v1
+
+Commit new changes API
+======================
+docker commit ebsapi thushi2007/ebsapi:v1
+docker push thushi2007/ebsapi:v1
+
+docker run --name ebsapi --env IDP=http://178.128.134.209 --env IDPCLIENTURL=http://178.128.134.209 --env DB_URI=165.227.254.66:3306 -p 127.0.0.1:8080:8080 thushi2007/ebsapi:v1
+
+
+
+
+
+
+

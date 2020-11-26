@@ -1,0 +1,12 @@
+1. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" create secret generic mssql --from-literal=SA_PASSWORD="Arun0706!"
+2. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" apply -f ebs-mssql-volume.yaml
+3. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" describe pvc mssql-data
+4. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" apply -f ebs-mssql-deployment.yaml
+5. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" get services
+
+
+Cleanup
+==========
+1. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete service mssql-service
+2. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete deployment mssql-deployment
+3. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete persistentvolumeclaim mssql-data

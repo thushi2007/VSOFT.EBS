@@ -1,0 +1,18 @@
+1. Kubernetes secrets
+
+kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" create secret generic mysql-sapwd --from-literal=MYSQL_ROOT_PASSWORD="Arun0706!"
+kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" create secret generic mysql-database --from-literal=MYSQL_DATABASE="ebs"
+kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" create secret generic mysql-username --from-literal=MYSQL_USERNAME="ebsuser"
+kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" create secret generic mysql-password --from-literal=MYSQL_PASSWORD="Arun0706!"
+
+2. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" apply -f ebs-mysql-volume.yaml
+3. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" describe pvc mysql-data
+4. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" apply -f ebs-mysql-deployment.yaml
+5. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" get services
+
+
+Cleanup
+==========
+1. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete service mysql-service
+2. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete deployment mysql-deployment
+3. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete persistentvolumeclaim mysql-data

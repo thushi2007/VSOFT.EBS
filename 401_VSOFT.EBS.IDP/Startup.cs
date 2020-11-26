@@ -12,6 +12,8 @@ using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -30,9 +32,10 @@ namespace VSOFT.EBS.IDP
         ApiContextSetup apiSetup;
         readonly string MyAllowSpecificOrigins = "allowSpecificOrigins";
 
-        public Startup()
+
+        public Startup(IConfiguration config)
         {
-            apiSetup = new ApiContextSetup(DateTime.Now);
+            apiSetup = new ApiContextSetup(DateTime.Now, config);
             apiSetup.LoadAllConfigs();
         }
 
@@ -45,9 +48,6 @@ namespace VSOFT.EBS.IDP
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
             apiSetup.ConfigureServices(services);
-
-            //string signingCert = AppContext.BaseDirectory + apiSetup.AppConfigs.Secure.IdentitySigningCert;
-            //var cert = new X509Certificate2(signingCert, "", X509KeyStorageFlags.MachineKeySet);
 
             services.AddIdentity<AspNetUser, AspNetRole>()
             .AddEntityFrameworkStores<UserDbContext>()
