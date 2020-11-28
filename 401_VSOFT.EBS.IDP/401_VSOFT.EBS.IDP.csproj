@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Projekte\VSOFT.EBS\401_VSOFT.EBS.IDP\401_VSOFT.EBS.IDP.xml</DocumentationFile>
+    <DocumentationFile>.\401_VSOFT.EBS.IDP.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
