@@ -4,18 +4,7 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 ENV ASPNETCORE_ENVIRONMENT=Production
 ENV ASPNETCORE_URLS=http://+
-#ENV ASPNETCORE_Kestrel__Certificates__Default__Password=Arun0706!
-#ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
 
-#RUN dotnet add package Microsoft.EntityFrameworkCore.Design
-#RUN dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { Arun0706! }
-#RUN dotnet dev-certs https --trust
-#CMD dotnet add package Microsoft.EntityFrameworkCore.Design
-
-#CMD dotnet dev-certs https --clean
-#CMD dotnet dev-certs https --trust -ep $env:USERPROFILE\.aspnet\https\aspnetapp.pfx -p Arun0706!
-#CMD dotnet dev-certs https --trust
-#
 EXPOSE 80
 EXPOSE 443
 

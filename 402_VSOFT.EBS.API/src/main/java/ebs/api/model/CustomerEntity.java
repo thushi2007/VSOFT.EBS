@@ -3,12 +3,18 @@ package ebs.api.model;
 import ebs.api.model.enumeration.SalutationEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 
-@Entity
-@Table(name = "VS_T_CUSTOMER", schema = "ebs", catalog = "")
-public class CustomerEntity {
+@Entity(
+        name = "CUSTOMER"
+)
+@Table(
+        name = "VS_T_CUSTOMER",
+        schema = "ebs"
+)
+public class CustomerEntity implements Serializable {
     private int id;
     private Integer salutationId;
     private String firstname;
@@ -21,10 +27,11 @@ public class CustomerEntity {
     private String username;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
-    private Collection<BuyEntity> vsTBuysById;
-    private SalutationEntity vsESalutationBySalutationId;
+    private Collection<BuyEntity> buys;
+    private SalutationEntity salutation;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", nullable = false)
     public int getId() {
         return id;
@@ -184,22 +191,22 @@ public class CustomerEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "vsTCustomerByCustomerId")
-    public Collection<BuyEntity> getVsTBuysById() {
-        return vsTBuysById;
+    @OneToMany(mappedBy = "customer")
+    public Collection<BuyEntity> getBuys() {
+        return buys;
     }
 
-    public void setVsTBuysById(Collection<BuyEntity> vsTBuysById) {
-        this.vsTBuysById = vsTBuysById;
+    public void setBuys(Collection<BuyEntity> buyEntity) {
+        this.buys = buyEntity;
     }
 
     @ManyToOne
-    @JoinColumn(name = "SalutationId", referencedColumnName = "Id")
-    public SalutationEntity getVsESalutationBySalutationId() {
-        return vsESalutationBySalutationId;
+    @JoinColumn(name = "SalutationId", referencedColumnName = "Id", insertable = false, updatable = false)
+    public SalutationEntity getSalutation() {
+        return salutation;
     }
 
-    public void setVsESalutationBySalutationId(SalutationEntity vsESalutationBySalutationId) {
-        this.vsESalutationBySalutationId = vsESalutationBySalutationId;
+    public void setSalutation(SalutationEntity salutationEntity) {
+        this.salutation = salutationEntity;
     }
 }

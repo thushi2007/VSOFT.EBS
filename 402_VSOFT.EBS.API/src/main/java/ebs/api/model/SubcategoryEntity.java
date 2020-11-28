@@ -1,6 +1,7 @@
 package ebs.api.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 
@@ -17,17 +18,19 @@ import java.util.Collection;
                 query = "SELECT s FROM Subcategory s"
         )
 })
-public class SubcategoryEntity {
+public class SubcategoryEntity implements Serializable {
     private int id;
     private String icon;
     private String name;
     private Integer mainCategoryId;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
-    private Collection<ArticleEntity> vsTArticlesById;
-    private CategoryEntity vsTCategoryByMainCategoryId;
+    private CategoryEntity mainCategory;
+
+    private Collection<ArticleEntity> articles;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", nullable = false)
     public int getId() {
         return id;
@@ -58,7 +61,7 @@ public class SubcategoryEntity {
     }
 
     @Basic
-    @Column(name = "MainCategoryId", nullable = true, insertable = false, updatable = false)
+    @Column(name = "MainCategoryId", nullable = true)
     public Integer getMainCategoryId() {
         return mainCategoryId;
     }
@@ -116,22 +119,22 @@ public class SubcategoryEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "vsTSubcategoryBySubCategoryId")
-    public Collection<ArticleEntity> getVsTArticlesById() {
-        return vsTArticlesById;
+    @OneToMany(mappedBy = "subCategory")
+    public Collection<ArticleEntity> getArticles() {
+        return articles;
     }
 
-    public void setVsTArticlesById(Collection<ArticleEntity> vsTArticlesById) {
-        this.vsTArticlesById = vsTArticlesById;
+    public void setArticles(Collection<ArticleEntity> articlesById) {
+        this.articles = articlesById;
     }
 
     @ManyToOne
-    @JoinColumn(name = "MainCategoryId", referencedColumnName = "Id")
-    public CategoryEntity getVsTCategoryByMainCategoryId() {
-        return vsTCategoryByMainCategoryId;
+    @JoinColumn(name = "MainCategoryId", referencedColumnName = "Id", insertable = false, updatable = false)
+    public CategoryEntity getMainCategory() {
+        return mainCategory;
     }
 
-    public void setVsTCategoryByMainCategoryId(CategoryEntity vsTCategoryByMainCategoryId) {
-        this.vsTCategoryByMainCategoryId = vsTCategoryByMainCategoryId;
+    public void setMainCategory(CategoryEntity mainCategoryById) {
+        this.mainCategory = mainCategoryById;
     }
 }

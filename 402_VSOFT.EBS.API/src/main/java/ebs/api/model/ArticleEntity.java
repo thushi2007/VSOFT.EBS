@@ -3,6 +3,7 @@ package ebs.api.model;
 import ebs.api.model.enumeration.LanguageEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 
@@ -19,7 +20,7 @@ import java.util.Collection;
                 query = "SELECT e FROM Article e"
         )
 })
-public class ArticleEntity {
+public class ArticleEntity implements Serializable {
     private int id;
     private Integer languageId;
     private Integer publisherId;
@@ -34,18 +35,17 @@ public class ArticleEntity {
     private int stock;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
-    private LanguageEntity vsELanguageByLanguageId;
-    private PublisherEntity vsTPublisherByPublisherId;
-    private AuthorEntity vsTAuthorByAuthorId;
-    private SubcategoryEntity vsTSubcategoryBySubCategoryId;
-    //    private Collection<ArticleImagesEntity> vsTArticleImagesById;
-    private Collection<BuyArticleEntity> vsTBuyArticlesById;
 
-    public ArticleEntity() {
+    private LanguageEntity language;
+    private PublisherEntity publisher;
+    private AuthorEntity author;
+    private SubcategoryEntity subCategory;
 
-    }
+    private Collection<BuyArticleEntity> buyArticles;
+    private Collection<ArticleImageEntity> articleImages;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", nullable = false)
     public int getId() {
         return id;
@@ -231,60 +231,60 @@ public class ArticleEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "LanguageId", referencedColumnName = "Id")
-    public LanguageEntity getVsELanguageByLanguageId() {
-        return vsELanguageByLanguageId;
+    @JoinColumn(name = "LanguageId", referencedColumnName = "Id", insertable = false, updatable = false)
+    public LanguageEntity getLanguage() {
+        return language;
     }
 
-    public void setVsELanguageByLanguageId(LanguageEntity vsELanguageByLanguageId) {
-        this.vsELanguageByLanguageId = vsELanguageByLanguageId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "PublisherId", referencedColumnName = "Id")
-    public PublisherEntity getVsTPublisherByPublisherId() {
-        return vsTPublisherByPublisherId;
-    }
-
-    public void setVsTPublisherByPublisherId(PublisherEntity vsTPublisherByPublisherId) {
-        this.vsTPublisherByPublisherId = vsTPublisherByPublisherId;
+    public void setLanguage(LanguageEntity lang) {
+        this.language = lang;
     }
 
     @ManyToOne
-    @JoinColumn(name = "AuthorId", referencedColumnName = "Id")
-    public AuthorEntity getVsTAuthorByAuthorId() {
-        return vsTAuthorByAuthorId;
+    @JoinColumn(name = "PublisherId", referencedColumnName = "Id", insertable = false, updatable = false)
+    public PublisherEntity getPublisher() {
+        return publisher;
     }
 
-    public void setVsTAuthorByAuthorId(AuthorEntity vsTAuthorByAuthorId) {
-        this.vsTAuthorByAuthorId = vsTAuthorByAuthorId;
+    public void setPublisher(PublisherEntity publisherEntity) {
+        this.publisher = publisherEntity;
     }
 
     @ManyToOne
-    @JoinColumn(name = "SubCategoryId", referencedColumnName = "Id")
-    public SubcategoryEntity getVsTSubcategoryBySubCategoryId() {
-        return vsTSubcategoryBySubCategoryId;
+    @JoinColumn(name = "AuthorId", referencedColumnName = "Id", insertable = false, updatable = false)
+    public AuthorEntity getAuthor() {
+        return author;
     }
 
-    public void setVsTSubcategoryBySubCategoryId(SubcategoryEntity vsTSubcategoryBySubCategoryId) {
-        this.vsTSubcategoryBySubCategoryId = vsTSubcategoryBySubCategoryId;
+    public void setAuthor(AuthorEntity authorEntity) {
+        this.author = authorEntity;
     }
 
-//    @OneToMany(mappedBy = "vsTArticleByArticleId")
-//    public Collection<ArticleImagesEntity> getVsTArticleImagesById() {
-//        return vsTArticleImagesById;
-//    }
-//
-//    public void setVsTArticleImagesById(Collection<ArticleImagesEntity> vsTArticleImagesById) {
-//        this.vsTArticleImagesById = vsTArticleImagesById;
-//    }
-
-    @OneToMany(mappedBy = "vsTArticleByArticleId")
-    public Collection<BuyArticleEntity> getVsTBuyArticlesById() {
-        return vsTBuyArticlesById;
+    @ManyToOne
+    @JoinColumn(name = "SubCategoryId", referencedColumnName = "Id", insertable = false, updatable = false)
+    public SubcategoryEntity getSubCategory() {
+        return subCategory;
     }
 
-    public void setVsTBuyArticlesById(Collection<BuyArticleEntity> vsTBuyArticlesById) {
-        this.vsTBuyArticlesById = vsTBuyArticlesById;
+    public void setSubCategory(SubcategoryEntity subcategoryEntity) {
+        this.subCategory = subcategoryEntity;
+    }
+
+    @OneToMany(mappedBy = "article")
+    public Collection<ArticleImageEntity> getArticleImages() {
+        return articleImages;
+    }
+
+    public void setArticleImages(Collection<ArticleImageEntity> articleImagesEntities) {
+        this.articleImages = articleImagesEntities;
+    }
+
+    @OneToMany(mappedBy = "article")
+    public Collection<BuyArticleEntity> getBuyArticles() {
+        return buyArticles;
+    }
+
+    public void setBuyArticles(Collection<BuyArticleEntity> buyArticleEntities) {
+        this.buyArticles = buyArticleEntities;
     }
 }

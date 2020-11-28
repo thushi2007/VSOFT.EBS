@@ -1,32 +1,31 @@
-package ebs.api.model.enumeration;
-
-import ebs.api.model.CustomerEntity;
+package ebs.api.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.sql.Timestamp;
-import java.util.Collection;
 
 @Entity(
-        name = "Salutation"
+        name = "ArticleImage"
 )
 @Table(
-        name = "VS_E_SALUTATION",
+        name = "VS_T_ARTICLE_IMAGE",
         schema = "ebs"
 )
 @NamedQueries({
         @NamedQuery(
-                name = "Salutation.findAll",
-                query = "SELECT s FROM Salutation s"
+                name = "ArticleImage.getAll",
+                query = "SELECT e FROM ArticleImage e"
         )
 })
-public class SalutationEntity implements Serializable {
+public class ArticleImageEntity implements Serializable {
     private int id;
-    private String name;
-    private String value;
+    private Blob image;
+    private Integer articleId;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
-    private Collection<CustomerEntity> customers;
+
+    private ArticleEntity article;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,24 +38,24 @@ public class SalutationEntity implements Serializable {
         this.id = id;
     }
 
+    @Lob
+    @Column(name = "Image", nullable = true)
+    public Blob getImage() {
+        return image;
+    }
+
+    public void setImage(Blob image) {
+        this.image = image;
+    }
+
     @Basic
-    @Column(name = "Name", nullable = true, length = 100)
-    public String getName() {
-        return name;
+    @Column(name = "ArticleId", nullable = true)
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Basic
-    @Column(name = "Value", nullable = true, length = 100)
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
+    public void setArticleId(Integer artId) {
+        this.articleId = artId;
     }
 
     @Basic
@@ -84,11 +83,10 @@ public class SalutationEntity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SalutationEntity that = (SalutationEntity) o;
+        ArticleImageEntity that = (ArticleImageEntity) o;
 
         if (id != that.id) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
+        if (articleId != that.articleId) return false;
         if (createdOn != null ? !createdOn.equals(that.createdOn) : that.createdOn != null) return false;
         if (modifiedOn != null ? !modifiedOn.equals(that.modifiedOn) : that.modifiedOn != null) return false;
 
@@ -98,19 +96,20 @@ public class SalutationEntity implements Serializable {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (value != null ? value.hashCode() : 0);
+        result = 31 * result + (articleId != null ? articleId.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
         result = 31 * result + (modifiedOn != null ? modifiedOn.hashCode() : 0);
         return result;
     }
 
-    @OneToMany(mappedBy = "salutation")
-    public Collection<CustomerEntity> getCustomers() {
-        return customers;
+    @ManyToOne
+    @JoinColumn(name = "ArticleId", referencedColumnName = "Id", insertable = false, updatable = false)
+    public ArticleEntity getArticle() {
+        return article;
     }
 
-    public void setCustomers(Collection<CustomerEntity> customerEntiiesy) {
-        this.customers = customerEntiiesy;
+    public void setArticle(ArticleEntity articleEntity) {
+        this.article = articleEntity;
     }
+
 }

@@ -41,6 +41,8 @@ namespace VSOFT.EBS.IDP
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
+
             var cultureInfo = new CultureInfo("de-CH");
             cultureInfo.NumberFormat.CurrencySymbol = "CHF";
                 
@@ -147,6 +149,8 @@ namespace VSOFT.EBS.IDP
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseHealthChecks("/healthcheck");
 
             app.UseCors(MyAllowSpecificOrigins);
             app.UseIdentityServer();

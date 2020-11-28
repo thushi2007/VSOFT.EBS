@@ -1,6 +1,7 @@
 package ebs.api.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 
@@ -11,17 +12,18 @@ import java.util.Collection;
         name = "VS_T_BUY",
         schema = "ebs"
 )
-public class BuyEntity {
+public class BuyEntity implements Serializable {
     private int id;
     private Integer customerId;
     private Timestamp buyDate;
     private Double totalPrice;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
-    private CustomerEntity vsTCustomerByCustomerId;
-    private Collection<BuyArticleEntity> vsTBuyArticlesById;
+    private CustomerEntity customer;
+    private Collection<BuyArticleEntity> buyArticles;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", nullable = false)
     public int getId() {
         return id;
@@ -32,7 +34,7 @@ public class BuyEntity {
     }
 
     @Basic
-    @Column(name = "CustomerId", nullable = true, insertable = false, updatable = false)
+    @Column(name = "CustomerId")
     public Integer getCustomerId() {
         return customerId;
     }
@@ -110,21 +112,21 @@ public class BuyEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "CustomerId", referencedColumnName = "Id")
-    public CustomerEntity getVsTCustomerByCustomerId() {
-        return vsTCustomerByCustomerId;
+    @JoinColumn(name = "CustomerId", referencedColumnName = "Id", insertable = false, updatable = false)
+    public CustomerEntity getCustomer() {
+        return customer;
     }
 
-    public void setVsTCustomerByCustomerId(CustomerEntity vsTCustomerByCustomerId) {
-        this.vsTCustomerByCustomerId = vsTCustomerByCustomerId;
+    public void setCustomer(CustomerEntity customerEntity) {
+        this.customer = customerEntity;
     }
 
-    @OneToMany(mappedBy = "vsTBuyByBuyId")
-    public Collection<BuyArticleEntity> getVsTBuyArticlesById() {
-        return vsTBuyArticlesById;
+    @OneToMany(mappedBy = "buy")
+    public Collection<BuyArticleEntity> getBuyArticles() {
+        return buyArticles;
     }
 
-    public void setVsTBuyArticlesById(Collection<BuyArticleEntity> vsTBuyArticlesById) {
-        this.vsTBuyArticlesById = vsTBuyArticlesById;
+    public void setBuyArticles(Collection<BuyArticleEntity> buyArticleEntities) {
+        this.buyArticles = buyArticleEntities;
     }
 }

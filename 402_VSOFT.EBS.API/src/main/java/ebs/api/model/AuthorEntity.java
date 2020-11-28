@@ -1,6 +1,7 @@
 package ebs.api.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 
@@ -11,14 +12,15 @@ import java.util.Collection;
         name = "VS_T_AUTHOR",
         schema = "ebs"
 )
-public class AuthorEntity {
+public class AuthorEntity implements Serializable {
     private int id;
     private String name;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
-    private Collection<ArticleEntity> vsTArticlesById;
+    private Collection<ArticleEntity> articles;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", nullable = false)
     public int getId() {
         return id;
@@ -82,12 +84,12 @@ public class AuthorEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "vsTAuthorByAuthorId")
-    public Collection<ArticleEntity> getVsTArticlesById() {
-        return vsTArticlesById;
+    @OneToMany(mappedBy = "author")
+    public Collection<ArticleEntity> getArticles() {
+        return articles;
     }
 
-    public void setVsTArticlesById(Collection<ArticleEntity> vsTArticlesById) {
-        this.vsTArticlesById = vsTArticlesById;
+    public void setArticles(Collection<ArticleEntity> articleEntities) {
+        this.articles = articleEntities;
     }
 }

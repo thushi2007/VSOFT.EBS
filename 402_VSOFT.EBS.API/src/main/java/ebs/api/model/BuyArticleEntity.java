@@ -1,6 +1,7 @@
 package ebs.api.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity(
@@ -10,16 +11,17 @@ import java.sql.Timestamp;
         name = "VS_T_BUY_ARTICLE",
         schema = "ebs"
 )
-public class BuyArticleEntity {
+public class BuyArticleEntity implements Serializable {
     private int id;
     private Integer articleId;
     private Integer buyId;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
-    private ArticleEntity vsTArticleByArticleId;
-    private BuyEntity vsTBuyByBuyId;
+    private ArticleEntity article;
+    private BuyEntity buy;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", nullable = false)
     public int getId() {
         return id;
@@ -96,22 +98,22 @@ public class BuyArticleEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ArticleId", referencedColumnName = "Id")
-    public ArticleEntity getVsTArticleByArticleId() {
-        return vsTArticleByArticleId;
+    @JoinColumn(name = "ArticleId", referencedColumnName = "Id", insertable = false, updatable = false)
+    public ArticleEntity getArticle() {
+        return article;
     }
 
-    public void setVsTArticleByArticleId(ArticleEntity vsTArticleByArticleId) {
-        this.vsTArticleByArticleId = vsTArticleByArticleId;
+    public void setArticle(ArticleEntity articleEntity) {
+        this.article = articleEntity;
     }
 
     @ManyToOne
-    @JoinColumn(name = "BuyId", referencedColumnName = "Id")
-    public BuyEntity getVsTBuyByBuyId() {
-        return vsTBuyByBuyId;
+    @JoinColumn(name = "BuyId", referencedColumnName = "Id", insertable = false, updatable = false)
+    public BuyEntity getBuy() {
+        return buy;
     }
 
-    public void setVsTBuyByBuyId(BuyEntity vsTBuyByBuyId) {
-        this.vsTBuyByBuyId = vsTBuyByBuyId;
+    public void setBuy(BuyEntity buyEntity) {
+        this.buy = buyEntity;
     }
 }

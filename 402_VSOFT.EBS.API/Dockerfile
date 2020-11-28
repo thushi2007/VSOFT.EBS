@@ -31,8 +31,8 @@ ENV DEPLOYMENT_CONFIG /opt/jboss/wildfly/standalone/configuration/application.pr
 ENV SOURCE_DIR /home/app/target/ebs-1.0.0-SNAPSHOT.war
 
 # Generating properties file
-RUN echo "idp=${IDP}" >> ${DEPLOYMENT_CONFIG}
-RUN echo "idpclienturl=${IDPCLIENTURL}" >> ${DEPLOYMENT_CONFIG}
+RUN echo "idp = \${env:IDP}" >> ${DEPLOYMENT_CONFIG}
+RUN echo "idpclienturl = \${env:IDPCLIENTURL}" >> ${DEPLOYMENT_CONFIG}
 
 RUN echo "=> Adding WildFly administrator"
 RUN $JBOSS_HOME/bin/add-user.sh -u $WILDFLY_USER -p $WILDFLY_PASS --silent
@@ -54,7 +54,7 @@ RUN echo "=> Starting WildFly server" && \
         --user-name=${DB_USER} \
         --password=${DB_PASS} \
         --driver-name=mysql \
-        --connection-url=jdbc:mysql://\${env.DB_URI}/${DB_NAME} \
+        --connection-url=jdbc:mysql://\${env.DB_URI}/${DB_NAME}?createDatabaseIfNotExist=true \
         --use-ccm=false \
         --max-pool-size=25 \
         --blocking-timeout-wait-millis=5000 \

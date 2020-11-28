@@ -1,6 +1,7 @@
 package ebs.api.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 
@@ -17,15 +18,16 @@ import java.util.Collection;
                 query = "SELECT s FROM Category s"
         )
 })
-public class CategoryEntity {
+public class CategoryEntity implements Serializable {
     private int id;
     private String icon;
     private String category;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
-    private Collection<SubcategoryEntity> vsTSubcategoriesById;
+    private Collection<SubcategoryEntity> subCategories;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", nullable = false)
     public int getId() {
         return id;
@@ -101,12 +103,12 @@ public class CategoryEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "vsTCategoryByMainCategoryId")
-    public Collection<SubcategoryEntity> getVsTSubcategoriesById() {
-        return vsTSubcategoriesById;
+    @OneToMany(mappedBy = "mainCategory")
+    public Collection<SubcategoryEntity> getSubcategories() {
+        return subCategories;
     }
 
-    public void setVsTSubcategoriesById(Collection<SubcategoryEntity> vsTSubcategoriesById) {
-        this.vsTSubcategoriesById = vsTSubcategoriesById;
+    public void setSubcategories(Collection<SubcategoryEntity> subcategoryEntity) {
+        this.subCategories = subcategoryEntity;
     }
 }

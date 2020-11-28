@@ -5,6 +5,7 @@
         <class>ebs.api.model.enumeration.LanguageEntity</class>
         <class>ebs.api.model.enumeration.SalutationEntity</class>
         <class>ebs.api.model.ArticleEntity</class>
+        <class>ebs.api.model.ArticleImageEntity</class>
         <class>ebs.api.model.AuthorEntity</class>
         <class>ebs.api.model.BuyEntity</class>
         <class>ebs.api.model.BuyArticleEntity</class>
@@ -12,5 +13,12 @@
         <class>ebs.api.model.CustomerEntity</class>
         <class>ebs.api.model.PublisherEntity</class>
         <class>ebs.api.model.SubcategoryEntity</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.hbm2ddl.import_files" value="META-INF/db-data.sql"/>
+            <property name="hibernate.hbm2ddl.charset_name" value="UTF-8" />
+        </properties>
     </persistence-unit>
 </persistence>

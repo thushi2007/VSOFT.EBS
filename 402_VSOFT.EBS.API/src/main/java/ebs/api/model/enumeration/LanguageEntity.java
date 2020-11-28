@@ -3,6 +3,7 @@ package ebs.api.model.enumeration;
 import ebs.api.model.ArticleEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collection;
 
@@ -19,15 +20,16 @@ import java.util.Collection;
                 query = "SELECT e FROM Language e"
         )
 })
-public class LanguageEntity {
+public class LanguageEntity implements Serializable {
     private int id;
     private String name;
     private String value;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
-    private Collection<ArticleEntity> vsTArticlesById;
+    private Collection<ArticleEntity> articles;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", nullable = false)
     public int getId() {
         return id;
@@ -103,12 +105,12 @@ public class LanguageEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "vsELanguageByLanguageId")
-    public Collection<ArticleEntity> getVsTArticlesById() {
-        return vsTArticlesById;
+    @OneToMany(mappedBy = "language")
+    public Collection<ArticleEntity> getArticles() {
+        return articles;
     }
 
-    public void setVsTArticlesById(Collection<ArticleEntity> vsTArticlesById) {
-        this.vsTArticlesById = vsTArticlesById;
+    public void setArticles(Collection<ArticleEntity> articlesEntity) {
+        this.articles = articlesEntity;
     }
 }
