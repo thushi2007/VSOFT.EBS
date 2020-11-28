@@ -7,11 +7,14 @@ using System.Reflection;
 
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4.Services;
+using IdentityServer4.Stores;
 using IdentityServer4.Validation;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -30,14 +33,17 @@ namespace VSOFT.EBS.IDP
         ApiContextSetup apiSetup;
         readonly string MyAllowSpecificOrigins = "allowSpecificOrigins";
 
-        public Startup()
+
+        public Startup(IConfiguration config)
         {
-            apiSetup = new ApiContextSetup(DateTime.Now);
+            apiSetup = new ApiContextSetup(DateTime.Now, config);
             apiSetup.LoadAllConfigs();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
+
             var cultureInfo = new CultureInfo("de-CH");
             cultureInfo.NumberFormat.CurrencySymbol = "CHF";
                 
@@ -46,15 +52,13 @@ namespace VSOFT.EBS.IDP
 
             apiSetup.ConfigureServices(services);
 
-            //string signingCert = AppContext.BaseDirectory + apiSetup.AppConfigs.Secure.IdentitySigningCert;
-            //var cert = new X509Certificate2(signingCert, "", X509KeyStorageFlags.MachineKeySet);
-
             services.AddIdentity<AspNetUser, AspNetRole>()
             .AddEntityFrameworkStores<UserDbContext>()
             .AddDefaultTokenProviders();
 
             services.AddIdentityServer(options =>
             {
+                options.IssuerUri = apiSetup.AppConfigs.Secure.IssuerUrl;
                 options.Authentication.CookieLifetime = new TimeSpan(24, 0, 0);
                 options.Authentication.CookieSlidingExpiration = false;
             })
@@ -62,8 +66,8 @@ namespace VSOFT.EBS.IDP
              .AddInMemoryClients(Config.GetClients())
              .AddInMemoryApiScopes(Config.GetApiScopes())
              .AddDeveloperSigningCredential()
-             //.AddSigningCredential(cert)
              .AddProfileService<ProfileService>();
+
 
             services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
             services.AddTransient<IProfileService, ProfileService>();
@@ -146,6 +150,8 @@ namespace VSOFT.EBS.IDP
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseHealthChecks("/healthcheck");
 
             app.UseCors(MyAllowSpecificOrigins);
             app.UseIdentityServer();

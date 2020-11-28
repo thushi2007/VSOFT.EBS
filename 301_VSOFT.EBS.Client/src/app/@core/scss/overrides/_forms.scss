@@ -14,23 +14,47 @@ button:active, button:focus, button:hover, button:visited {
   outline: none !important;
 }
 
-.custom-input-container {
+.number-slider {
   display: block;
   width: 100%;
 
+  padding: 10px 0 10px 0;
+
+  > .slider {
+    display: inline-block;
+    width: 80%;
+    max-width: calc(100% - 80px);
+
+  }
+
+  > .input {
+    display: inline-block;
+    width: 80px;
+  }
+}
+
+.custom-input-container {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: $site-font !important;
+
   > .custom-label {
     display: inline-block;
+    vertical-align: top;
     width: 30%;
     text-align: right;
-    padding: 0px 10px 0 0;
+    padding: 15px 10px 0 0;
     color: $site-theme-blue;
-
+    font-family: $site-font !important;
 
     @include media-breakpoint-down('sm') {
       display: block;
       width: 100%;
       text-align: left;
       padding-bottom: 10px;
+      padding-top: 0px;
 
       &.middle {
         vertical-align: unset;
@@ -50,6 +74,7 @@ button:active, button:focus, button:hover, button:visited {
 
     &.required {
       font-weight: 600;
+      font-family: $site-font !important;
 
       > span {
         color: red;
@@ -59,7 +84,11 @@ button:active, button:focus, button:hover, button:visited {
 
   > .custom-input {
     display: inline-block;
+    //overflow: hidden;
     width: 70%;
+    padding: 0 0 7px 0;
+    font-family: $site-font;
+    text-align: left;
 
     @include media-breakpoint-down('sm') {
       display: block;
@@ -77,6 +106,8 @@ button:active, button:focus, button:hover, button:visited {
 
     &.onlytext {
       padding: 10px 0px 15px 0px;
+      font-family: $site-font;
+      text-align: left;
     }
 
     > .left {

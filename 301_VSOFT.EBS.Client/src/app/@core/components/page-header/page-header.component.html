@@ -1,6 +1,6 @@
 <div class="pageheader">
   <div class="title-container">
-    <div class="page-container" *ngIf="true" [@showPageTitle]>
+    <div class="page-container" [@showHideHeader]>
       <div class="title">
         {{pagePath?.Title}}
       </div>
@@ -8,7 +8,7 @@
   </div>
   <div class="path-container">
     <div class="page-container">
-      <div class="path" [@showPageSubTitle]>
+      <div class="path">
         <span class="home">
           <a [routerLink]="'/home'">
             <i class="fal fa-home"></i>

@@ -1,0 +1,13 @@
+1. Kubernetes secrets
+
+kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" create secret generic ebsidp-sqlcon --from-literal=SQLCON="Server=10.245.29.121, 1433; Database=EBSIDP; User Id=sa; Password=Arun0706!;"
+
+2. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" apply -f ebs-idp-volume.yaml
+3. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" describe pvc ebsidp-data
+4. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" apply -f ebs-idp-deployment.yaml
+5. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" get services
+
+Cleanup
+==========
+1. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete service ebsidp-service
+2. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete deployment ebsidp-deployment

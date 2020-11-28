@@ -10,7 +10,6 @@
   > header {
     display: block;
     width: 100%;
-    max-width: calc(100% - 20px);
     padding: 10px;
     margin: 0;
     text-align: center;
@@ -23,19 +22,42 @@
       max-width: calc(100% - 100px);
       padding: 0;
       margin: 0;
+
+      > .menu-icon {
+        display: inline-block;
+      }
+
+      > .item {
+        display: inline-block;
+
+        > a {
+          text-decoration: none;
+          color: #ffffff;
+
+          &:last-child {
+            margin-left: 10px;
+          }
+        }
+      }
     }
 
     .account {
       display: inline-block;
       width: 100px;
+      text-align: right;
 
-      > i {
-        font-size: 15pt;
+      > a {
+        color: #ffffff;
 
-        &:first-child {
-          font-size: 17pt;
-          padding-right: 10px;
+        > span {
+          font-size: 15pt;
+
+          &:first-child {
+            font-size: 17pt;
+            padding-right: 10px;
+          }
         }
+
       }
     }
   }

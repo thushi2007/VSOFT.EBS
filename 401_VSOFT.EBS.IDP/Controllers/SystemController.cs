@@ -18,7 +18,7 @@ namespace VSOFT.EBS.IDP.Controllers
         {
             ApiCtxt.Log.Information("Status requested!");
 
-            var stat = new { Environment = ApiCtxt.AppEnvironment, Started = ApiCtxt.AppStarted  };
+            var stat = new { Environment = ApiCtxt.AppEnvironment, Started = ApiCtxt.AppStarted, Name = this.ApiCtxt.AppConf.AppName, Version = this.ApiCtxt.AppVersion };
             return Ok(stat);
         }
     }

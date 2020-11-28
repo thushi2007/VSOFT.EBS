@@ -11,7 +11,7 @@ import {animate, animateChild, group, query, sequence, style, transition, trigge
         sequence([
           group([
             query(':self', [style({
-              height: '0'
+              height: '*'
             }), animate('200ms ease-in')], {optional: true}),
             query('.msg-container', [style({
               transform: 'translateY(-100%)'

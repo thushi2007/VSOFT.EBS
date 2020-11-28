@@ -1,0 +1,41 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+:host {
+  display: block;
+  width: 100%;
+
+  position: absolute;
+  top: 30%;
+
+  opacity: 0;
+
+  font-family: $site-font;
+
+  @include media-breakpoint-down('sm') {
+    top: 25%;
+  }
+
+  > .title-container {
+    display: inline-block !important;
+    margin: 0;
+    padding: 20px;
+    background-color: rgb(0, 73, 177, 0.5);
+    width: auto;
+
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: 700;
+
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+
+    @include media-breakpoint-down('sm') {
+      font-size: 20pt;
+      width: 80%;
+    }
+  }
+}

@@ -1,0 +1,78 @@
+version: '3.3'
+services:
+   mysql:
+     container_name: mysql
+     image: mysql:latest
+     user: root
+     volumes:
+      - ./data/mysql:/var/lib/mysql:z
+     ports:
+       - "3306:3306"
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: Arun0706!
+       MYSQL_DATABASE: ebs
+       MYSQL_USER: ebsuser
+       MYSQL_PASSWORD: Arun0706!
+     healthcheck:
+       test: mysqladmin ping -h localhost -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+   sqlserver:
+     container_name: sqlserver
+     image: mcr.microsoft.com/mssql/server:latest
+     user: root
+     volumes:
+        - ./data/mssql:/var/opt/mssql/data:z
+     ports:
+       - "1433:1433"
+     restart: always
+     environment:
+       SA_PASSWORD: Arun0706!
+       ACCEPT_EULA: Y
+     healthcheck:
+            test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$$SA_PASSWORD" -Q "SELECT 1" || exit 1
+            interval: 10s
+            timeout: 3s
+            retries: 10
+            start_period: 10s
+   ebsidp:
+     container_name: ebsidp     
+     build: 
+        context: ../../VSOFT.EBS
+        dockerfile: ./401_VSOFT.EBS.IDP/Dockerfile
+     user: root
+     volumes:
+        - ./data/ebsidp:/root/.aspnet/DataProtection-Keys:z
+     ports:
+       - "32839:80"
+     depends_on:
+         sqlserver:
+            condition: service_healthy
+     links:
+      - "sqlserver:sqldb"
+     restart: always
+     healthcheck:
+            test: curl --fail http://localhost/healthcheck || exit 1
+            interval: 10s
+            timeout: 3s
+            retries: 10
+   ebsapi:
+     container_name: ebsapi     
+     build: 
+        context: ../../VSOFT.EBS/402_VSOFT.EBS.API
+        dockerfile: ./Dockerfile
+     user: root
+     volumes:
+        - ./data/ebsapi:/opt/jboss/wildfly/standalone/log:z
+     ports:
+      - "8080:8080"
+     depends_on:
+         mysql:
+           condition: service_healthy
+         sqlserver:
+           condition: service_healthy
+         ebsidp:
+           condition: service_healthy
+     links:
+      - "mysql:db"
+      - "ebsidp:idp"    
+     restart: always

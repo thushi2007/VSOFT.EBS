@@ -18,15 +18,17 @@ namespace VSOFT.EBS.IDP.Helper
         public string AppName { get; set; }
         public string AppVersion { get; set; }
         public DateTime AppStarted { get; set; }
-
-        public ApiConfigs AppConfigs { get; set; }
         public String AppEnvironment { get; set; }
 
-        public IServiceCollection RootServices { get; set; }
+        public ApiConfigs AppConfigs { get; set; }
 
-        public ApiContextSetup(DateTime appStarted)
+        private IServiceCollection RootServices { get; set; }
+        private IConfiguration configs { get; set; }
+
+        public ApiContextSetup(DateTime appStarted, IConfiguration conf)
         {
             this.AppStarted = appStarted;
+            configs = conf;
         }
 
         /// <summary>
@@ -73,9 +75,7 @@ namespace VSOFT.EBS.IDP.Helper
         /// </summary>
 		private void AddDataContextService()
         {
-            this.RootServices.AddDbContext<UserDbContext>(options =>
-                options.UseSqlServer(this.AppConfigs.Secure.SqlConnectionString, 
-                options => options.EnableRetryOnFailure()));
+            this.RootServices.AddDbContext<UserDbContext>(options => options.UseSqlServer(this.AppConfigs.Secure.SqlConnectionString));
         }
 
         /// <summary>
@@ -122,15 +122,8 @@ namespace VSOFT.EBS.IDP.Helper
         /// </summary>
         private void LoadConfigurations()
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile($"appsettings.{this.AppEnvironment}.json", false, true)
-                .AddEnvironmentVariables()
-                .Build();
-
             ApiConfigs appConfig = (ApiConfigs)Activator.CreateInstance(typeof(ApiConfigs));
-            config.Bind(appConfig);
+            configs.Bind(appConfig);
 
             this.AppConfigs = appConfig;
 

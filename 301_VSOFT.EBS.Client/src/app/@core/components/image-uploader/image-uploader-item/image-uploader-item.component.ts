@@ -1,121 +1,103 @@
-import {Component, EventEmitter, HostBinding, Input, OnDestroy, Output} from '@angular/core';
-import {HttpClient, HttpEvent, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Component, HostBinding, Input, OnDestroy} from '@angular/core';
+import {HttpClient, HttpEventType} from '@angular/common/http';
 import {Subscription} from 'rxjs';
 import {ImageUploaderService} from '@core/components/image-uploader/services/image-uploader.service';
-import {animate, group, query, style, transition, trigger} from '@angular/animations';
+import {animate, style, transition, trigger} from '@angular/animations';
+import {Lightbox} from 'ngx-lightbox';
 
 @Component({
   selector: 'ebs-image-uploader-item',
   templateUrl: './image-uploader-item.component.html',
   styleUrls: ['./image-uploader-item.component.scss'],
   animations: [
-    trigger('showhideMe', [
-      transition('* => *', group([
-        query(':enter', [
-          style({
-            transform: 'translateY(-100%)',
-          }),
-          animate('200ms',
-            style({
-              transform: 'translateY(0)',
-            }))
-        ], {optional: true}),
-        query(':leave', [
-          style({
-            transform: 'translateY(0)',
-          }),
-          animate('200ms',
+    trigger(
+      'showHideUploadImageItem',
+      [
+        transition(
+          ':enter',
+          [
             style({
               transform: 'translateY(-100%)',
-            }))
-        ], {optional: true})
-      ]))
-    ])
+              opacity: 0
+            }),
+            animate('200ms',
+              style({
+                transform: 'translateY(0)',
+                opacity: 1
+              }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({
+              transform: 'translateY(0)',
+              opacity: 1
+            }),
+            animate('200ms',
+              style({
+                transform: 'translateY(-100%)',
+                opacity: 0
+              }))
+          ]
+        )
+      ]
+    )
   ]
 })
 export class ImageUploaderItemComponent implements OnDestroy {
-  @HostBinding('@showhideMe') showhideme;
+  @HostBinding('@showHideUploadImageItem') showHideUploadImageItem;
 
-  @Input() uploadEntpoint: string;
-  @Output() updateParent: EventEmitter<any> = new EventEmitter<any>();
-
-  @Input() file: File;
+  @Input() file: any;
   @Input() indx: number;
 
-  files: File[] = [];
-
   progress: number;
-  httpEvent: HttpEvent<{}>;
-  httpEmitter: Subscription;
 
+  httpEmitter: Subscription;
   subUploadImg: Subscription;
-  subCancelUpload: Subscription;
 
   constructor(public httpClient: HttpClient,
+              private lightbox: Lightbox,
               private uploaderService: ImageUploaderService) {
-    this.subUploadImg = this.uploaderService.uploadImage.subscribe((index: number) => {
-      this.uploadFile();
-    });
-
-    this.subCancelUpload = this.uploaderService.cancelUpload.subscribe(() => {
-      this.cancel();
-      this.updateParent.emit();
+    this.subUploadImg = this.uploaderService.uploadImage.subscribe((uploadUrl: string) => {
+      this.uploadFile(uploadUrl);
     });
   }
+
+  openImagePopup(): void {
+    const album = this.uploaderService.getimagesDataList();
+    this.lightbox.open(album, this.indx);
+  }
+
 
   removeImage(index: number): void {
     this.uploaderService.removeImage(index);
   }
 
-  cancel(): void {
-    this.progress = 0;
-    if (this.httpEmitter) {
-      this.httpEmitter.unsubscribe();
-    }
-  }
+  uploadFile(uploadUrl: string): void {
+    const formData = new FormData();
+    formData.append('File', this.file.file);
+    formData.append('Name', this.file.name);
+    formData.append('Size', this.file.size + '');
+    formData.append('Type', this.file.type);
 
-  uploadFile(): void {
-    this.uploaderService.uploadIsRunning(true);
-    const inputBody = new FormData();
-    inputBody.append('File', this.file);
-    inputBody.append('Name', this.file.name);
-    inputBody.append('Size', this.file.size + '');
-    inputBody.append('Type', this.file.type);
-
-    const req = new HttpRequest<FormData>(
-      'POST',
-      this.uploadEntpoint,
-      inputBody, {
-        reportProgress: true
-      });
-
-    this.httpEmitter = this.httpClient.request(req)
+    this.httpEmitter = this.httpClient.post(uploadUrl, formData, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
-          this.httpEvent = event;
-          if (event instanceof HttpResponse) {
-            delete this.httpEmitter;
-
-            setTimeout(() => {
-              this.removeImage(this.indx);
-            }, 1000);
-
-            this.updateParent.emit();
-          }
-        },
-        error => {
-          alert('Error Uploading Files: ' + error.message);
-        }, () => {
-          this.uploaderService.uploadIsRunning(false);
-        });
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress = 100 / event.total * event.loaded;
+        }
+        if (event.type === HttpEventType.Response) {
+          delete this.httpEmitter;
+          setTimeout(() => {
+            this.removeImage(this.indx);
+          }, 1000);
+        }
+      });
   }
 
   ngOnDestroy(): void {
     if (this.subUploadImg) {
       this.subUploadImg.unsubscribe();
-    }
-
-    if (this.subCancelUpload) {
-      this.subCancelUpload.unsubscribe();
     }
 
     if (this.httpEmitter) {

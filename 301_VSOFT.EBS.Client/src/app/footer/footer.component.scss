@@ -1,8 +1,12 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
 :host {
   display: block;
   width: 100%;
   padding: 0;
   margin: 0;
+  font-family: $site-font !important;
 
   > footer {
     display: block;
@@ -13,7 +17,6 @@
     > .foot {
       display: block;
       width: 100%;
-      max-width: calc(100% - 20px);
       padding: 10px;
       margin: 0;
       background-color: #eeeeee;

@@ -5,26 +5,27 @@ import {Observable, of} from 'rxjs';
 
 import {environment} from 'src/environments/environment';
 import {AuthService} from '@core/services/auth.service';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   constructor(private httpClient: HttpClient,
-              private authService: AuthService,
+              private oauthService: OAuthService,
               @Inject(PLATFORM_ID) private platformId: any) {
   }
 
-  public get(url: string, reCaptchaV3?: any, options?: any): Observable<any> {
+  public get(url: string, options?: any): Observable<any> {
     const urlDest = environment.apiUrl + url;
-    const token = this.authService.tokenIfUserLoggedIn();
+    const token = this.oauthService.hasValidAccessToken() ? this.oauthService.getAccessToken() : '';
 
     if (!options) {
       options = {
         headers: new HttpHeaders({
           'Content-Type': `application/json; charset=utf-8`,
           Accept: 'application/json',
-          Authorization: token ? `Bearer ${this.authService.tokenIfUserLoggedIn()}` : ''
+          Authorization: `Bearer ${token}`
         })
       };
     }
@@ -35,14 +36,14 @@ export class ApiService {
   public post(url: string, body: any, reCaptchaV3?: any, options?: any): Observable<any> {
     const bodyJson = JSON.stringify(body);
     const urlDest = environment.apiUrl + url;
-    const token = this.authService.tokenIfUserLoggedIn();
+    const token = this.oauthService.hasValidAccessToken() ? this.oauthService.getAccessToken() : '';
 
     if (!options) {
       options = {
         headers: new HttpHeaders({
           'Content-Type': `application/json; charset=utf-8`,
           Accept: 'application/json',
-          Authorization: token ? `Bearer ${this.authService.tokenIfUserLoggedIn()}` : '',
+          Authorization: `Bearer ${token}`,
           reCaptchV3: reCaptchaV3 ? reCaptchaV3 : ''
         })
       };
@@ -51,17 +52,17 @@ export class ApiService {
     return this.httpClient.post<any>(urlDest, bodyJson, options);
   }
 
-  public put(url: string, body: string, reCaptchaV3?: any, options?: any): Observable<any> {
+  public put(url: string, body: any, reCaptchaV3?: any, options?: any): Observable<any> {
     const bodyJson = JSON.stringify(body);
     const urlDest = environment.apiUrl + url;
-    const token = this.authService.tokenIfUserLoggedIn();
+    const token = this.oauthService.hasValidAccessToken() ? this.oauthService.getAccessToken() : '';
 
     if (!options) {
       options = {
         headers: new HttpHeaders({
           'Content-Type': `application/json; charset=utf-8`,
           Accept: 'application/json',
-          Authorization: token ? `Bearer ${this.authService.tokenIfUserLoggedIn()}` : '',
+          Authorization: `Bearer ${token}`,
           reCaptchV3: reCaptchaV3 ? reCaptchaV3 : ''
         })
       };
@@ -72,14 +73,14 @@ export class ApiService {
 
   public delete(url: string, reCaptchaV3?: any, options?: any): Observable<any> {
     const urlDest = environment.apiUrl + url;
-    const token = this.authService.tokenIfUserLoggedIn();
+    const token = this.oauthService.hasValidAccessToken() ? this.oauthService.getAccessToken() : '';
 
     if (!options) {
       options = {
         headers: new HttpHeaders({
           'Content-Type': `application/json; charset=utf-8`,
           Accept: 'application/json',
-          Authorization: token ? `Bearer ${this.authService.tokenIfUserLoggedIn()}` : '',
+          Authorization: `Bearer ${token}`,
           reCaptchV3: reCaptchaV3 ? reCaptchaV3 : ''
         })
       };
@@ -91,14 +92,14 @@ export class ApiService {
   public patch(url: string, body: string, reCaptchaV3?: any, options?: any): Observable<any> {
     const bodyJson = JSON.stringify(body);
     const urlDest = environment.apiUrl + url;
-    const token = this.authService.tokenIfUserLoggedIn();
+    const token = this.oauthService.hasValidAccessToken() ? this.oauthService.getAccessToken() : '';
 
     if (!options) {
       options = {
         headers: new HttpHeaders({
           'Content-Type': `application/json; charset=utf-8`,
           Accept: 'application/json',
-          Authorization: token ? `Bearer ${this.authService.tokenIfUserLoggedIn()}` : '',
+          Authorization: `Bearer ${token}`,
           reCaptchV3: reCaptchaV3 ? reCaptchaV3 : ''
         })
       };

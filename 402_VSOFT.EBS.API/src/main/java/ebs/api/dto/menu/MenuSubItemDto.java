@@ -1,15 +1,25 @@
 package ebs.api.dto.menu;
 
-import ebs.api.model.SubKategorie;
-
 public class MenuSubItemDto {
-    public String Icon;
-    public String Text;
-    public String SText;
+    private long Id;
+    private String Name;
 
-    public MenuSubItemDto(SubKategorie skat){
-        this.Icon = skat.getIcon();
-        this.Text = skat.getSubKategorie();
-        this.SText = skat.getSText();
+    public MenuSubItemDto() {
+    }
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 }

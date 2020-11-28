@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      terminationGracePeriodSeconds: 30
+      hostname: mysqllinst
+      securityContext:
+        fsGroup: 10001
+      containers:
+      - name: mysql
+        image: mysql:latest
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+                name: mysql-sapwd
+                key: MYSQL_ROOT_PASSWORD        
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+                name: mysql-username
+                key: MYSQL_USERNAME
+        - name: MYSQL_DB
+          valueFrom:
+            secretKeyRef:
+                name: mysql-database
+                key: MYSQL_DATABASE
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+                name: mysql-password
+                key: MYSQL_PASSWORD
+        volumeMounts:
+        - name: mysql
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql
+        persistentVolumeClaim:
+          claimName: mysql-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+  type: LoadBalancer

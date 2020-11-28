@@ -1,5 +1,5 @@
-<div class="arrowbefore"></div>
-<div class="header-item">
-  {{Index + 1}}. {{Text}}
+<div class="arrowbefore" [@selecteFirstdNot]="isSelected()"></div>
+<div class="header-item" [@selectedNot]="isSelected()">
+  {{Index + 1}}. <span>{{Text}}</span>
 </div>
-<div class="arrownext"></div>
+<div class="arrownext" [@selecteLastdNot]="isSelected()"></div>

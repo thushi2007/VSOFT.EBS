@@ -2,116 +2,58 @@
   display: block;
   width: 100%;
 
-  .drop-zone {
-    border: dotted 3px lightgray;
-    text-align: center;
-  }
+  > .image-uploader {
+    display: block;
+    width: 100%;
+    border: dashed 1px #aaaaaa;
+    padding: 10px;
 
-  /* Default class applied to drop zones on over */
-  .invalid-drag {
-    border: dotted 3px red;
-  }
+    > .dragDrop {
+      display: block;
+      width: 100%;
+      padding: 20px;
+      vertical-align: middle;
+      text-align: center;
+      cursor: pointer;
+      border: dashed 1px #aaaaaa;
 
-  .valid-drag {
-    border: dotted 3px green;
-  }
+      > .uploadicon {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 0;
 
-  .uploadicon {
-    padding: 0;
-    margin: 0;
+        > i {
+          font-size: 30pt;
+        }
+      }
 
-    padding: 5px 0 0 0;
+      > .uploadtext {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 10px 0 0 0;
+        font-size: 9pt;
+        font-style: italic;
+      }
+    }
 
-    > i {
-      font-size: 45pt;
-      color: #aaaaaa;
+    > .fileupload-input {
+      display: none;
     }
   }
 
-  .uploadtext {
-    padding: 5px 0 0 0;
-    margin: 0;
-    font-size: 8pt;
-    font-style: italic;
+  > .mainactions {
+    display: block;
+    width: 100%;
+    text-align: right;
+    margin-top: 20px;
   }
 
-  .previewIcon {
+  .imgBack {
     width: 70px;
     height: 70px;
     background-size: cover;
     background-repeat: no-repeat;
-  }
-
-  .dragndrop {
-    display: inline-block;
-    width: 100%;
-    padding: 10px;
-    border: solid 1px lightgray;
-
-    > .drop-zone {
-      min-height: 100px;
-      background-color: #eeeeee;
-      //border: dotted 3px lightgray;
-    }
-  }
-
-  .info {
-    display: inline-block;
-    width: 100%;
-    margin: 0;
-    padding: 10px 0 0 0;
-    font-size: 9pt;
-    font-style: italic;
-  }
-
-  .warn {
-    display: inline-block;
-    width: 100%;
-    margin: 0;
-    padding: 10px 0 0 0;
-    font-size: 9pt;
-    font-style: italic;
-    color: red;
-  }
-
-  .message-container {
-    display: block;
-    width: 100%;
-
-    >.left {
-      display: inline-block;
-      width: 50%;
-    }
-
-    >.right {
-      display: inline-block;
-      width: 50%;
-      text-align: right;
-    }
-  }
-
-  .mainactions {
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-
-    > .left {
-      display: inline-block;
-      width: 50%;
-      text-align: left;
-    }
-
-    > .right {
-
-      > button {
-        &:first-child {
-          margin-right: 10px;
-        }
-      }
-
-      display: inline-block;
-      width: 50%;
-      text-align: right;
-    }
   }
 }

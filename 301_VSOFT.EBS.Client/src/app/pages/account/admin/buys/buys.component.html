@@ -1,0 +1,110 @@
+<ebs-page-header [pagePath]="paths"></ebs-page-header>
+<div class="page-container">
+  <div class="page-sub-menu">
+    <ebs-submenu [url]="'/benutzerkonto/admin'"></ebs-submenu>
+  </div>
+  <div class="page-content">
+    <div class="custom-form-groupbox">
+      <div class="custom-title">Alle Bestellungen</div>
+
+
+      <div class="example-table-container">
+
+        <table mat-table [dataSource]="data" class="example-table"
+               matSort matSortActive="servicetyp" matSortDisableClear matSortDirection="desc">
+          <!-- Number Column -->
+
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef class="customheader">
+              <!--              <mat-checkbox (change)="$event ? masterToggle() : null"-->
+              <!--                            [checked]="selection.hasValue() && isAllSelected()"-->
+              <!--                            [indeterminate]="selection.hasValue() && !isAllSelected()"-->
+              <!--                            [aria-label]="checkboxLabel()">-->
+              <!--              </mat-checkbox>-->
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <!--              <mat-checkbox (click)="$event.stopPropagation()"-->
+              <!--                            (change)="$event ? selection.toggle(row) : null"-->
+              <!--                            [checked]="selection.isSelected(row)"-->
+              <!--                            [aria-label]="checkboxLabel(row)">-->
+              <!--              </mat-checkbox>-->
+            </td>
+            <td mat-footer-cell *matFooterCellDef class="customheader">
+              <!--              <mat-checkbox (change)="$event ? masterToggle() : null"-->
+              <!--                            [checked]="selection.hasValue() && isAllSelected()"-->
+              <!--                            [indeterminate]="selection.hasValue() && !isAllSelected()"-->
+              <!--                            [aria-label]="checkboxLabel()">-->
+              <!--              </mat-checkbox>-->
+            </td>
+          </ng-container>
+
+          <!--          <ng-container matColumnDef="select">-->
+          <!--            <th mat-header-cell *matHeaderCellDef></th>-->
+          <!--            <td mat-cell *matCellDef="let row">{{row.Servicetyp}}</td>-->
+          <!--          </ng-container>-->
+
+
+          <ng-container matColumnDef="servicetyp">
+            <th mat-header-cell *matHeaderCellDef class="customheader">Servicetyp</th>
+            <td mat-cell *matCellDef="let row">{{row.Servicetyp}}</td>
+            <td mat-footer-cell *matFooterCellDef class="customheader">Servicetyp</td>
+          </ng-container>
+
+          <!-- Title Column -->
+          <ng-container matColumnDef="subtyp">
+            <th mat-header-cell *matHeaderCellDef class="customheader">Subtyp</th>
+            <td mat-cell *matCellDef="let row">{{row.Subtyp}}</td>
+            <td mat-footer-cell *matFooterCellDef class="customheader">Subtyp</td>
+          </ng-container>
+
+          <!-- State Column -->
+          <ng-container matColumnDef="anfragedatum">
+            <th mat-header-cell *matHeaderCellDef class="textalignend customheader">Anfragedatum</th>
+            <td mat-cell *matCellDef="let row" class="textalignend">{{row.CreationDate| date: 'dd.MM.yyyy HH:MM'}}</td>
+            <td mat-footer-cell *matFooterCellDef class="textalignend customheader">Anfragedatum</td>
+          </ng-container>
+
+          <!-- Created Column -->
+          <ng-container matColumnDef="geaendertam">
+            <th mat-header-cell *matHeaderCellDef class="textalignend customheader">Geändert am</th>
+            <td mat-cell *matCellDef="let row" class="textalignend">{{row.ModifiedDate | date: 'dd.MM.yyyy HH:MM'}}</td>
+            <td mat-footer-cell *matFooterCellDef class="textalignend customheader">Geändert am</td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="menu">
+            <th mat-header-cell *matHeaderCellDef class="customheader"></th>
+            <td mat-cell *matCellDef="let row" class="menucell">
+              <button mat-icon-button aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>dialpad</mat-icon>
+                  <span>fortsetzen</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>notifications_off</mat-icon>
+                  <span>löschen</span>
+                </button>
+              </mat-menu>
+
+            </td>
+            <td mat-footer-cell *matFooterCellDef class="customheader"></td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+      </div>
+
+      <mat-paginator [pageSize]="30"></mat-paginator>
+    </div>
+
+
+  </div>
+</div>
+
+

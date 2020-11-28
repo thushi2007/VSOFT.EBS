@@ -1,16 +1,43 @@
 package ebs.api.dto.menu;
 
-import ebs.api.model.Kategorie;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuItemDto {
-    public String Icon;
-    public String SText;
-    public String Text;
+    private long Id;
+    private String Category;
+    private List<MenuSubItemDto> SubCategories;
 
-    public MenuItemDto(Kategorie kat)
-    {
-        this.Icon = kat.getIcon();
-        this.Text = kat.getKategorie();
-        this.SText = kat.getSText();
+    public MenuItemDto() {
+        this.SubCategories = new ArrayList<MenuSubItemDto>();
+    }
+
+    @JsonProperty("Id")
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
+    }
+
+    @JsonProperty("Category")
+    public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        Category = category;
+    }
+
+    @JsonProperty("SubCategories")
+    public List<MenuSubItemDto> getSubCategories() {
+        return SubCategories;
+    }
+
+    public void setSubCategories(List<MenuSubItemDto> subCategories) {
+        SubCategories = subCategories;
     }
 }

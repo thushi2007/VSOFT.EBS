@@ -5,6 +5,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
 
 @WebFilter(filterName = "corsFilter")
 public class CorsFilter implements Filter {
@@ -14,17 +15,17 @@ public class CorsFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        System.out.println("In CorsFilter, method: " + request.getMethod());
-        // Authorize (allow) all domains to consume the content
-        response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-        response.addHeader("Access-Control-Allow-Methods", "GET");
-        response.addHeader("Access-Control-Allow-Headers", "*");
-        // For HTTP OPTIONS verb/method reply with ACCEPTED status code -- per CORS handshake
-        if (request.getMethod().equals("OPTIONS")) {
-            response.setStatus(HttpServletResponse.SC_ACCEPTED);
-            return;
+
+        if (request.getHeader("Origin") != null) {
+            response.addHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+            response.addHeader("Access-Control-Allow-Methods", "GET, POST, UPDATE, DELETE, OPTIONS");
+            response.addHeader("Access-Control-Allow-Headers", "*");
         }
-        // pass the request along the filter chain
+//        if (request.getMethod().equals("OPTIONS")) {
+//            response.setStatus(HttpServletResponse.SC_ACCEPTED);
+//            return;
+//        }
+
         chain.doFilter(request, response);
     }
 

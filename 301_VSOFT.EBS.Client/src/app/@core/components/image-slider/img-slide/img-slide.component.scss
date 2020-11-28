@@ -1,0 +1,26 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+:host {
+  display: inline-block;
+  width: 100%;
+  padding: 0;
+  text-align: center;
+
+  > .slide-item {
+    display: block;
+    width: 100%;
+    min-height: 650px;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    -webkit-box-shadow: inset 0px 0px 87px -45px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 0px 0px 87px -45px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 0px 0px 87px -45px rgba(0, 0, 0, 0.75);
+
+    @include media-breakpoint-down('sm') {
+      min-height: 400px;
+    }
+  }
+}

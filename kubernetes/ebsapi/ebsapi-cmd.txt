@@ -1,0 +1,14 @@
+1. Kubernetes secrets
+
+kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" create secret generic ebsapi-idp --from-literal=IDP="http://10.245.254.95"
+kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" create secret generic ebsapi-idpclient --from-literal=IDPCLIENTURL="http://178.128.134.209"
+kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" create secret generic ebsapi-dbcon --from-literal=DB_URI="10.245.40.216:32503"
+
+2. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" apply -f ebs-api-deployment.yaml
+3. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" get services
+
+
+Cleanup
+==========
+1. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete service ebsapi-service
+2. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete deployment ebsapi-deployment

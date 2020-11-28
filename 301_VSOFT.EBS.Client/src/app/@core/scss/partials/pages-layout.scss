@@ -6,14 +6,6 @@
   color: #ffffff;
 }
 
-body {
-  display: block;
-  width: 100%;
-  font-family: $site-font;
-  margin: 0;
-  padding: 0;
-}
-
 .page-container {
   display: inline-block;
   width: $site-width;
@@ -45,6 +37,8 @@ body {
     width: 80%;
     vertical-align: top;
     padding: 0 0 0 20px;
+    background-color: #ffffff;
+    overflow: hidden;
 
     @include media-breakpoint-down('sm') {
       display: block;

@@ -2,6 +2,8 @@
   display: block;
   width: 100%;
 
+  overflow: hidden;
+
   > .stepper {
     display: block;
     width: 100%;
@@ -18,8 +20,8 @@
       display: block;
       margin-top: 10px;
       width: 100%;
+
       position: relative;
-      height: content-box;
     }
   }
 }

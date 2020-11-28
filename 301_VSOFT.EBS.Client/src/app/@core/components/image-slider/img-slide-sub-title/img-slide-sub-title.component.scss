@@ -1,0 +1,72 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+:host {
+  display: block;
+  width: 100%;
+
+  position: absolute;
+  top: 50%;
+
+  opacity: 0;
+
+  @include media-breakpoint-down('sm') {
+    top: 60%;
+    margin: 30px 0 0 0;
+  }
+
+  > .subtitle-container {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 20px;
+
+    @include media-breakpoint-down('sm') {
+      width: 80%;
+    }
+
+    background-color: rgba(255, 255, 255, 0.7);
+
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  > .btn-container {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+
+    > a {
+      display: inline-block;
+      text-decoration: none;
+      padding: 5px;
+      background-color: $site-theme-blue;
+      color: #ffffff;
+
+      border-radius: 25px;
+
+      > span {
+        display: inline-block;
+        margin: 6px 10px 0 10px;
+        font-weight: 500;
+      }
+
+      > i {
+        width: 40px;
+        height: 40px;
+        background: #ffffff;
+        border-radius: 20px;
+        color: #000000;
+        font-size: 30pt;
+        vertical-align: top;
+      }
+    }
+  }
+}

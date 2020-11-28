@@ -1,14 +1,14 @@
 import {Injectable, Inject, PLATFORM_ID} from '@angular/core';
-import {HttpRequest, HttpHandler, HttpEvent, HttpResponse} from '@angular/common/http';
+import {HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpInterceptor} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {TransferState, makeStateKey, StateKey} from '@angular/platform-browser';
+import {TransferState, makeStateKey} from '@angular/platform-browser';
 import {isPlatformBrowser, isPlatformServer} from '@angular/common';
 
 const STATE_KEY_PREFIX = 'http_requests:';
 
 @Injectable()
-export class HttpInterceptor implements HttpInterceptor {
+export class CustomHttpInterceptor implements HttpInterceptor {
   constructor(private transferState: TransferState,
               @Inject(PLATFORM_ID) private platformId: string) {
   }

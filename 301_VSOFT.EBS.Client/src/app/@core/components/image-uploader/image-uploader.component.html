@@ -1,45 +1,18 @@
-<!--<div class="dragndrop">-->
-<!--  <div-->
-<!--    ngfDrop-->
-<!--    multiple="1"-->
-<!--    selectable="1"-->
-<!--    [(validDrag)]="validComboDrag"-->
-<!--    [(files)]="files"-->
-<!--    accept="image/*"-->
-<!--    [maxSize]="maxSize"-->
-<!--    [(lastInvalids)]="lastInvalids"-->
-<!--    class="well drop-zone"-->
-<!--    [class.invalid-drag]="validComboDrag===false"-->
-<!--    [class.valid-drag]="validComboDrag"-->
-<!--    (filesChange)="lastFileAt=getDate()"-->
-<!--    (lastInvalidsChange)="invalidErrorMessage($event)"-->
-<!--    [fileDropDisabled]="fileDropDisabled">-->
-<!--    <p class="uploadicon"><i class="fal fa-upload"></i></p>-->
-<!--    <p class="uploadtext">Bitte Bild(er) hineinziehen (Max. Dateigrösse 5MB). </p>-->
-<!--  </div>-->
-<!--  <ebs-image-uploader-item *ngFor="let item of files;let i=index"-->
-<!--                           [uploadEntpoint]="uploadEntpoint" (updateParent)="updateParentOfChild()"-->
-<!--                           [file]="item" [indx]="i"></ebs-image-uploader-item>-->
-<!--  <div class="message-container">-->
-<!--    <div class="left">-->
-<!--      <p class="info">{{files.length}} Bild(er) zum Hochladen.</p>-->
-<!--    </div>-->
-<!--    <div class="right">-->
-<!--      <p class="warn">{{errorMessage}}</p>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<div class="mainactions">-->
-<!--  <div class="left">-->
-<!--    <button type="button" mat-raised-button [color]="'primary'" (click)="clearAllImages()"-->
-<!--            [disabled]="files.length === 0">Alle Bilder entfernen-->
-<!--    </button>-->
-<!--  </div>-->
-<!--  <div class="right">-->
-<!--    <button type="button" [disabled]="!uploadIsRunnig" mat-raised-button [color]="'warn'" (click)="cancelUpload()">-->
-<!--      Upload stoppen-->
-<!--    </button>-->
-<!--    <ebs-promise-button [btnDisabled]="files.length === 0" (btnAction)="uploadAll()">Alle Bilder hochladen-->
-<!--    </ebs-promise-button>-->
-<!--  </div>-->
-<!--</div>-->
+<div class="image-uploader">
+  <div class="dragDrop" (click)="fileupload.click()" aimDragdropfile
+       (onFileDropped)="uploadFile($event); fileupload.value=''"
+       [maxSize]="maxSize">
+    <p class="uploadicon"><i class="fal fa-cloud-upload"></i></p>
+    <p class="uploadtext">Bitte Bild(er) hineinziehen (Max. Dateigrösse 5MB). </p>
+  </div>
+  <input type="file" #fileupload class="fileupload-input"
+         (change)="uploadFile($event.target.files); fileupload.value=''" multiple
+         [accept]="getAcceptedTypes()">
+  <ebs-image-uploader-item *ngFor="let item of files;let i=index"
+                           [file]="item" [indx]="i"></ebs-image-uploader-item>
+</div>
+<div class="mainactions">
+  <button type="button" mat-raised-button [color]="'primary'" (click)="clearAllImages()"
+          [disabled]="files.length === 0">Alle Bilder entfernen
+  </button>
+</div>

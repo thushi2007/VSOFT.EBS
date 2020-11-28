@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  width: 100%;
+  text-align: left;
+
+  > .sub-menu-item {
+    padding: 2px 0 2px 0;
+  }
+}

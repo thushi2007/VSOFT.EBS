@@ -1,0 +1,7 @@
+<div class="menu-item">
+  <span class="far fa-angle-right" (click)="openSubMenu()" [@rotateUpDown]="subMenuOpened"></span>
+  <b>{{category.Category}}</b>
+</div>
+<div class="sub-menu-container" [@openCloseSubCategory]="subMenuOpened">
+  <ebs-subcategory *ngFor="let subkat of category.SubCategories;let i = index;" [category]="subkat"></ebs-subcategory>
+</div>

@@ -11,12 +11,12 @@ import {AgmDirectionModule} from 'agm-direction';
 import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/google-maps-autocomplete';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {HttpInterceptor} from '@core/interceptors/httpinterceptor';
+import {HttpClientModule} from '@angular/common/http';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FooterModule} from './footer/footer.module';
 import {HeaderModule} from './header/header.module';
+import {CoreModule} from '@core/core.module';
 
 export const MY_FORMATS = {
   parse: {
@@ -50,6 +50,7 @@ export function getLocalStorage(): any {
     HeaderModule,
     FooterModule,
     PagesModule,
+    CoreModule.forRoot(),
     OAuthModule.forRoot({
       resourceServer: {
         sendAccessToken: true
@@ -63,11 +64,6 @@ export function getLocalStorage(): any {
     AgmDirectionModule,
     MatGoogleMapsAutocompleteModule,
     NgxMaskModule.forRoot({validation: false}),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDe4ycHAmYcqUu3wfXzL1rnHwPvVDr8fIY',
-      region: 'CH',
-      libraries: ['places']
-    }),
     SweetAlert2Module.forRoot(),
     MatMomentDateModule
   ],
@@ -81,9 +77,8 @@ export function getLocalStorage(): any {
       useFactory: getLocalStorage
     },
     {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptor,
-      multi: true
+      provide: MAT_DATE_LOCALE,
+      useValue: 'de-CH'
     },
     {
       provide: DateAdapter,
@@ -93,6 +88,10 @@ export function getLocalStorage(): any {
     {
       provide: MAT_DATE_FORMATS,
       useValue: MY_FORMATS
+    },
+    {
+      provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+      useValue: {useUtc: true}
     },
   ],
   bootstrap: [AppComponent]

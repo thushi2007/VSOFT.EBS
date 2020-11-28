@@ -8,12 +8,17 @@ $gray: #eeeeee;
   margin: 0;
   text-align: center;
   background: $gray;
-  padding: 10px;
+/*  padding: 10px;*/
   position: relative;
 
   &.selected {
-    background: $site-theme-blue;
-    color: #ffffff;
+
+
+
+    .header-item {
+      background: $site-theme-blue;
+      color: #ffffff;
+    }
 
     .arrownext {
       border-left: 25px solid $site-theme-blue;
@@ -27,7 +32,19 @@ $gray: #eeeeee;
 
   > .header-item {
     display: inline-block;
+    width: 100%;
     vertical-align: top;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+
+    @include media-breakpoint-down('sm') {
+      padding-left: 30px;
+      text-align: center;
+
+      span {
+        display: none;
+      }
+    }
   }
 
   &:first-child {
