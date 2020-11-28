@@ -40,6 +40,13 @@ spec:
                 secretKeyRef:
                     name: ebsapi-dbcon
                     key: DB_URI
+      volumeMounts:
+      - name: ebsidp
+          mountPath: /opt/jboss/wildfly/standalone/log
+      volumes:
+      - name: ebsapi
+        persistentVolumeClaim:
+          claimName: ebsapi-data
 ---
 apiVersion: v1
 kind: Service

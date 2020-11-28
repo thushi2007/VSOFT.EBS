@@ -23,10 +23,25 @@ public class AppProperties {
         try (InputStream inputFile = new FileInputStream(fileName)) {
             Properties appProps = new Properties();
             appProps.load(inputFile);
-            this.idpUrl = appProps.getProperty("idp");
-            this.idpClientUrl = appProps.getProperty("idpclienturl");
+
+            this.idpUrl = checkIfEnvironmentValue(appProps.getProperty("idp"));
+            this.idpClientUrl = checkIfEnvironmentValue(appProps.getProperty("idpclienturl"));
         } catch (IOException io) {
             io.printStackTrace();
         }
+    }
+
+
+    String checkIfEnvironmentValue(String propValue) {
+        String newValue = "";
+
+        if (propValue.startsWith("${") && propValue.endsWith("}")) {
+            String envPropName = propValue.replace("${", "").replace("}", "");
+            newValue = System.getenv(envPropName);
+        } else {
+            newValue = propValue;
+        }
+
+        return newValue;
     }
 }

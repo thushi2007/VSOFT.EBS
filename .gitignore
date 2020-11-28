@@ -11,3 +11,4 @@
 /.vs/VSOFT.EBS/v16/.suo
 /401_VSOFT.EBS.IDP/401_VSOFT.EBS.IDP.csproj.user
 /.vs
+/docker/data

@@ -7,6 +7,7 @@ using System.Reflection;
 
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4.Services;
+using IdentityServer4.Stores;
 using IdentityServer4.Validation;
 
 using Microsoft.AspNetCore.Builder;
@@ -65,8 +66,8 @@ namespace VSOFT.EBS.IDP
              .AddInMemoryClients(Config.GetClients())
              .AddInMemoryApiScopes(Config.GetApiScopes())
              .AddDeveloperSigningCredential()
-             //.AddSigningCredential(cert)
              .AddProfileService<ProfileService>();
+
 
             services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
             services.AddTransient<IProfileService, ProfileService>();

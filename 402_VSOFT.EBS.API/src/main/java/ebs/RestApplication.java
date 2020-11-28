@@ -8,8 +8,8 @@ import ebs.api.jwt.JWTService;
 import ebs.api.resource.*;
 
 import io.swagger.annotations.*;
-import io.swagger.jaxrs.Reader;
 import io.swagger.jaxrs.config.BeanConfig;
+
 
 import javax.ejb.Stateless;
 import javax.ws.rs.ApplicationPath;
@@ -17,6 +17,7 @@ import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 
 @Stateless
 @SwaggerDefinition(info = @Info(
@@ -32,6 +33,7 @@ import java.util.Set;
 @Api(value = "EBS Onlineshop Backend REST- API", authorizations = @Authorization(("jwt-auth")))
 @ApplicationPath("/api")
 public class RestApplication extends Application {
+    static Logger logger = Logger.getLogger(RestApplication.class);
     private static final AppProperties appProperties = new AppProperties();
 
     public RestApplication() {
@@ -39,6 +41,8 @@ public class RestApplication extends Application {
         beanConfig.setBasePath("/ebs/api");
         beanConfig.setResourcePackage("ebs");
         beanConfig.setScan(true);
+
+        this.logger.info("Api started");
     }
 
     @Override

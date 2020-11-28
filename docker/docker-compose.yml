@@ -3,6 +3,9 @@ services:
    mysql:
      container_name: mysql
      image: mysql:latest
+     user: root
+     volumes:
+      - ./data/mysql:/var/lib/mysql:z
      ports:
        - "3306:3306"
      restart: always
@@ -16,6 +19,9 @@ services:
    sqlserver:
      container_name: sqlserver
      image: mcr.microsoft.com/mssql/server:latest
+     user: root
+     volumes:
+        - ./data/mssql:/var/opt/mssql/data:z
      ports:
        - "1433:1433"
      restart: always
@@ -33,6 +39,9 @@ services:
      build: 
         context: ../../VSOFT.EBS
         dockerfile: ./401_VSOFT.EBS.IDP/Dockerfile
+     user: root
+     volumes:
+        - ./data/ebsidp:/root/.aspnet/DataProtection-Keys:z
      ports:
        - "32839:80"
      depends_on:
@@ -51,16 +60,19 @@ services:
      build: 
         context: ../../VSOFT.EBS/402_VSOFT.EBS.API
         dockerfile: ./Dockerfile
+     user: root
+     volumes:
+        - ./data/ebsapi:/opt/jboss/wildfly/standalone/log:z
      ports:
       - "8080:8080"
      depends_on:
          mysql:
            condition: service_healthy
          sqlserver:
-             condition: service_healthy
+           condition: service_healthy
          ebsidp:
-             condition: service_healthy
+           condition: service_healthy
      links:
       - "mysql:db"
       - "ebsidp:idp"    
-     restart: always      
+     restart: always

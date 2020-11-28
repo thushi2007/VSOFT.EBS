@@ -16,7 +16,7 @@ ENV WILDFLY_PASS Arun0706!
 
 # Database
 ENV DB_NAME ebs
-ENV DB_USER ebsuser
+ENV DB_USER root
 ENV DB_PASS Arun0706!
 ENV DB_URI db:3306
 
@@ -27,12 +27,12 @@ ENV IDPCLIENTURL http://127.0.0.1:32839
 ENV MYSQL_VERSION 8.0.20
 ENV JBOSS_CLI /opt/jboss/wildfly/bin/jboss-cli.sh
 ENV DEPLOYMENT_DIR /opt/jboss/wildfly/standalone/deployments/
-ENV DEPLOYMENT_CONFIG /opt/jboss/wildfly/standalone/configuration/application.properties
+ENV APPLICATION_CONFIG /opt/jboss/wildfly/standalone/configuration/application.properties
 ENV SOURCE_DIR /home/app/target/ebs-1.0.0-SNAPSHOT.war
 
 # Generating properties file
-RUN echo "idp = \${env:IDP}" >> ${DEPLOYMENT_CONFIG}
-RUN echo "idpclienturl = \${env:IDPCLIENTURL}" >> ${DEPLOYMENT_CONFIG}
+RUN echo "idp=\${IDP}" >> ${APPLICATION_CONFIG}
+RUN echo "idpclienturl=\${IDPCLIENTURL}" >> ${APPLICATION_CONFIG}
 
 RUN echo "=> Adding WildFly administrator"
 RUN $JBOSS_HOME/bin/add-user.sh -u $WILDFLY_USER -p $WILDFLY_PASS --silent
