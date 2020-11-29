@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ebsapi-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
      matchLabels:
        app: ebsapi
@@ -18,10 +18,13 @@ spec:
         fsGroup: 10001
       containers:
       - name: ebsapi
-        image: thushi2007/ebsapi:v2
+        image: thushi2007/ebsapi:v3
         ports:
         - containerPort: 8080
         imagePullPolicy: Always
+        volumeMounts:
+        - name: ebsapi
+          mountPath: /opt/jboss/wildfly/standalone/log
         env:
             - name: APPVERSION
               value: "78654"
@@ -40,9 +43,6 @@ spec:
                 secretKeyRef:
                     name: ebsapi-dbcon
                     key: DB_URI
-      volumeMounts:
-      - name: ebsidp
-          mountPath: /opt/jboss/wildfly/standalone/log
       volumes:
       - name: ebsapi
         persistentVolumeClaim:
@@ -60,3 +60,4 @@ spec:
       port: 8080
       targetPort: 8080
   type: LoadBalancer
+  loadBalancerIP: 161.35.253.11

@@ -11,3 +11,4 @@ Cleanup
 ==========
 1. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete service ebsidp-service
 2. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete deployment ebsidp-deployment
+3. kubectl --kubeconfig="C:\Users\thush\Desktop\kubernetes\ebskubernetescluster-kubeconfig.yaml" delete persistentvolumeclaim ebsidp-data

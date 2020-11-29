@@ -21,8 +21,8 @@ ENV DB_PASS Arun0706!
 ENV DB_URI db:3306
 
 # Environment properties
-ENV IDP http://idp:80
-ENV IDPCLIENTURL http://127.0.0.1:32839
+ENV IDP http://178.128.134.209
+ENV IDPCLIENTURL http://178.128.134.209
 
 ENV MYSQL_VERSION 8.0.20
 ENV JBOSS_CLI /opt/jboss/wildfly/bin/jboss-cli.sh

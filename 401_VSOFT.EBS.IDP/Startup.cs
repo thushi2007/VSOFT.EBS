@@ -58,7 +58,6 @@ namespace VSOFT.EBS.IDP
 
             services.AddIdentityServer(options =>
             {
-                options.IssuerUri = apiSetup.AppConfigs.Secure.IssuerUrl;
                 options.Authentication.CookieLifetime = new TimeSpan(24, 0, 0);
                 options.Authentication.CookieSlidingExpiration = false;
             })
@@ -126,7 +125,7 @@ namespace VSOFT.EBS.IDP
                 builder =>
                 {
                     var origins = apiSetup.AppConfigs.ClientOrigin.Split(";");
-                    builder.WithOrigins(origins)
+                    builder.AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 }); 

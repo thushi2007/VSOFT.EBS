@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ebsidp-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
      matchLabels:
        app: ebsidp
@@ -18,9 +18,13 @@ spec:
         fsGroup: 10001
       containers:
       - name: ebsidp
-        image: thushi2007/ebsidp:v1
+        image: thushi2007/ebsidp:v4
         ports:
         - containerPort: 80
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: ebsidp
+          mountPath: /root/.aspnet/DataProtection-Keys
         env:
             - name: ASPNETCORE_URLS
               value: "http://+:80"
@@ -31,9 +35,6 @@ spec:
                 secretKeyRef:
                     name: ebsidp-sqlcon
                     key: SQLCON
-      volumeMounts:
-      - name: ebsidp
-          mountPath: /root/.aspnet/DataProtection-Keys
       volumes:
       - name: ebsidp
         persistentVolumeClaim:
@@ -51,3 +52,4 @@ spec:
       port: 80
       targetPort: 80
   type: LoadBalancer
+  loadBalancerIP: 178.128.134.209
