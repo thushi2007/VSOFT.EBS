@@ -19,25 +19,25 @@ import java.util.Collection;
         )
 })
 public class CategoryEntity implements Serializable {
-    private int id;
+    private Integer id;
     private String icon;
     private String category;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
+
     private Collection<SubcategoryEntity> subCategories;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", nullable = false)
-    public int getId() {
+    @Column(name = "Id")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
     @Column(name = "Icon", nullable = true, length = 100)
     public String getIcon() {
         return icon;
@@ -47,7 +47,6 @@ public class CategoryEntity implements Serializable {
         this.icon = icon;
     }
 
-    @Basic
     @Column(name = "Category", nullable = true, length = 100)
     public String getCategory() {
         return category;
@@ -57,7 +56,6 @@ public class CategoryEntity implements Serializable {
         this.category = category;
     }
 
-    @Basic
     @Column(name = "CreatedOn", nullable = true)
     public Timestamp getCreatedOn() {
         return createdOn;
@@ -67,7 +65,6 @@ public class CategoryEntity implements Serializable {
         this.createdOn = createdOn;
     }
 
-    @Basic
     @Column(name = "ModifiedOn", nullable = true)
     public Timestamp getModifiedOn() {
         return modifiedOn;
@@ -95,7 +92,7 @@ public class CategoryEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int)id;
         result = 31 * result + (icon != null ? icon.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
@@ -103,7 +100,7 @@ public class CategoryEntity implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "mainCategory")
+    @OneToMany(targetEntity = SubcategoryEntity.class, mappedBy = "mainCategory")
     public Collection<SubcategoryEntity> getSubcategories() {
         return subCategories;
     }

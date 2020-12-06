@@ -9,10 +9,6 @@ public class EnumDto {
     private String Value;
     private String Name;
 
-    public EnumDto() {
-
-    }
-
     @JsonProperty("Id")
     public Long getId() {
         return id;

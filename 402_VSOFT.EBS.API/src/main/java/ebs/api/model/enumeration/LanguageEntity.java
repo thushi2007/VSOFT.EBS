@@ -1,6 +1,7 @@
 package ebs.api.model.enumeration;
 
 import ebs.api.model.ArticleEntity;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,8 +21,9 @@ import java.util.Collection;
                 query = "SELECT e FROM Language e"
         )
 })
+@Access(AccessType.PROPERTY)
 public class LanguageEntity implements Serializable {
-    private int id;
+    private Integer id;
     private String name;
     private String value;
     private Timestamp createdOn;
@@ -30,16 +32,15 @@ public class LanguageEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", nullable = false)
-    public int getId() {
+    @Column(name = "Id")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
     @Column(name = "Name", nullable = true, length = 100)
     public String getName() {
         return name;
@@ -49,7 +50,6 @@ public class LanguageEntity implements Serializable {
         this.name = name;
     }
 
-    @Basic
     @Column(name = "Value", nullable = true, length = 100)
     public String getValue() {
         return value;
@@ -59,7 +59,6 @@ public class LanguageEntity implements Serializable {
         this.value = value;
     }
 
-    @Basic
     @Column(name = "CreatedOn", nullable = true)
     public Timestamp getCreatedOn() {
         return createdOn;
@@ -69,7 +68,6 @@ public class LanguageEntity implements Serializable {
         this.createdOn = createdOn;
     }
 
-    @Basic
     @Column(name = "ModifiedOn", nullable = true)
     public Timestamp getModifiedOn() {
         return modifiedOn;
@@ -97,7 +95,7 @@ public class LanguageEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int)id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (value != null ? value.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
@@ -105,7 +103,7 @@ public class LanguageEntity implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "language")
+    @OneToMany(targetEntity = ArticleEntity.class, mappedBy = "language")
     public Collection<ArticleEntity> getArticles() {
         return articles;
     }

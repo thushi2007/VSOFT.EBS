@@ -1,5 +1,7 @@
 package ebs.api.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -12,7 +14,7 @@ import java.sql.Timestamp;
         schema = "ebs"
 )
 public class BuyArticleEntity implements Serializable {
-    private int id;
+    private Integer id;
     private Integer articleId;
     private Integer buyId;
     private Timestamp createdOn;
@@ -22,16 +24,15 @@ public class BuyArticleEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", nullable = false)
-    public int getId() {
+    @Column(name = "Id")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
     @Column(name = "ArticleId", nullable = true, insertable = false, updatable = false)
     public Integer getArticleId() {
         return articleId;
@@ -41,7 +42,6 @@ public class BuyArticleEntity implements Serializable {
         this.articleId = articleId;
     }
 
-    @Basic
     @Column(name = "BuyId", nullable = true, insertable = false, updatable = false)
     public Integer getBuyId() {
         return buyId;
@@ -51,7 +51,6 @@ public class BuyArticleEntity implements Serializable {
         this.buyId = buyId;
     }
 
-    @Basic
     @Column(name = "CreatedOn", nullable = true)
     public Timestamp getCreatedOn() {
         return createdOn;
@@ -61,7 +60,6 @@ public class BuyArticleEntity implements Serializable {
         this.createdOn = createdOn;
     }
 
-    @Basic
     @Column(name = "ModifiedOn", nullable = true)
     public Timestamp getModifiedOn() {
         return modifiedOn;
@@ -89,7 +87,7 @@ public class BuyArticleEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int) id;
         result = 31 * result + (articleId != null ? articleId.hashCode() : 0);
         result = 31 * result + (buyId != null ? buyId.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
@@ -97,7 +95,7 @@ public class BuyArticleEntity implements Serializable {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ArticleId", referencedColumnName = "Id", insertable = false, updatable = false)
     public ArticleEntity getArticle() {
         return article;
@@ -107,7 +105,7 @@ public class BuyArticleEntity implements Serializable {
         this.article = articleEntity;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "BuyId", referencedColumnName = "Id", insertable = false, updatable = false)
     public BuyEntity getBuy() {
         return buy;

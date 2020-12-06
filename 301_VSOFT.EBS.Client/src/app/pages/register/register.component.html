@@ -147,47 +147,6 @@
                 </mat-form-field>
               </div>
             </div>
-            <div class="custom-input-container">
-              <div class="custom-label">
-                Telefon- Nr.
-              </div>
-              <div class="custom-input">
-                <mat-form-field appearance="outline" [color]="'primary'">
-                  <i matPrefix class="fal fa-phone"></i>
-                  <input matInput name="phone" #phone="ngModel" [(ngModel)]="registerDto.Phone"
-                         prefix="+41 " mask="(00) 000 00 00" [showMaskTyped]="true" [validation]="true"
-                         type="text" ebsInputValidation/>
-                  <mat-error *ngIf="phone?.invalid">
-                    Telefon- Nummer ist invalid.
-                  </mat-error>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="custom-input-container">
-              <div class="custom-label">
-                Mobile
-              </div>
-              <div class="custom-input">
-                <mat-form-field appearance="outline" [color]="'primary'">
-                  <i matPrefix class="fal fa-mobile"></i>
-                  <input matInput name="mobile" #mobile="ngModel" [(ngModel)]="registerDto.Mobile"
-                         prefix="+41 " mask="(00) 000 00 00" [showMaskTyped]="true" [validation]="true"
-                         type="text" ebsInputValidation/>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="custom-input-container">
-              <div class="custom-label">
-                Web
-              </div>
-              <div class="custom-input">
-                <mat-form-field appearance="outline" [color]="'primary'">
-                  <i matPrefix class="fal fa-globe"></i>
-                  <input matInput name="website" #website="ngModel" [(ngModel)]="registerDto.Web" type="text"
-                         ebsInputValidation/>
-                </mat-form-field>
-              </div>
-            </div>
           </form>
         </ebs-accordion-item>
         <ebs-accordion-item [title]="'Benutzername'" (actiontorfire)="registerAccount($event)">

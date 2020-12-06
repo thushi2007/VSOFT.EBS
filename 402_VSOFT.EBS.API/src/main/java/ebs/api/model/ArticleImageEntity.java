@@ -1,5 +1,7 @@
 package ebs.api.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Blob;
@@ -19,22 +21,21 @@ import java.sql.Timestamp;
         )
 })
 public class ArticleImageEntity implements Serializable {
-    private int id;
+    private Integer id;
     private Blob image;
     private Integer articleId;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
-
     private ArticleEntity article;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", nullable = false)
-    public int getId() {
+    @Column(name = "Id")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -48,7 +49,6 @@ public class ArticleImageEntity implements Serializable {
         this.image = image;
     }
 
-    @Basic
     @Column(name = "ArticleId", nullable = true)
     public Integer getArticleId() {
         return articleId;
@@ -58,7 +58,6 @@ public class ArticleImageEntity implements Serializable {
         this.articleId = artId;
     }
 
-    @Basic
     @Column(name = "CreatedOn", nullable = true)
     public Timestamp getCreatedOn() {
         return createdOn;
@@ -68,7 +67,6 @@ public class ArticleImageEntity implements Serializable {
         this.createdOn = createdOn;
     }
 
-    @Basic
     @Column(name = "ModifiedOn", nullable = true)
     public Timestamp getModifiedOn() {
         return modifiedOn;
@@ -95,14 +93,14 @@ public class ArticleImageEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int)id;
         result = 31 * result + (articleId != null ? articleId.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
         result = 31 * result + (modifiedOn != null ? modifiedOn.hashCode() : 0);
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ArticleId", referencedColumnName = "Id", insertable = false, updatable = false)
     public ArticleEntity getArticle() {
         return article;

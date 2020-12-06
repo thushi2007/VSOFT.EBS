@@ -1,6 +1,7 @@
 package ebs.api.model;
 
 import ebs.api.model.enumeration.LanguageEntity;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,7 +22,7 @@ import java.util.Collection;
         )
 })
 public class ArticleEntity implements Serializable {
-    private int id;
+    private Integer id;
     private Integer languageId;
     private Integer publisherId;
     private Integer authorId;
@@ -46,16 +47,15 @@ public class ArticleEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", nullable = false)
-    public int getId() {
+    @Column(name = "Id")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
     @Column(name = "LanguageId", nullable = true, insertable = false, updatable = false)
     public Integer getLanguageId() {
         return languageId;
@@ -65,7 +65,6 @@ public class ArticleEntity implements Serializable {
         this.languageId = languageId;
     }
 
-    @Basic
     @Column(name = "PublisherId", nullable = true, insertable = false, updatable = false)
     public Integer getPublisherId() {
         return publisherId;
@@ -75,7 +74,6 @@ public class ArticleEntity implements Serializable {
         this.publisherId = publisherId;
     }
 
-    @Basic
     @Column(name = "AuthorId", nullable = true, insertable = false, updatable = false)
     public Integer getAuthorId() {
         return authorId;
@@ -85,7 +83,6 @@ public class ArticleEntity implements Serializable {
         this.authorId = authorId;
     }
 
-    @Basic
     @Column(name = "SubCategoryId", nullable = true, insertable = false, updatable = false)
     public Integer getSubCategoryId() {
         return subCategoryId;
@@ -95,7 +92,6 @@ public class ArticleEntity implements Serializable {
         this.subCategoryId = subCategoryId;
     }
 
-    @Basic
     @Column(name = "Title", nullable = true, length = 100)
     public String getTitle() {
         return title;
@@ -105,7 +101,6 @@ public class ArticleEntity implements Serializable {
         this.title = title;
     }
 
-    @Basic
     @Column(name = "Description", nullable = true, length = 1000)
     public String getDescription() {
         return description;
@@ -115,7 +110,6 @@ public class ArticleEntity implements Serializable {
         this.description = description;
     }
 
-    @Basic
     @Column(name = "Price", nullable = true, precision = 0)
     public Double getPrice() {
         return price;
@@ -125,7 +119,6 @@ public class ArticleEntity implements Serializable {
         this.price = price;
     }
 
-    @Basic
     @Column(name = "EAN", nullable = true, length = 1000)
     public String getEan() {
         return ean;
@@ -135,7 +128,6 @@ public class ArticleEntity implements Serializable {
         this.ean = ean;
     }
 
-    @Basic
     @Column(name = "ReleaseYear", nullable = true)
     public Integer getReleaseYear() {
         return releaseYear;
@@ -145,7 +137,6 @@ public class ArticleEntity implements Serializable {
         this.releaseYear = releaseYear;
     }
 
-    @Basic
     @Column(name = "Sites", nullable = true)
     public Integer getSites() {
         return sites;
@@ -155,7 +146,6 @@ public class ArticleEntity implements Serializable {
         this.sites = sites;
     }
 
-    @Basic
     @Column(name = "Stock", nullable = false)
     public int getStock() {
         return stock;
@@ -165,7 +155,6 @@ public class ArticleEntity implements Serializable {
         this.stock = stock;
     }
 
-    @Basic
     @Column(name = "CreatedOn", nullable = true)
     public Timestamp getCreatedOn() {
         return createdOn;
@@ -175,7 +164,6 @@ public class ArticleEntity implements Serializable {
         this.createdOn = createdOn;
     }
 
-    @Basic
     @Column(name = "ModifiedOn", nullable = true)
     public Timestamp getModifiedOn() {
         return modifiedOn;
@@ -213,7 +201,7 @@ public class ArticleEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int)id;
         result = 31 * result + (languageId != null ? languageId.hashCode() : 0);
         result = 31 * result + (publisherId != null ? publisherId.hashCode() : 0);
         result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
@@ -230,7 +218,7 @@ public class ArticleEntity implements Serializable {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "LanguageId", referencedColumnName = "Id", insertable = false, updatable = false)
     public LanguageEntity getLanguage() {
         return language;
@@ -240,7 +228,7 @@ public class ArticleEntity implements Serializable {
         this.language = lang;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "PublisherId", referencedColumnName = "Id", insertable = false, updatable = false)
     public PublisherEntity getPublisher() {
         return publisher;
@@ -250,7 +238,7 @@ public class ArticleEntity implements Serializable {
         this.publisher = publisherEntity;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "AuthorId", referencedColumnName = "Id", insertable = false, updatable = false)
     public AuthorEntity getAuthor() {
         return author;
@@ -260,7 +248,7 @@ public class ArticleEntity implements Serializable {
         this.author = authorEntity;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "SubCategoryId", referencedColumnName = "Id", insertable = false, updatable = false)
     public SubcategoryEntity getSubCategory() {
         return subCategory;
@@ -270,7 +258,7 @@ public class ArticleEntity implements Serializable {
         this.subCategory = subcategoryEntity;
     }
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(targetEntity = ArticleImageEntity.class, mappedBy = "article")
     public Collection<ArticleImageEntity> getArticleImages() {
         return articleImages;
     }
@@ -279,7 +267,7 @@ public class ArticleEntity implements Serializable {
         this.articleImages = articleImagesEntities;
     }
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(targetEntity = BuyArticleEntity.class, mappedBy = "article")
     public Collection<BuyArticleEntity> getBuyArticles() {
         return buyArticles;
     }

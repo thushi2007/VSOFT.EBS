@@ -1,6 +1,8 @@
 package ebs.api.model.enumeration;
 
+import ebs.api.model.BuyEntity;
 import ebs.api.model.CustomerEntity;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,10 +20,15 @@ import java.util.Collection;
         @NamedQuery(
                 name = "Salutation.findAll",
                 query = "SELECT s FROM Salutation s"
+        ),
+        @NamedQuery(
+                name = "Salutation.find",
+                query = "SELECT s FROM Salutation s " +
+                        "WHERE s.id = :sid"
         )
 })
 public class SalutationEntity implements Serializable {
-    private int id;
+    private Integer id;
     private String name;
     private String value;
     private Timestamp createdOn;
@@ -29,17 +36,17 @@ public class SalutationEntity implements Serializable {
     private Collection<CustomerEntity> customers;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", nullable = false)
-    public int getId() {
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    @Column(name = "Id")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
     @Column(name = "Name", nullable = true, length = 100)
     public String getName() {
         return name;
@@ -49,7 +56,6 @@ public class SalutationEntity implements Serializable {
         this.name = name;
     }
 
-    @Basic
     @Column(name = "Value", nullable = true, length = 100)
     public String getValue() {
         return value;
@@ -59,7 +65,6 @@ public class SalutationEntity implements Serializable {
         this.value = value;
     }
 
-    @Basic
     @Column(name = "CreatedOn", nullable = true)
     public Timestamp getCreatedOn() {
         return createdOn;
@@ -69,7 +74,6 @@ public class SalutationEntity implements Serializable {
         this.createdOn = createdOn;
     }
 
-    @Basic
     @Column(name = "ModifiedOn", nullable = true)
     public Timestamp getModifiedOn() {
         return modifiedOn;
@@ -97,7 +101,7 @@ public class SalutationEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int)id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (value != null ? value.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
@@ -105,7 +109,7 @@ public class SalutationEntity implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "salutation")
+    @OneToMany(targetEntity = CustomerEntity.class, mappedBy = "salutation")
     public Collection<CustomerEntity> getCustomers() {
         return customers;
     }

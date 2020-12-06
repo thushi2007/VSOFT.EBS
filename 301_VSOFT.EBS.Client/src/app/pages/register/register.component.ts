@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {EnumModel} from '@core/models/enummodel';
 import {ApiService} from '@core/services/api.service';
 import {AuthService} from '@core/services';
@@ -28,15 +28,10 @@ export class RegisterComponent implements OnInit {
     Zip: '',
     Location: '',
 
-    Phone: '',
-    Mobile: '',
     EMail: '',
-    Web: '',
 
     Pwd: '',
-    PwdRepeat: '',
-
-    ActivationCode: ''
+    PwdRepeat: ''
   };
 
   showPwd1 = false;
@@ -74,7 +69,7 @@ export class RegisterComponent implements OnInit {
       promiseBtn.promiseFunction = new Promise<any>((resolve, reject) => {
         this.authService.registerUserIdp(this.registerDto.EMail, this.registerDto.Pwd,
           this.registerDto.Firstname + ' ' + this.registerDto.Lastname).then((activationCode: string) => {
-          this.registerDto.ActivationCode = activationCode;
+          // this.registerDto.ActivationCode = activationCode;
           this.apiService.post('/register/person', this.registerDto).toPromise().then((msg) => {
             if (this.issuccesspostActionUsed) {
               this.successpostAction.emit({prombtn: promiseBtn, email: this.registerDto.EMail});

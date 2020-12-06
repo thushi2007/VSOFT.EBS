@@ -1,5 +1,7 @@
 package ebs.api.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -19,7 +21,7 @@ import java.util.Collection;
         )
 })
 public class SubcategoryEntity implements Serializable {
-    private int id;
+    private Integer id;
     private String icon;
     private String name;
     private Integer mainCategoryId;
@@ -31,16 +33,15 @@ public class SubcategoryEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", nullable = false)
-    public int getId() {
+    @Column(name = "Id")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
     @Column(name = "Icon", nullable = true, length = 100)
     public String getIcon() {
         return icon;
@@ -50,7 +51,6 @@ public class SubcategoryEntity implements Serializable {
         this.icon = icon;
     }
 
-    @Basic
     @Column(name = "Name", nullable = true, length = 100)
     public String getName() {
         return name;
@@ -60,7 +60,6 @@ public class SubcategoryEntity implements Serializable {
         this.name = subCategory;
     }
 
-    @Basic
     @Column(name = "MainCategoryId", nullable = true)
     public Integer getMainCategoryId() {
         return mainCategoryId;
@@ -70,7 +69,6 @@ public class SubcategoryEntity implements Serializable {
         this.mainCategoryId = mainCategoryId;
     }
 
-    @Basic
     @Column(name = "CreatedOn", nullable = true)
     public Timestamp getCreatedOn() {
         return createdOn;
@@ -80,7 +78,6 @@ public class SubcategoryEntity implements Serializable {
         this.createdOn = createdOn;
     }
 
-    @Basic
     @Column(name = "ModifiedOn", nullable = true)
     public Timestamp getModifiedOn() {
         return modifiedOn;
@@ -110,7 +107,7 @@ public class SubcategoryEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int) id;
         result = 31 * result + (icon != null ? icon.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (mainCategoryId != null ? mainCategoryId.hashCode() : 0);
@@ -119,7 +116,7 @@ public class SubcategoryEntity implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "subCategory")
+    @OneToMany(targetEntity = ArticleEntity.class, mappedBy = "subCategory")
     public Collection<ArticleEntity> getArticles() {
         return articles;
     }
@@ -128,7 +125,7 @@ public class SubcategoryEntity implements Serializable {
         this.articles = articlesById;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "MainCategoryId", referencedColumnName = "Id", insertable = false, updatable = false)
     public CategoryEntity getMainCategory() {
         return mainCategory;

@@ -11,28 +11,12 @@ export const menuitemLst: any[] = [
     Url: '/benutzerkonto/admin',
     Children: [
       {
-        Text: 'Anrede',
-        Url: '/benutzerkonto/admin/anreden'
+        Text: 'Anmelden',
+        Url: '/anmelden'
       },
       {
-        Text: 'Sprachen',
-        Url: '/benutzerkonto/admin/sprachen'
-      },
-      {
-        Text: 'Kategorien',
-        Url: '/benutzerkonto/admin/kategorien'
-      },
-      {
-        Text: 'Subkategorien',
-        Url: '/benutzerkonto/admin/subkategorien'
-      },
-      {
-        Text: 'Artikel',
-        Url: '/benutzerkonto/admin/artikel'
-      },
-      {
-        Text: 'Bestellungen',
-        Url: '/benutzerkonto/admin/kaeufe'
+        Text: 'Registrieren',
+        Url: '/registrieren'
       }
     ]
   },

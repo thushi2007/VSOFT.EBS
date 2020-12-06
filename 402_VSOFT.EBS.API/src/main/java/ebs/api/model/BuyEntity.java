@@ -1,5 +1,7 @@
 package ebs.api.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -13,7 +15,7 @@ import java.util.Collection;
         schema = "ebs"
 )
 public class BuyEntity implements Serializable {
-    private int id;
+    private Integer id;
     private Integer customerId;
     private Timestamp buyDate;
     private Double totalPrice;
@@ -24,16 +26,15 @@ public class BuyEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", nullable = false)
-    public int getId() {
+    @Column(name = "Id")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
     @Column(name = "CustomerId")
     public Integer getCustomerId() {
         return customerId;
@@ -43,7 +44,6 @@ public class BuyEntity implements Serializable {
         this.customerId = customerId;
     }
 
-    @Basic
     @Column(name = "BuyDate", nullable = true)
     public Timestamp getBuyDate() {
         return buyDate;
@@ -53,7 +53,6 @@ public class BuyEntity implements Serializable {
         this.buyDate = buyDate;
     }
 
-    @Basic
     @Column(name = "TotalPrice", nullable = true, precision = 0)
     public Double getTotalPrice() {
         return totalPrice;
@@ -63,7 +62,6 @@ public class BuyEntity implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    @Basic
     @Column(name = "CreatedOn", nullable = true)
     public Timestamp getCreatedOn() {
         return createdOn;
@@ -73,7 +71,6 @@ public class BuyEntity implements Serializable {
         this.createdOn = createdOn;
     }
 
-    @Basic
     @Column(name = "ModifiedOn", nullable = true)
     public Timestamp getModifiedOn() {
         return modifiedOn;
@@ -102,7 +99,7 @@ public class BuyEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int)id;
         result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
         result = 31 * result + (buyDate != null ? buyDate.hashCode() : 0);
         result = 31 * result + (totalPrice != null ? totalPrice.hashCode() : 0);
@@ -111,7 +108,7 @@ public class BuyEntity implements Serializable {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "CustomerId", referencedColumnName = "Id", insertable = false, updatable = false)
     public CustomerEntity getCustomer() {
         return customer;
@@ -121,7 +118,7 @@ public class BuyEntity implements Serializable {
         this.customer = customerEntity;
     }
 
-    @OneToMany(mappedBy = "buy")
+    @OneToMany(targetEntity = BuyArticleEntity.class, mappedBy = "buy", fetch = FetchType.EAGER)
     public Collection<BuyArticleEntity> getBuyArticles() {
         return buyArticles;
     }

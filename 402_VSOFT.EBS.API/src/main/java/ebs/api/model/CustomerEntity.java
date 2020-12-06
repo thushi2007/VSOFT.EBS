@@ -1,6 +1,7 @@
 package ebs.api.model;
 
 import ebs.api.model.enumeration.SalutationEntity;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +16,7 @@ import java.util.Collection;
         schema = "ebs"
 )
 public class CustomerEntity implements Serializable {
-    private int id;
+    private Integer id;
     private Integer salutationId;
     private String firstname;
     private String lastname;
@@ -27,22 +28,21 @@ public class CustomerEntity implements Serializable {
     private String username;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
-    private Collection<BuyEntity> buys;
     private SalutationEntity salutation;
+    private Collection<BuyEntity> buys;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", nullable = false)
-    public int getId() {
+    @Column(name = "Id")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "SalutationId", nullable = true, insertable = false, updatable = false)
+    @Column(name = "SalutationId")
     public Integer getSalutationId() {
         return salutationId;
     }
@@ -51,7 +51,6 @@ public class CustomerEntity implements Serializable {
         this.salutationId = salutationId;
     }
 
-    @Basic
     @Column(name = "Firstname", nullable = true, length = 200)
     public String getFirstname() {
         return firstname;
@@ -61,7 +60,6 @@ public class CustomerEntity implements Serializable {
         this.firstname = firstname;
     }
 
-    @Basic
     @Column(name = "Lastname", nullable = true, length = 200)
     public String getLastname() {
         return lastname;
@@ -71,7 +69,6 @@ public class CustomerEntity implements Serializable {
         this.lastname = lastname;
     }
 
-    @Basic
     @Column(name = "Organisation", nullable = true, length = 200)
     public String getOrganisation() {
         return organisation;
@@ -81,7 +78,6 @@ public class CustomerEntity implements Serializable {
         this.organisation = organisation;
     }
 
-    @Basic
     @Column(name = "Street", nullable = true, length = 200)
     public String getStreet() {
         return street;
@@ -91,7 +87,6 @@ public class CustomerEntity implements Serializable {
         this.street = street;
     }
 
-    @Basic
     @Column(name = "No", nullable = true, length = 200)
     public String getNo() {
         return no;
@@ -101,7 +96,6 @@ public class CustomerEntity implements Serializable {
         this.no = no;
     }
 
-    @Basic
     @Column(name = "ZIP", nullable = true)
     public Integer getZip() {
         return zip;
@@ -111,7 +105,6 @@ public class CustomerEntity implements Serializable {
         this.zip = zip;
     }
 
-    @Basic
     @Column(name = "Place", nullable = true, length = 200)
     public String getPlace() {
         return place;
@@ -121,7 +114,6 @@ public class CustomerEntity implements Serializable {
         this.place = place;
     }
 
-    @Basic
     @Column(name = "Username", nullable = false, length = 300)
     public String getUsername() {
         return username;
@@ -131,7 +123,6 @@ public class CustomerEntity implements Serializable {
         this.username = username;
     }
 
-    @Basic
     @Column(name = "CreatedOn", nullable = true)
     public Timestamp getCreatedOn() {
         return createdOn;
@@ -141,7 +132,6 @@ public class CustomerEntity implements Serializable {
         this.createdOn = createdOn;
     }
 
-    @Basic
     @Column(name = "ModifiedOn", nullable = true)
     public Timestamp getModifiedOn() {
         return modifiedOn;
@@ -176,7 +166,7 @@ public class CustomerEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int) id;
         result = 31 * result + (salutationId != null ? salutationId.hashCode() : 0);
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
@@ -191,7 +181,7 @@ public class CustomerEntity implements Serializable {
         return result;
     }
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(targetEntity = BuyEntity.class, mappedBy = "customer", fetch = FetchType.EAGER)
     public Collection<BuyEntity> getBuys() {
         return buys;
     }
@@ -200,8 +190,8 @@ public class CustomerEntity implements Serializable {
         this.buys = buyEntity;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "SalutationId", referencedColumnName = "Id", insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "SalutationId", referencedColumnName = "Id", updatable = false, insertable = false)
     public SalutationEntity getSalutation() {
         return salutation;
     }

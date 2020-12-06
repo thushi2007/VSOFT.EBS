@@ -54,8 +54,9 @@ public class RestApplication extends Application {
         classes.add(ArticleResource.class);
         classes.add(SubCategoryResource.class);
         classes.add(PublisherResource.class);
-        classes.add(AppProperties.class);
+        classes.add(AccountResource.class);
 
+        classes.add(AppProperties.class);
         classes.add(JWTService.class);
         classes.add(JWTAuthedFilter.class);
         classes.add(CorsFilter.class);

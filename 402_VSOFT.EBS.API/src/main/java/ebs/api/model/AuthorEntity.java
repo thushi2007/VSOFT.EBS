@@ -1,5 +1,7 @@
 package ebs.api.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -13,7 +15,7 @@ import java.util.Collection;
         schema = "ebs"
 )
 public class AuthorEntity implements Serializable {
-    private int id;
+    private Integer id;
     private String name;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
@@ -21,16 +23,15 @@ public class AuthorEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", nullable = false)
-    public int getId() {
+    @Column(name = "Id")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
     @Column(name = "Name", nullable = true, length = 100)
     public String getName() {
         return name;
@@ -40,7 +41,6 @@ public class AuthorEntity implements Serializable {
         this.name = name;
     }
 
-    @Basic
     @Column(name = "CreatedOn", nullable = true)
     public Timestamp getCreatedOn() {
         return createdOn;
@@ -50,7 +50,6 @@ public class AuthorEntity implements Serializable {
         this.createdOn = createdOn;
     }
 
-    @Basic
     @Column(name = "ModifiedOn", nullable = true)
     public Timestamp getModifiedOn() {
         return modifiedOn;
@@ -77,14 +76,14 @@ public class AuthorEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int)id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
         result = 31 * result + (modifiedOn != null ? modifiedOn.hashCode() : 0);
         return result;
     }
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(targetEntity = ArticleEntity.class, mappedBy = "author")
     public Collection<ArticleEntity> getArticles() {
         return articles;
     }
