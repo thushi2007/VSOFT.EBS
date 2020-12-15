@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {AdminComponent} from './admin.component';
 import {SalutationsComponent} from './salutations/salutations.component';
 import {LanguagesComponent} from './languages/languages.component';
@@ -7,6 +7,8 @@ import {CategoriesComponent} from './categories/categories.component';
 import {SubcategoriesComponent} from './subcategories/subcategories.component';
 import {ArticlesComponent} from './articles/articles.component';
 import {BuysComponent} from './buys/buys.component';
+import {CustomersComponent} from './customers/customers.component';
+import {ProfileComponent} from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -38,8 +40,16 @@ const routes: Routes = [
         component: BuysComponent,
       },
       {
+        path: 'kunden',
+        component: CustomersComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      },
+      {
         path: '',
-        redirectTo: 'anreden',
+        redirectTo: 'artikel',
         pathMatch: 'full'
       }
     ]

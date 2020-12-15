@@ -3,16 +3,16 @@ package ebs.api.dto;
 import java.util.Date;
 
 public class CategoryDetailDto {
-    private int Id;
+    private Integer Id;
     private String Category;
     private Date CreatedOn;
     private Date ModifiedOn;
 
-    public int getId() {
+    public Integer getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         Id = id;
     }
 

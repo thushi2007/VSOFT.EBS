@@ -12,3 +12,4 @@
 /401_VSOFT.EBS.IDP/401_VSOFT.EBS.IDP.csproj.user
 /.vs
 /docker/data
+/301_VSOFT.EBS.Client/package-lock.json

@@ -1,63 +1,13 @@
+<ebs-page-header [pagePath]="paths"></ebs-page-header>
 <div class="page-container">
   <div class="page-sub-menu">
-    <ebs-submenu [url]="'/benutzerkonto'"></ebs-submenu>
+    <ebs-submenu [url]="'/anmelden'"></ebs-submenu>
   </div>
   <div class="page-content">
-    <div class="login-container">
-      <div class="custom-form-groupbox shadow">
-        <div class="custom-title">Anmelden</div>
-        <form #loginForm="ngForm" ebsFormValidation>
-          <ebs-messager [onlyOneInstance]="true" [duration]="10000"></ebs-messager>
-          <div class="custom-input-container">
-            <div class="custom-label required">
-              Benutzername <span>*</span>
-            </div>
-            <div class="custom-input">
-              <mat-form-field appearance="outline" [color]="'primary'">
-                <i matPrefix class="fal fa-user"></i>
-                <input matInput name="user" #user="ngModel" [(ngModel)]="loginDto.username" type="text" required email
-                       ebsInputValidation/>
-                <mat-error *ngIf="user?.errors?.required">
-                  E-Mail Adresse fehlt.
-                </mat-error>
-                <mat-error *ngIf="user?.errors?.email">
-                  E-Mail Adresse invalid.
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="custom-input-container">
-            <div class="custom-label required">
-              Password <span>*</span>
-            </div>
-            <div class="custom-input">
-              <mat-form-field appearance="outline" [color]="'primary'">
-                <i matPrefix class="fal fa-key"></i>
-                <i matSuffix class="action fal {{ showPwd1 ? 'fa-eye' : 'fa-eye-slash' }}"
-                   (click)="showPwd1 = !showPwd1"></i>
-                <input matInput name="pword" #pword="ngModel" [(ngModel)]="loginDto.pwd"
-                       type="{{ showPwd1 ? 'text' : 'password' }}" required ebsInputValidation/>
-                <mat-error *ngIf="pword?.errors?.required">
-                  Passwort fehlt.
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-        </form>
-        <div class="custom-button-container">
-          <div class="left-side pwdforgot">
-            <a [routerLink]="'/pwtvergessen'"> Passwort vergessen?</a>
-          </div>
-          <div class="right-side">
-            <ebs-promise-button (btnAction)="loginUser()" #loginBtn>anmelden
-              <ebs-promise-button-icon>
-                <i class="far fa-chevron-right"></i>
-              </ebs-promise-button-icon>
-            </ebs-promise-button>
-          </div>
-        </div>
-      </div>
+    <div class="custom-form-groupbox shadow">
+      <div class="custom-title">Anmelden</div>
+      <ebs-messager [onlyOneInstance]="true" #msg [duration]="2000"></ebs-messager>
+      <ebs-login-form (successpostAction)="redirectArterLogin()"></ebs-login-form>
     </div>
   </div>
 </div>
-

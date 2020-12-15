@@ -51,7 +51,7 @@ public class SubCategoryResource {
     @ApiResponses({
             @ApiResponse(code = 200, message = "List returned"),
             @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 404, message = "Endpoint not found"),
+            @ApiResponse(code = 404, message = "EndpoInteger not found"),
             @ApiResponse(code = 401, message = "Unauthorized")
     })
     @Produces(MediaType.APPLICATION_JSON)
@@ -72,7 +72,7 @@ public class SubCategoryResource {
     @ApiResponses({
             @ApiResponse(code = 200, message = "List returned"),
             @ApiResponse(code = 400, message = "Bad Request"),
-            @ApiResponse(code = 404, message = "Endpoint not found"),
+            @ApiResponse(code = 404, message = "EndpoInteger not found"),
             @ApiResponse(code = 401, message = "Unauthorized")
     })
     @Produces(MediaType.APPLICATION_JSON)

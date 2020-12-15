@@ -10,12 +10,12 @@
   .title-container {
     display: block;
     width: 100%;
-    background-color: #eeeeee;
+    //background-color: #eeeeee;
     overflow: hidden;
 
-    -webkit-box-shadow: inset 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: inset 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
-    box-shadow: inset 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    //-webkit-box-shadow: inset 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    //-moz-box-shadow: inset 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    //box-shadow: inset 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
 
     .title {
       display: block;
@@ -42,7 +42,7 @@
     display: block;
     width: 100%;
 
-    background: $site-theme-blue;
+    background: #eeeeee;
 
     .path {
       display: block;
@@ -62,11 +62,11 @@
           > a {
             display: inline-block;
             text-decoration: none;
-            color: #ffffff;
+            color: #000000;
 
             > i {
               font-size: 15pt;
-              color: #ffffff;
+              color: #000000;
 
               &:last-child {
                 font-size: 15pt;
@@ -81,24 +81,24 @@
 
           > a {
             text-decoration: none;
-            color: #ffffff;
+            color: #000000;
             vertical-align: middle;
 
             > i {
               vertical-align: middle;
               font-size: 15pt;
               margin-left: 5px;
-              color: #ffffff;
+              color: #000000;
             }
           }
 
           &:last-child {
             text-decoration: none;
-            color: #ffffff;
+            color: #000000;
 
             > a {
               text-decoration: none;
-              color: #ffffff;
+              color: #000000;
 
               > i {
                 display: none;
@@ -110,7 +110,7 @@
         > i {
           vertical-align: middle;
           font-size: 15pt;
-          color: #ffffff;
+          color: #000000;
         }
       }
     }

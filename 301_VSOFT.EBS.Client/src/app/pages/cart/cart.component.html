@@ -1,0 +1,7 @@
+<ebs-page-header [pagePath]="paths"></ebs-page-header>
+<div class="page-container">
+  <p *ngIf="items.length === 0">Ihr Warenkorb ist leer</p>
+  <ebs-cart-items></ebs-cart-items>
+  <a *ngIf="items.length > 0" class="customButtonBlueLink" [routerLink]="'/checkout'">zur Kasse</a>
+</div>
+

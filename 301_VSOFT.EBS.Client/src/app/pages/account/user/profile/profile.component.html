@@ -1,0 +1,131 @@
+<ebs-page-header [pagePath]="paths"></ebs-page-header>
+<div class="page-container">
+  <div class="page-sub-menu">
+    <ebs-submenu [url]="'/benutzerkonto/kunde'"></ebs-submenu>
+  </div>
+  <div class="page-content">
+    <div class="custom-form-groupbox">
+      <div class="custom-title">Benutzerprofil</div>
+      <ebs-messager [onlyOneInstance]="true" [duration]="5000"></ebs-messager>
+      <div class="custom-input-container">
+        <div class="custom-label required">
+          Anrede <span>*</span>
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <mat-select name="salutation" #salutation="ngModel" [(ngModel)]="profile.AnredeId" required
+                        ebsEnumSelection>
+              <mat-option [value]="">
+                wählen
+              </mat-option>
+              <mat-option *ngFor="let salutEnum of salutationLst" [value]="salutEnum.Id">
+                {{salutEnum.Value}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="salutation?.errors?.required">
+              Anrede fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="custom-input-container">
+        <div class="custom-label">
+          Organisation
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <input matInput name="organisation" #organisation="ngModel"
+                   [(ngModel)]="profile.Organisation" type="text" ebsInputValidation/>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="custom-input-container">
+        <div class="custom-label required">
+          Vorname <span>*</span>
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <input matInput name="firstname" #firstname="ngModel"
+                   [(ngModel)]="profile.Firstname" type="text" required ebsInputValidation/>
+            <mat-error *ngIf="firstname?.errors?.required">
+              Vorname fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="custom-input-container">
+        <div class="custom-label required">
+          Nachname <span>*</span>
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <input matInput name="lastname" #lastname="ngModel"
+                   [(ngModel)]="profile.Lastname" type="text" required ebsInputValidation/>
+            <mat-error *ngIf="lastname?.errors?.required">
+              Nachname fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="custom-input-container">
+        <div class="custom-label required">
+          Strasse & Haus-Nr. <span>*</span>
+        </div>
+        <div class="custom-input">
+          <div class="left big">
+            <mat-form-field appearance="outline" [color]="'primary'">
+              <i matPrefix class="fal fa-location"></i>
+              <input matInput name="street" #street="ngModel" [(ngModel)]="profile.Street" type="text"
+                     matGoogleMapsAutocomplete (onGermanAddressMapped)="onGermanAddressMapped($event)"
+                     required ebsInputValidation/>
+              <mat-error *ngIf="street?.errors?.required">
+                Strasse fehlt.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="right sml">
+            <mat-form-field appearance="outline" [color]="'primary'">
+              <input matInput name="streetno" #streetno="ngModel" [(ngModel)]="profile.StreetNo" type="text"
+                     [update]="updateAddress" required ebsInputValidation/>
+              <mat-error *ngIf="streetno?.errors?.required">
+                Haus-Nr. fehlt.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="custom-input-container">
+        <div class="custom-label required">
+          PLZ & Ort <span>*</span>
+        </div>
+        <div class="custom-input">
+          <div class="left sml">
+            <mat-form-field appearance="outline" [color]="'primary'">
+              <input matInput name="zip" #zip="ngModel" [(ngModel)]="profile.Zip" type="text"
+                     [update]="updateAddress" required ebsInputValidation/>
+              <mat-error *ngIf="zip?.errors?.required">
+                PLZ fehlt.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="right big">
+            <mat-form-field appearance="outline" [color]="'primary'">
+              <input matInput name="plc" #plc="ngModel" [(ngModel)]="profile.Location" type="text"
+                     [update]="updateAddress" required ebsInputValidation/>
+              <mat-error *ngIf="plc?.errors?.required">
+                Ort fehlt.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <ebs-promise-button (btnAction)="updateProfile()" #updateBtn>speichern
+          <ebs-promise-button-icon>
+            <i class="far fa-chevron-right"></i>
+          </ebs-promise-button-icon>
+        </ebs-promise-button>
+      </div>
+    </div>
+  </div>
+</div>

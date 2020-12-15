@@ -1,0 +1,12 @@
+<div class="custom-form-groupbox">
+  <div class="custom-title">Ihre Artikel</div>
+  <ebs-cart-items></ebs-cart-items>
+  <div class="actions">
+    <div>
+      <ebs-promise-button (btnAction)="previousStep()">Zurück</ebs-promise-button>
+    </div>
+    <div>
+      <ebs-promise-button (btnAction)="createBuy()" #finishBtn>Kaufen</ebs-promise-button>
+    </div>
+  </div>
+</div>

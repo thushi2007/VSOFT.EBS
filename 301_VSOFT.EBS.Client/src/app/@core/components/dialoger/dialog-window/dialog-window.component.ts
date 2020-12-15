@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ContentChild, HostBinding, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ContentChild, HostBinding, Input, ViewChild} from '@angular/core';
 import {animate, group, query, style, transition, trigger} from '@angular/animations';
 import {PromiseButtonComponent} from '@core/components';
 import {DialogerService} from '@core/components/dialoger/dialoger.service';
@@ -54,8 +54,8 @@ import {BasedialogcompComponent} from '@core/components/dialoger/inheritance/bas
   ]
 })
 export class DialogWindowComponent {
-  @ViewChild('speichern', {static: true}) speichernBtn: PromiseButtonComponent;
-  @ContentChild('baseComp', {static: true}) baseDialogComp: BasedialogcompComponent;
+  @ViewChild('speichern', {static: false}) speichernBtn: PromiseButtonComponent;
+  @ContentChild('baseComp', {static: false}) baseDialogComp: BasedialogcompComponent;
 
   @HostBinding('@showHideBg') showHideBg;
 
@@ -64,7 +64,7 @@ export class DialogWindowComponent {
   constructor(private dialogService: DialogerService) {
   }
 
-  closeMe() {
+  closeMe(): void {
     this.dialogService.hideDialog();
   }
 

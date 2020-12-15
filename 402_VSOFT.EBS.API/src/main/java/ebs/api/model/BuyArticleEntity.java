@@ -33,7 +33,7 @@ public class BuyArticleEntity implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "ArticleId", nullable = true, insertable = false, updatable = false)
+    @Column(name = "ArticleId")
     public Integer getArticleId() {
         return articleId;
     }
@@ -42,7 +42,7 @@ public class BuyArticleEntity implements Serializable {
         this.articleId = articleId;
     }
 
-    @Column(name = "BuyId", nullable = true, insertable = false, updatable = false)
+    @Column(name = "BuyId")
     public Integer getBuyId() {
         return buyId;
     }
@@ -77,8 +77,6 @@ public class BuyArticleEntity implements Serializable {
         BuyArticleEntity that = (BuyArticleEntity) o;
 
         if (id != that.id) return false;
-        if (articleId != null ? !articleId.equals(that.articleId) : that.articleId != null) return false;
-        if (buyId != null ? !buyId.equals(that.buyId) : that.buyId != null) return false;
         if (createdOn != null ? !createdOn.equals(that.createdOn) : that.createdOn != null) return false;
         if (modifiedOn != null ? !modifiedOn.equals(that.modifiedOn) : that.modifiedOn != null) return false;
 
@@ -87,9 +85,9 @@ public class BuyArticleEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int) id;
-        result = 31 * result + (articleId != null ? articleId.hashCode() : 0);
-        result = 31 * result + (buyId != null ? buyId.hashCode() : 0);
+        Integer result = (Integer) id;
+        result = 31 * result + articleId;
+        result = 31 * result + buyId;
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
         result = 31 * result + (modifiedOn != null ? modifiedOn.hashCode() : 0);
         return result;

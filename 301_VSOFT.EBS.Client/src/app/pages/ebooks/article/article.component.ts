@@ -1,6 +1,11 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ArticleDto} from '../models/articledto';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {CartService} from '@core/services';
+import {ApiService} from '@core/services/api.service';
+import {ImageDto} from '../models/imagedto';
+import {NgImageSliderComponent} from 'ng-image-slider';
+import {Lightbox} from 'ngx-lightbox';
 
 @Component({
   selector: 'ebs-article',
@@ -22,7 +27,9 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   ]
 })
 export class ArticleComponent implements OnInit {
-  @HostBinding('@animatePriceBox') get animateRouter() {
+  @ViewChild('nav') slider: NgImageSliderComponent;
+
+  @HostBinding('@animatePriceBox') get animateRouter(): any {
     return {
       value: '0',
       params: {delay: (this.delay * 200)}
@@ -32,11 +39,41 @@ export class ArticleComponent implements OnInit {
   @Input() article: ArticleDto;
   @Input() delay: number;
 
-  constructor() {
+  @Output() afterAddToWarenkorb: EventEmitter<any> = new EventEmitter<any>();
+
+  imagesLst: ImageDto[] = [];
+
+  imageObject: Array<object> = [];
+  imagePopup: any[] = [];
+
+  constructor(private cartService: CartService,
+              private apiService: ApiService,
+              private lightbox: Lightbox) {
 
   }
 
-  ngOnInit(): void {
+  insertIntoCart(): void {
+    this.cartService.addToCart(this.article);
+    this.afterAddToWarenkorb.emit();
+  }
 
+  openImagePopup(): void {
+    this.lightbox.open(this.imagePopup, 0);
+  }
+
+  async ngOnInit(): Promise<any> {
+    this.imagesLst = await this.apiService.get(`/article/${this.article.Id}/image`).toPromise();
+
+    this.imagesLst.forEach((img) => {
+      this.imageObject.push({
+        image: 'data:image/jpg;base64,' + img.ImageBase64,
+        thumbImage: 'data:image/jpg;base64,' + img.ImageBase64,
+      });
+
+      this.imagePopup.push({
+        src: 'data:image/jpg;base64,' + img.ImageBase64,
+        thumb: 'data:image/jpg;base64,' + img.ImageBase64,
+      });
+    });
   }
 }

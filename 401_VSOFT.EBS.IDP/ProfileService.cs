@@ -53,7 +53,8 @@ namespace VSOFT.EBS.IDP
 					{
 						// Adding roles to user profile
 						claims.AddRange(roles.Select(u => new Claim(JwtClaimTypes.Role, u)));
-					}
+                        claims.Add(new Claim(JwtClaimTypes.Name, user.Email));
+                    }
 
 					// Adding claims for return 
 					context.IssuedClaims = claims;

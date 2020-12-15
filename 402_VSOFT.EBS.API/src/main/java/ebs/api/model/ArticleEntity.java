@@ -17,6 +17,11 @@ import java.util.Collection;
 )
 @NamedQueries({
         @NamedQuery(
+                name = "Article.findById",
+                query = "SELECT s FROM Article s " +
+                        "WHERE s.id = :sid"
+        ),
+        @NamedQuery(
                 name = "Article.getAll",
                 query = "SELECT e FROM Article e"
         )
@@ -33,7 +38,7 @@ public class ArticleEntity implements Serializable {
     private String ean;
     private Integer releaseYear;
     private Integer sites;
-    private int stock;
+    private Integer stock;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
 
@@ -56,7 +61,7 @@ public class ArticleEntity implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "LanguageId", nullable = true, insertable = false, updatable = false)
+    @Column(name = "LanguageId")
     public Integer getLanguageId() {
         return languageId;
     }
@@ -65,7 +70,7 @@ public class ArticleEntity implements Serializable {
         this.languageId = languageId;
     }
 
-    @Column(name = "PublisherId", nullable = true, insertable = false, updatable = false)
+    @Column(name = "PublisherId")
     public Integer getPublisherId() {
         return publisherId;
     }
@@ -74,7 +79,7 @@ public class ArticleEntity implements Serializable {
         this.publisherId = publisherId;
     }
 
-    @Column(name = "AuthorId", nullable = true, insertable = false, updatable = false)
+    @Column(name = "AuthorId")
     public Integer getAuthorId() {
         return authorId;
     }
@@ -83,7 +88,7 @@ public class ArticleEntity implements Serializable {
         this.authorId = authorId;
     }
 
-    @Column(name = "SubCategoryId", nullable = true, insertable = false, updatable = false)
+    @Column(name = "SubCategoryId")
     public Integer getSubCategoryId() {
         return subCategoryId;
     }
@@ -147,11 +152,11 @@ public class ArticleEntity implements Serializable {
     }
 
     @Column(name = "Stock", nullable = false)
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 
@@ -182,17 +187,10 @@ public class ArticleEntity implements Serializable {
 
         if (id != that.id) return false;
         if (stock != that.stock) return false;
-        if (languageId != null ? !languageId.equals(that.languageId) : that.languageId != null) return false;
-        if (publisherId != null ? !publisherId.equals(that.publisherId) : that.publisherId != null) return false;
-        if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
-        if (subCategoryId != null ? !subCategoryId.equals(that.subCategoryId) : that.subCategoryId != null)
-            return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
         if (ean != null ? !ean.equals(that.ean) : that.ean != null) return false;
-        if (releaseYear != null ? !releaseYear.equals(that.releaseYear) : that.releaseYear != null) return false;
-        if (sites != null ? !sites.equals(that.sites) : that.sites != null) return false;
         if (createdOn != null ? !createdOn.equals(that.createdOn) : that.createdOn != null) return false;
         if (modifiedOn != null ? !modifiedOn.equals(that.modifiedOn) : that.modifiedOn != null) return false;
 
@@ -201,17 +199,17 @@ public class ArticleEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int)id;
-        result = 31 * result + (languageId != null ? languageId.hashCode() : 0);
-        result = 31 * result + (publisherId != null ? publisherId.hashCode() : 0);
-        result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
-        result = 31 * result + (subCategoryId != null ? subCategoryId.hashCode() : 0);
+        Integer result = (Integer)id;
+        result = 31 * result + languageId;
+        result = 31 * result + publisherId;
+        result = 31 * result + authorId;
+        result = 31 * result + subCategoryId;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
         result = 31 * result + (ean != null ? ean.hashCode() : 0);
-        result = 31 * result + (releaseYear != null ? releaseYear.hashCode() : 0);
-        result = 31 * result + (sites != null ? sites.hashCode() : 0);
+        result = 31 * result + releaseYear;
+        result = 31 * result + sites;
         result = 31 * result + stock;
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
         result = 31 * result + (modifiedOn != null ? modifiedOn.hashCode() : 0);

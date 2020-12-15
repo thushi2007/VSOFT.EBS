@@ -20,12 +20,16 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { CreatearticleComponent } from './articles/createarticle/createarticle.component';
+import {CreatearticleComponent} from './articles/createarticle/createarticle.component';
 import {FormsModule} from '@angular/forms';
 import {NgxMaskModule} from 'ngx-mask';
 import {MatSelectModule} from '@angular/material/select';
 import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/google-maps-autocomplete';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {CustomersComponent} from './customers/customers.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {ProfileComponent} from './profile/profile.component';
+import {DetailsComponent} from './buys/details/details.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     SubcategoriesComponent,
     ArticlesComponent,
     BuysComponent,
-    CreatearticleComponent
+    CreatearticleComponent,
+    CustomersComponent,
+    ProfileComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +63,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     NgxMaskModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatGoogleMapsAutocompleteModule
+    MatGoogleMapsAutocompleteModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AdminModule {

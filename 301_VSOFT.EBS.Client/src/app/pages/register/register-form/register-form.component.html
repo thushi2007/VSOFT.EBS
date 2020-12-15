@@ -1,0 +1,213 @@
+<div class="login-container">
+  <ebs-messager [onlyOneInstance]="true" #msg></ebs-messager>
+  <ebs-accordion>
+    <ebs-accordion-item [title]="'Personalien'">
+      <form #privateForm="ngForm" ebsFormValidation>
+        <div class="custom-input-container">
+          <div class="custom-label required">
+            Anrede <span>*</span>
+          </div>
+          <div class="custom-input">
+            <mat-form-field appearance="outline" [color]="'primary'">
+              <mat-select name="salutation" #salutation="ngModel" [(ngModel)]="registerDto.AnredeId" required
+                          ebsEnumSelection>
+                <mat-option [value]="">
+                  wählen
+                </mat-option>
+                <mat-option *ngFor="let salutEnum of salutationLst" [value]="salutEnum.Id">
+                  {{salutEnum.Value}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="salutation?.errors?.required">
+                Anrede fehlt.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="custom-input-container">
+          <div class="custom-label">
+            Organisation
+          </div>
+          <div class="custom-input">
+            <mat-form-field appearance="outline" [color]="'primary'">
+              <input matInput name="organisation" #organisation="ngModel"
+                     [(ngModel)]="registerDto.Organisation" type="text" ebsInputValidation/>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="custom-input-container">
+          <div class="custom-label required">
+            Vorname <span>*</span>
+          </div>
+          <div class="custom-input">
+            <mat-form-field appearance="outline" [color]="'primary'">
+              <input matInput name="firstname" #firstname="ngModel"
+                     [(ngModel)]="registerDto.Firstname" type="text" required ebsInputValidation/>
+              <mat-error *ngIf="firstname?.errors?.required">
+                Vorname fehlt.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="custom-input-container">
+          <div class="custom-label required">
+            Nachname <span>*</span>
+          </div>
+          <div class="custom-input">
+            <mat-form-field appearance="outline" [color]="'primary'">
+              <input matInput name="lastname" #lastname="ngModel"
+                     [(ngModel)]="registerDto.Lastname" type="text" required ebsInputValidation/>
+              <mat-error *ngIf="lastname?.errors?.required">
+                Nachname fehlt.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="custom-input-container">
+          <div class="custom-label required">
+            Strasse & Haus-Nr. <span>*</span>
+          </div>
+          <div class="custom-input">
+            <div class="left big">
+              <mat-form-field appearance="outline" [color]="'primary'">
+                <i matPrefix class="fal fa-location"></i>
+                <input matInput name="street" #street="ngModel" [(ngModel)]="registerDto.Street" type="text"
+                       matGoogleMapsAutocomplete (onGermanAddressMapped)="onGermanAddressMapped($event)"
+                       required ebsInputValidation/>
+                <mat-error *ngIf="street?.errors?.required">
+                  Strasse fehlt.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right sml">
+              <mat-form-field appearance="outline" [color]="'primary'">
+                <input matInput name="streetno" #streetno="ngModel" [(ngModel)]="registerDto.StreetNo" type="text"
+                       [update]="updateAddress" required ebsInputValidation/>
+                <mat-error *ngIf="streetno?.errors?.required">
+                  Haus-Nr. fehlt.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="custom-input-container">
+          <div class="custom-label required">
+            PLZ & Ort <span>*</span>
+          </div>
+          <div class="custom-input">
+            <div class="left sml">
+              <mat-form-field appearance="outline" [color]="'primary'">
+                <input matInput name="zip" #zip="ngModel" [(ngModel)]="registerDto.Zip" type="text"
+                       [update]="updateAddress" required ebsInputValidation/>
+                <mat-error *ngIf="zip?.errors?.required">
+                  PLZ fehlt.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="right big">
+              <mat-form-field appearance="outline" [color]="'primary'">
+                <input matInput name="plc" #plc="ngModel" [(ngModel)]="registerDto.Location" type="text"
+                       [update]="updateAddress" required ebsInputValidation/>
+                <mat-error *ngIf="plc?.errors?.required">
+                  Ort fehlt.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </form>
+    </ebs-accordion-item>
+    <ebs-accordion-item [title]="'Kontaktdaten'">
+      <p class="warn-msg"><i class="fa fa-exclamation-circle"></i>Bitte nehmen Sie zur Kenntnis, dass Ihre E-Mail-
+        Adresse gleichzeitig Ihr Benutzername ist.</p>
+      <form #stepForm="ngForm" ebsFormValidation>
+        <div class="custom-input-container">
+          <div class="custom-label required">
+            E- Mail <span>*</span>
+          </div>
+          <div class="custom-input">
+            <mat-form-field appearance="outline" [color]="'primary'" disabled="true">
+              <i matPrefix class="fal fa-user"></i>
+              <input matInput name="username" #username="ngModel" [(ngModel)]="registerDto.EMail" type="text"
+                     ebsUserExistValidation required email ebsInputValidation/>
+              <mat-error *ngIf="username?.errors?.required">
+                E- Mail Adresse fehlt.
+              </mat-error>
+              <mat-error *ngIf="username?.errors?.email">
+                E- Mail Adresse invalid.
+              </mat-error>
+              <mat-error *ngIf="username?.errors?.user">
+                Benutzername ist leider nicht verfügbar.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </ebs-accordion-item>
+    <ebs-accordion-item [title]="'Benutzername'" (actiontorfire)="registerAccount($event)">
+      <form #stepForm="ngForm" ebsFormValidation>
+        <div class="custom-input-container">
+          <div class="custom-label required">
+            Benutzername <span>*</span>
+          </div>
+          <div class="custom-input padtopbottom">
+            {{registerDto.EMail}}
+          </div>
+        </div>
+        <div class="custom-input-container">
+          <div class="custom-label required">
+            Passwort <span>*</span>
+          </div>
+          <div class="custom-input">
+            <mat-form-field appearance="outline" [color]="'primary'">
+              <i matPrefix class="fal fa-key"></i>
+              <i matSuffix class="action fal {{ showPwd1 ? 'fa-eye' : 'fa-eye-slash' }}"
+                 (click)="showPwd1 = !showPwd1"></i>
+              <input matInput name="passwd" #passwd="ngModel" [(ngModel)]="registerDto.Pwd"
+                     type="{{ showPwd1 ? 'text' : 'password' }}"
+                     ebsInputMatchValidation match="passwordrepeat" required ebsInputValidation/>
+              <mat-error *ngIf="passwd?.errors?.required">
+                Password fehlt.
+              </mat-error>
+              <mat-error *ngIf="!strength?.pwdOK">
+                Password ist leider invalid. Bitte halten Sie sich an die Richtlinien.
+              </mat-error>
+              <mat-error *ngIf="passwd?.errors?.match">
+                Passwörter stimmen nicht überein.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="custom-input-container">
+          <div class="custom-label"></div>
+          <div class="custom-input">
+            <div class="pwdvalidator">
+              <ebs-pwdchecker [pwdControl]="passwd" #strength></ebs-pwdchecker>
+            </div>
+          </div>
+        </div>
+        <div class="custom-input-container">
+          <div class="custom-label required">
+            Passwort wiederholen <span>*</span>
+          </div>
+          <div class="custom-input">
+            <mat-form-field appearance="outline" [color]="'primary'">
+              <i matPrefix class="fal fa-key"></i>
+              <i matSuffix class="action fal {{ showPwd2 ? 'fa-eye' : 'fa-eye-slash' }}"
+                 (click)="showPwd2 = !showPwd2"></i>
+              <input matInput name="passwordrepeat" #passwordrepeat="ngModel" [(ngModel)]="registerDto.PwdRepeat"
+                     type="{{ showPwd2 ? 'text' : 'password' }}" ebsInputMatchValidation match="passwd" required
+                     ebsInputValidation/>
+              <mat-error *ngIf="passwordrepeat?.errors?.required">
+                Passwort wiederholen fehlt.
+              </mat-error>
+              <mat-error *ngIf="passwordrepeat?.errors?.match">
+                Passwörter stimmen nicht überein.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </ebs-accordion-item>
+  </ebs-accordion>
+</div>

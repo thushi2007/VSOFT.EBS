@@ -6,9 +6,9 @@ export const menuitemLst: any[] = [
     Url: '/home'
   },
   {
-    Text: 'Benutzerkonto',
-    UrlPattern: 'benutzerkonto',
-    Url: '/benutzerkonto/admin',
+    Text: 'Anmelden',
+    UrlPattern: 'anmelden',
+    Url: '/anmelden',
     Children: [
       {
         Text: 'Anmelden',
@@ -17,6 +17,52 @@ export const menuitemLst: any[] = [
       {
         Text: 'Registrieren',
         Url: '/registrieren'
+      }
+    ]
+  },
+  {
+    Text: 'Benutzerkonto',
+    UrlPattern: 'benutzerkontoadmin',
+    Url: '/benutzerkonto/admin',
+    Children: [
+      {
+        Text: 'Produkte',
+        Url: '/benutzerkonto/admin/artikel'
+      },
+      {
+        Text: 'Kunden',
+        Url: '/benutzerkonto/admin/kunden'
+      },
+      {
+        Text: 'Bestellungen',
+        Url: '/benutzerkonto/admin/kaeufe'
+      },
+      {
+        Text: 'Profil',
+        Url: '/benutzerkonto/admin/profile'
+      },
+      {
+        Text: 'Abmelden',
+        Url: '/anmelden'
+      }
+    ]
+  },
+  {
+    Text: 'Benutzerkonto',
+    UrlPattern: 'benutzerkontokunde',
+    Url: '/benutzerkonto/kunde',
+    Children: [
+      {
+        Text: 'Bestellungen',
+        Url: '/benutzerkonto/kunde/kaeufe'
+      },
+      {
+        Text: 'Profil',
+        Url: '/benutzerkonto/kunde/profile'
+      },
+      {
+        Text: 'Abmelden',
+        Url: '/anmelden'
       }
     ]
   },
@@ -58,34 +104,6 @@ export const menuitemLst: any[] = [
       {
         Text: 'Anfrage',
         Url: '/hauswartung/anfrage'
-      }
-    ]
-  },
-  {
-    Text: 'Immobilien',
-    Url: 'immobilien'
-  },
-  {
-    Text: 'Kontakt',
-    Url: '/kontakt'
-  },
-  {
-    Text: 'Benutzerkonto',
-    OnlyMobile: true,
-    Url: '',
-    UrlPattern: 'benutzerkonto',
-    Children: [
-      {
-        Text: 'Anmelden',
-        Url: '/anmelden'
-      },
-      {
-        Text: 'Registrieren',
-        Url: '/registrieren'
-      },
-      {
-        Text: 'Passwort vergessen',
-        Url: '/pwtvergessen'
       }
     ]
   }

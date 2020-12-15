@@ -2,7 +2,7 @@ Use sys;
 create database if not exists ebs;
 
 create table if not exists ebs.VS_E_LANGUAGE (
-    `Id`         INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `Id`         Integer          NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `Name`       VARCHAR(100) NULL,
     `Value`      VARCHAR(100) NULL,
     `CreatedOn`  DATETIME     NULL,
@@ -10,7 +10,7 @@ create table if not exists ebs.VS_E_LANGUAGE (
 );
 
 create table if not exists ebs.VS_E_SALUTATION (
-    `Id`         INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `Id`         Integer          NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `Name`       VARCHAR(100) NULL,
     `Value`      VARCHAR(100) NULL,
     `CreatedOn`  DATETIME     NULL,
@@ -18,21 +18,21 @@ create table if not exists ebs.VS_E_SALUTATION (
 );
 
 create table if not exists ebs.VS_T_PUBLISHER (
-    `Id`         INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `Id`         Integer          NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `Name`       VARCHAR(100) NULL,
     `CreatedOn`  DATETIME     NULL,
     `ModifiedOn` DATETIME     NULL
 );
 
 create table if not exists ebs.VS_T_AUTHOR (
-    `Id`         INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `Id`         Integer          NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `Name`       VARCHAR(100) NULL,
     `Createdon`  DATETIME     NULL,
     `Modifiedon` DATETIME     NULL
 );
 
 create table if not exists ebs.VS_T_CATEGORY (
-    `Id`         INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `Id`         Integer          NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `Icon`       VARCHAR(100) NULL,
     `Category`   VARCHAR(100) NULL,
     `CreatedOn`  DATETIME     NULL,
@@ -40,28 +40,28 @@ create table if not exists ebs.VS_T_CATEGORY (
 );
 
 create table if not exists ebs.VS_T_SUBCATEGORY (
-    `Id`             INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `Id`             Integer          NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `Icon`           VARCHAR(100) NULL,
     `Name`           VARCHAR(100) NULL,
-    `MainCategoryId` INT          NULL,
+    `MainCategoryId` Integer          NULL,
     `CreatedOn`      DATETIME     NULL,
     `ModifiedOn`     DATETIME     NULL,
     FOREIGN KEY (MainCategoryId) REFERENCES VS_T_CATEGORY (Id)
 );
 
 create table if not exists ebs.VS_T_ARTICLE (
-    `Id`            INT           NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `LanguageId`    INT           NULL,
-    `PublisherId`   INT           NULL,
-    `AuthorId`      INT           NULL,
-    `SubCategoryId` INT           NULL,
+    `Id`            Integer           NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `LanguageId`    Integer           NULL,
+    `PublisherId`   Integer           NULL,
+    `AuthorId`      Integer           NULL,
+    `SubCategoryId` Integer           NULL,
     `Title`         VARCHAR(100)  NULL,
     `Description`   VARCHAR(1000) NULL,
     `Price`         DOUBLE        NULL,
     `EAN`           VARCHAR(1000) NULL,
-    `ReleaseYear`   INT           NULL,
-    `Sites`         INT           NULL,
-    `Stock`         INT           NOT NULL,
+    `ReleaseYear`   Integer           NULL,
+    `Sites`         Integer           NULL,
+    `Stock`         Integer           NOT NULL,
     `CreatedOn`     DATETIME      NULL,
     `ModifiedOn`    DATETIME      NULL,
     FOREIGN KEY (LanguageId) REFERENCES VS_E_LANGUAGE (id),
@@ -71,8 +71,8 @@ create table if not exists ebs.VS_T_ARTICLE (
 );
 
 create table if not exists ebs.VS_T_ARTICLE_IMAGES (
-    `Id`         INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `ArticleId`  INT          NULL,
+    `Id`         Integer          NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `ArticleId`  Integer          NULL,
     `Image`      BLOB         NULL,
     `Name`       VARCHAR(200) NULL,
     `Type`       VARCHAR(100) NULL,
@@ -82,14 +82,14 @@ create table if not exists ebs.VS_T_ARTICLE_IMAGES (
 );
 
 create table if not exists ebs.VS_T_CUSTOMER (
-    `Id`           INT          NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `SalutationId` int          NULL,
+    `Id`           Integer          NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `SalutationId` Integer          NULL,
     `Firstname`    VARCHAR(200) NULL,
     `Lastname`     VARCHAR(200) NULL,
     `Organisation` VARCHAR(200) NULL,
     `Street`       VARCHAR(200) NULL,
     `No`           VARCHAR(200) NULL,
-    `ZIP`          int          NULL,
+    `ZIP`          Integer          NULL,
     `Place`        VARCHAR(200) NULL,
     `Username`     VARCHAR(300) NOT NULL,
     `CreatedOn`    DATETIME     NULL,
@@ -98,8 +98,8 @@ create table if not exists ebs.VS_T_CUSTOMER (
 );
 
 create table if not exists ebs.VS_T_BUY (
-    `Id`         INT      NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `CustomerId` INT      NULL,
+    `Id`         Integer      NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `CustomerId` Integer      NULL,
     `BuyDate`    DATETIME NULL,
     `TotalPrice` double   NULL,
     `CreatedOn`  DATETIME NULL,
@@ -108,9 +108,9 @@ create table if not exists ebs.VS_T_BUY (
 );
 
 create table if not exists ebs.VS_T_BUY_ARTICLE (
-    `Id`         INT      NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `ArticleId`  INT      NULL,
-    `BuyId`      INT      NULL,
+    `Id`         Integer      NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `ArticleId`  Integer      NULL,
+    `BuyId`      Integer      NULL,
     `CreatedOn`  DATETIME NULL,
     `ModifiedOn` DATETIME NULL,
     FOREIGN KEY (ArticleId) REFERENCES VS_T_ARTICLE (id),

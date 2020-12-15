@@ -14,6 +14,22 @@ import java.util.Collection;
         name = "VS_T_BUY",
         schema = "ebs"
 )
+@NamedQueries({
+        @NamedQuery(
+                name = "Buy.getAll",
+                query = "SELECT s FROM Buy s"
+        ),
+        @NamedQuery(
+                name = "Buy.findById",
+                query = "SELECT s FROM Buy s " +
+                        "WHERE s.id = :sid"
+        ),
+        @NamedQuery(
+                name = "Buy.findBuysOfUser",
+                query = "SELECT s FROM Buy s " +
+                        "WHERE s.customer.username = :uname"
+        )
+})
 public class BuyEntity implements Serializable {
     private Integer id;
     private Integer customerId;
@@ -88,7 +104,6 @@ public class BuyEntity implements Serializable {
         BuyEntity that = (BuyEntity) o;
 
         if (id != that.id) return false;
-        if (customerId != null ? !customerId.equals(that.customerId) : that.customerId != null) return false;
         if (buyDate != null ? !buyDate.equals(that.buyDate) : that.buyDate != null) return false;
         if (totalPrice != null ? !totalPrice.equals(that.totalPrice) : that.totalPrice != null) return false;
         if (createdOn != null ? !createdOn.equals(that.createdOn) : that.createdOn != null) return false;
@@ -99,8 +114,8 @@ public class BuyEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int)id;
-        result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
+        Integer result = (Integer)id;
+        result = 31 * result + customerId;
         result = 31 * result + (buyDate != null ? buyDate.hashCode() : 0);
         result = 31 * result + (totalPrice != null ? totalPrice.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);

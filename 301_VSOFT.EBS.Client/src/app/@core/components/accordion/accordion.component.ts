@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ContentChildren, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component} from '@angular/core';
 import {AccordionService} from '@core/components/accordion/services/accordion.service';
 
 @Component({
@@ -7,11 +7,11 @@ import {AccordionService} from '@core/components/accordion/services/accordion.se
   styleUrls: ['./accordion.component.scss'],
   providers: [AccordionService]
 })
-export class AccordionComponent implements OnInit {
-  constructor() {
-
+export class AccordionComponent {
+  constructor(private accordion: AccordionService) {
   }
 
-  ngOnInit(): void {
+  resetAllSteps(): void {
+    this.accordion.reset();
   }
 }

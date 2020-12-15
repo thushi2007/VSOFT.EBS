@@ -1,0 +1,17 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+:host{
+  display: block;
+  width: 100%;
+
+  .login-container {
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+
+    @include media-breakpoint-down('sm') {
+      width: 100%;
+    }
+  }
+}

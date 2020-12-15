@@ -142,12 +142,12 @@ export class AuthService {
     return isNormalUser;
   }
 
-  getUsername() {
+  getUsername(): string {
     let name = '';
 
     if (this.oauthService.hasValidAccessToken()) {
       const claims = this.oauthService.getIdentityClaims() as any;
-      name = claims?.fullname;
+      name = claims.name;
     }
 
     return name;

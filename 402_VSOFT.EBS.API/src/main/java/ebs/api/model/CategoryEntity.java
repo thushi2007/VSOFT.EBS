@@ -92,7 +92,7 @@ public class CategoryEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int)id;
+        Integer result = (Integer)id;
         result = 31 * result + (icon != null ? icon.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);

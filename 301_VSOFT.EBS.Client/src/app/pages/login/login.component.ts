@@ -1,11 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MessagerComponent} from '@core/components/messager/messager.component';
-import {FormValidationDirective} from '@core/directives/form-validation.directive';
-import {PromiseButtonComponent} from '@core/components/promise-button/promise-button.component';
+import {Meta, Title} from '@angular/platform-browser';
 import {OAuthService} from 'angular-oauth2-oidc';
 import {Router} from '@angular/router';
-import {Meta, Title} from '@angular/platform-browser';
 import {AuthService} from '@core/services';
+import {MessagerComponent} from '@core/components';
 
 @Component({
   selector: 'ebs-login',
@@ -13,18 +11,11 @@ import {AuthService} from '@core/services';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild(MessagerComponent, {static: false}) msg: MessagerComponent;
-  @ViewChild(FormValidationDirective, {static: false}) loginForm: FormValidationDirective;
-  @ViewChild('loginBtn', {static: false}) loginBtn: PromiseButtonComponent;
+  @ViewChild(MessagerComponent, {static: true}) msg: MessagerComponent;
 
   paths: any;
-  showPwd1 = false;
 
-  loginDto = {
-    username: '',
-    pwd: '',
-    staylogged: false
-  };
+  newUserCreated = false;
 
   constructor(private titleService: Title,
               private metaService: Meta,
@@ -39,36 +30,25 @@ export class LoginComponent implements OnInit {
       }]
     };
 
-    this.titleService.setTitle('Anmelden | immosketch.ch');
-    // this.metaService.addTags(AppConfig.metadata);
-    this.metaService.updateTag({name: 'description', content: 'Melden Sie sich an, um zu Ihr Benutzerkonto zu gelangen.'});
-  }
+    this.titleService.setTitle('Anmelden');
+    this.metaService.updateTag({name: 'description', content: 'Registration'});
 
-  reset(): void {
-    this.loginForm.resetForm();
-    this.msg.hide();
-  }
-
-  loginUser(): void {
-    this.loginForm.isValid.then(async (valid) => {
-      if (valid) {
-        this.oauthService
-          .fetchTokenUsingPasswordFlowAndLoadUserProfile(this.loginDto.username, this.loginDto.pwd).then(() => {
-          if (this.authService.isUserAdmin()) {
-            this.router.navigateByUrl('/benutzerkonto/admin');
-          } else if (!this.authService.isUserAdmin()) {
-            this.router.navigateByUrl('/benutzerkonto/kunde');
-          }
-        });
-      } else {
-        this.oauthService.logOut();
-        this.msg.hide();
-        this.msg.popErrorMessage('Fehler!', 'Bitte füllen Sie alle nötigen Fehler aus.');
-      }
-    });
+    this.newUserCreated = this.router.getCurrentNavigation()?.extras?.state?.userCreated;
   }
 
   ngOnInit(): void {
     this.oauthService.logOut();
+
+    if (this.newUserCreated) {
+      this.msg.popSuccessMessage('Registration erfolgreich', 'Sie wurden erfolgreich registriert. Sie können sich direkt anmelden.');
+    }
+  }
+
+  redirectArterLogin(): void {
+    if (this.authService.isUserAdmin()) {
+      this.router.navigateByUrl('/benutzerkonto/admin');
+    } else if (!this.authService.isUserAdmin()) {
+      this.router.navigateByUrl('/benutzerkonto/kunde');
+    }
   }
 }

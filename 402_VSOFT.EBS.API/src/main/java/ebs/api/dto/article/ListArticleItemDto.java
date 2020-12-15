@@ -1,16 +1,18 @@
 package ebs.api.dto.article;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
+@JsonTypeName("ListArticleItemDto")
 public class ListArticleItemDto {
     private Long Id;
     private String Title;
     private double Price;
     private String EAN;
-    private Date CreatedOn;
-    private Date ModifiedOn;
+    private Timestamp CreatedOn;
+    private Timestamp ModifiedOn;
 
     @JsonProperty("Id")
     public Long getId() {
@@ -49,20 +51,20 @@ public class ListArticleItemDto {
     }
 
     @JsonProperty("CreatedOn")
-    public Date getCreatedOn() {
+    public Timestamp getCreatedOn() {
         return CreatedOn;
     }
 
-    public void setCreatedOn(Date createdOn) {
+    public void setCreatedOn(Timestamp createdOn) {
         CreatedOn = createdOn;
     }
 
     @JsonProperty("ModifiedOn")
-    public Date getModifiedOn() {
+    public Timestamp getModifiedOn() {
         return ModifiedOn;
     }
 
-    public void setModifiedOn(Date modifiedOn) {
+    public void setModifiedOn(Timestamp modifiedOn) {
         ModifiedOn = modifiedOn;
     }
 }

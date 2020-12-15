@@ -17,6 +17,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {FooterModule} from './footer/footer.module';
 import {HeaderModule} from './header/header.module';
 import {CoreModule} from '@core/core.module';
+import {NgImageSliderModule} from 'ng-image-slider';
 
 export const MY_FORMATS = {
   parse: {
@@ -65,7 +66,8 @@ export function getLocalStorage(): any {
     MatGoogleMapsAutocompleteModule,
     NgxMaskModule.forRoot({validation: false}),
     SweetAlert2Module.forRoot(),
-    MatMomentDateModule
+    MatMomentDateModule,
+    NgImageSliderModule
   ],
   providers: [
     {

@@ -1,0 +1,56 @@
+@import "src/app/@core/scss/variables/global";
+@import "src/app/@core/scss/mixins/breakpoints";
+
+:host {
+  display: block;
+  width: 100%;
+
+  > .loginregister-container {
+    display: block;
+    width: 100%;
+    vertical-align: top;
+
+    .login-container {
+      display: inline-block;
+      width: 40%;
+
+      @include media-breakpoint-down('sm') {
+        width: 100%;
+      }
+    }
+
+    .register-container {
+      display: inline-block;
+      width: 60%;
+      padding-left: 20px;
+      vertical-align: top;
+
+      @include media-breakpoint-down('sm') {
+        width: 100%;
+        padding-left: 0px;
+      }
+    }
+  }
+
+  .userContainer {
+    display: block;
+    width: 100%;
+
+    .address {
+      display: block;
+      width: 100%;
+
+      p {
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    .actions {
+      margin-top: 20px;
+      border-top: 1px solid #eeeeee;
+      padding: 20px 0 0 0;
+      text-align: right;
+    }
+  }
+}

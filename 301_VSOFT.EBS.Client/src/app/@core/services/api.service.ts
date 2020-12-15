@@ -41,7 +41,7 @@ export class ApiService {
     if (!options) {
       options = {
         headers: new HttpHeaders({
-          'Content-Type': `application/json; charset=utf-8`,
+          'Content-Type': `application/json`,
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,
           reCaptchV3: reCaptchaV3 ? reCaptchaV3 : ''
@@ -60,10 +60,9 @@ export class ApiService {
     if (!options) {
       options = {
         headers: new HttpHeaders({
-          'Content-Type': `application/json; charset=utf-8`,
+          'Content-Type': `application/json`,
           Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-          reCaptchV3: reCaptchaV3 ? reCaptchaV3 : ''
+          Authorization: `Bearer ${token}`
         })
       };
     }
@@ -80,8 +79,7 @@ export class ApiService {
         headers: new HttpHeaders({
           'Content-Type': `application/json; charset=utf-8`,
           Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-          reCaptchV3: reCaptchaV3 ? reCaptchaV3 : ''
+          Authorization: `Bearer ${token}`
         })
       };
     }
@@ -97,7 +95,7 @@ export class ApiService {
     if (!options) {
       options = {
         headers: new HttpHeaders({
-          'Content-Type': `application/json; charset=utf-8`,
+          'Content-Type': `application/json`,
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,
           reCaptchV3: reCaptchaV3 ? reCaptchaV3 : ''

@@ -1,0 +1,24 @@
+<div class="items-container" *ngIf="items.length > 0">
+  <table class="cart-table">
+    <thead>
+    <tr>
+      <td>Nr.</td>
+      <td>Bezeichnung</td>
+      <td>Preis CHF</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let art of items; let i = index;">
+      <td><i class="fal fa-times" (click)="removeItemFromCart(i)"></i></td>
+      <td>{{art.Title}}</td>
+      <td>{{art.Price | currency: 'CHF '}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td [colSpan]="2">Total CHF</td>
+      <td>{{totalCHF | currency: 'CHF '}}</td>
+    </tr>
+    </tfoot>
+  </table>
+</div>

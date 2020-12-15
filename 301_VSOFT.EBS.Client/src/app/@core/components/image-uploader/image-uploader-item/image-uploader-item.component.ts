@@ -74,25 +74,28 @@ export class ImageUploaderItemComponent implements OnDestroy {
     this.uploaderService.removeImage(index);
   }
 
-  uploadFile(uploadUrl: string): void {
-    const formData = new FormData();
-    formData.append('File', this.file.file);
-    formData.append('Name', this.file.name);
-    formData.append('Size', this.file.size + '');
-    formData.append('Type', this.file.type);
+  async uploadFile(uploadUrl: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append('File', this.file.file);
+      formData.append('Name', this.file.name);
+      formData.append('Size', this.file.size + '');
+      formData.append('Type', this.file.type);
 
-    this.httpEmitter = this.httpClient.post(uploadUrl, formData, {reportProgress: true, observe: 'events'})
-      .subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progress = 100 / event.total * event.loaded;
-        }
-        if (event.type === HttpEventType.Response) {
-          delete this.httpEmitter;
-          setTimeout(() => {
-            this.removeImage(this.indx);
-          }, 1000);
-        }
-      });
+      this.httpEmitter = this.httpClient.post(uploadUrl, formData, {reportProgress: true, observe: 'events'})
+        .subscribe(event => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progress = 100 / event.total * event.loaded;
+          }
+          if (event.type === HttpEventType.Response) {
+            delete this.httpEmitter;
+            setTimeout(() => {
+              this.removeImage(this.indx);
+              resolve();
+            }, 1000);
+          }
+        });
+    });
   }
 
   ngOnDestroy(): void {

@@ -19,8 +19,16 @@ const routes: Routes = [
     loadChildren: () => import(`./ebooks/ebooks.module`).then(m => m.EbooksModule)
   },
   {
-    path: '**',
-    redirectTo: 'anmelden',
+    path: 'checkout',
+    loadChildren: () => import(`./checkout/checkout.module`).then(m => m.CheckoutModule)
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import(`./cart/cart.module`).then(m => m.CartModule)
+  },
+  {
+    path: '',
+    redirectTo: 'ebooks',
     pathMatch: 'full'
   }
 ];

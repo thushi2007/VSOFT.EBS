@@ -97,8 +97,6 @@ public class SubcategoryEntity implements Serializable {
         if (id != that.id) return false;
         if (icon != null ? !icon.equals(that.icon) : that.icon != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (mainCategoryId != null ? !mainCategoryId.equals(that.mainCategoryId) : that.mainCategoryId != null)
-            return false;
         if (createdOn != null ? !createdOn.equals(that.createdOn) : that.createdOn != null) return false;
         if (modifiedOn != null ? !modifiedOn.equals(that.modifiedOn) : that.modifiedOn != null) return false;
 
@@ -107,10 +105,10 @@ public class SubcategoryEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int) id;
+        Integer result = (Integer) id;
         result = 31 * result + (icon != null ? icon.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (mainCategoryId != null ? mainCategoryId.hashCode() : 0);
+        result = 31 * result + mainCategoryId;
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
         result = 31 * result + (modifiedOn != null ? modifiedOn.hashCode() : 0);
         return result;

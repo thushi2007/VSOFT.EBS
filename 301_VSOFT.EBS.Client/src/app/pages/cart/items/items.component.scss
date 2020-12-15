@@ -1,0 +1,55 @@
+:host {
+  display: block;
+  width: 100%;
+  padding-bottom: 20px;
+
+  .items-container {
+    display: block;
+    width: 100%;
+  }
+
+  .cart-table {
+    display: table;
+    width: 100%;
+
+    thead {
+      border-bottom: 1px solid #dddddd;
+
+      td {
+        font-weight: bold;
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+
+    tbody {
+      border-bottom: 1px solid #dddddd;
+
+      td {
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+
+    tfoot {
+      border-top: 1px solid #dddddd;
+      border-bottom: 4px double #cccccc;
+
+      td {
+        font-weight: bold;
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+
+    .fa-times {
+      color: red;
+      cursor: pointer;
+    }
+  }
+}

@@ -19,7 +19,6 @@ export class AppComponent {
     this.oauthService.requireHttps = false;
     this.oauthService.clearHashAfterLogin = true;
     this.oauthService.dummyClientSecret = environment.idpPwd;
-    this.oauthService.loadDiscoveryDocument().then(() => {
-    });
+    this.oauthService.loadDiscoveryDocument().then(() => {});
   }
 }

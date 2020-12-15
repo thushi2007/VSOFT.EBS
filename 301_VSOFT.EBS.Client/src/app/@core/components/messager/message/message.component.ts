@@ -10,12 +10,19 @@ import {animate, animateChild, group, query, sequence, style, transition, trigge
       transition(':enter', [
         sequence([
           group([
-            query(':self', [style({
-              height: '*'
-            }), animate('200ms ease-in')], {optional: true}),
+            query(':self', [
+              style({
+                height: '0px',
+                margin: '0px 0px 0px 0px'
+              }),
+              animate('200ms', style({
+                height: '*',
+                margin: '0px 0px 20px 0px'
+              }))
+            ], {optional: true}),
             query('.msg-container', [style({
               transform: 'translateY(-100%)'
-            }), animate('400ms ease-in')], {optional: true}),
+            }), animate('400ms 100ms ease-out')], {optional: true}),
           ])
         ])
       ]),
@@ -23,7 +30,8 @@ import {animate, animateChild, group, query, sequence, style, transition, trigge
         sequence([
           group([
             query(':self', [animate('200ms ease-out', style({
-              height: '0'
+              height: '0px',
+              margin: '0px 0px 0px 0px'
             }))], {optional: true}),
             query('.msg-container', [animate('300ms ease-out', style({
               transform: 'translateY(100%)'
@@ -32,7 +40,7 @@ import {animate, animateChild, group, query, sequence, style, transition, trigge
         ])
       ])
     ])
-  ],
+  ]
 })
 export class MessageComponent {
   @HostBinding('@HeightDown') MyanimateContainer;

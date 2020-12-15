@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  width: 100%;
+  text-align: left;
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  .order {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+  }
+
+  .customer {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    padding-left: 20px;
+  }
+
+  .articles {
+    display: block;
+    width: 100%;
+
+  }
+}

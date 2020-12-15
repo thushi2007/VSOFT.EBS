@@ -18,11 +18,16 @@ import java.sql.Timestamp;
         @NamedQuery(
                 name = "ArticleImage.getAll",
                 query = "SELECT e FROM ArticleImage e"
+        ),
+        @NamedQuery(
+                name = "ArticleImage.getImagesByArticleId",
+                query = "SELECT e FROM ArticleImage e " +
+                        "WHERE e.articleId = :sid"
         )
 })
 public class ArticleImageEntity implements Serializable {
     private Integer id;
-    private Blob image;
+    private byte[] image;
     private Integer articleId;
     private Timestamp createdOn;
     private Timestamp modifiedOn;
@@ -41,11 +46,11 @@ public class ArticleImageEntity implements Serializable {
 
     @Lob
     @Column(name = "Image", nullable = true)
-    public Blob getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -93,8 +98,8 @@ public class ArticleImageEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int)id;
-        result = 31 * result + (articleId != null ? articleId.hashCode() : 0);
+        Integer result = (Integer)id;
+        result = 31 * result + articleId;
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
         result = 31 * result + (modifiedOn != null ? modifiedOn.hashCode() : 0);
         return result;

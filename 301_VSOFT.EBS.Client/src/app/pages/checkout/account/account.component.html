@@ -1,0 +1,32 @@
+<div class="loginregister-container">
+  <div class="custom-form-groupbox" *ngIf="!showUser">
+    <div class="custom-title">Benutzerkonto</div>
+    <div class="login-container">
+      <div class="custom-form-groupbox">
+        <div class="custom-title">Anmelden</div>
+        <ebs-login-form (successpostAction)="afterLogin()"></ebs-login-form>
+      </div>
+    </div>
+    <div class="register-container">
+      <div class="custom-form-groupbox">
+        <div class="custom-title">Registrieren</div>
+        <p class="info">Falls Sie noch kein Benutzerkonto besitzen, erstellen Sie bitte ein Neues.</p>
+        <a class="customButtonBlueLink" [routerLink]="'/registrieren'">Registrieren</a>
+      </div>
+    </div>
+  </div>
+  <div class="custom-form-groupbox userContainer" *ngIf="showUser">
+    <div class="custom-title">Persönliche Daten</div>
+    <div class="address">
+      <p *ngIf="user?.Organisation">{{user?.Organisation}}</p>
+      <p>{{user?.Lastname}} {{user?.Firstname}}</p>
+      <p>{{user?.Street}} {{user?.StreetNo}}</p>
+      <p>{{user?.Zip}} {{user?.Location}}</p>
+    </div>
+    <div class="actions">
+      <div>
+        <ebs-promise-button (btnAction)="nextStep()">Weiter</ebs-promise-button>
+      </div>
+    </div>
+  </div>
+</div>

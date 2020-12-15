@@ -1,190 +1,191 @@
 <ebs-messager [onlyOneInstance]="true" #msg></ebs-messager>
 <div class="custom-form-groupbox">
   <form #updateProfileFirm="ngForm" ebsFormValidation>
-    <div class="custom-input-container">
-      <div class="custom-label">
-        Sub- Kategory
+    <div class="left">
+      <div class="custom-input-container">
+        <div class="custom-label">
+          Subkategory
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <mat-select name="subcategory" #subcategory="ngModel" [(ngModel)]="articleDto.SubCategoryId" required
+                        ebsEnumSelection ebsInputValidation>
+              <mat-option [value]="">
+                wählen
+              </mat-option>
+              <mat-option *ngFor="let subcat of subCategories" [value]="subcat.Id">
+                {{subcat.Value}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="subcategory?.errors?.required">
+              Sub- Kategory fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
       </div>
-      <div class="custom-input">
-        <mat-form-field appearance="outline" [color]="'primary'">
-          <mat-select name="subcategory" #subcategory="ngModel" [(ngModel)]="articleDto.SubCategoryId" required
-                      ebsEnumSelection ebsInputValidation>
-            <mat-option [value]="">
-              wählen
-            </mat-option>
-            <mat-option *ngFor="let subcat of subCategories" [value]="subcat.Id">
-              {{subcat.Value}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="subcategory?.errors?.required">
-            Sub- Kategory fehlt.
-          </mat-error>
-        </mat-form-field>
+      <div class="custom-input-container">
+        <div class="custom-label">
+          Sprache
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <mat-select name="lang" #lang="ngModel" [(ngModel)]="articleDto.LanguageId" required
+                        ebsEnumSelection ebsInputValidation>
+              <mat-option [value]="'wählen'">
+                wählen
+              </mat-option>
+              <mat-option *ngFor="let language of languages" [value]="language.Id">
+                {{language.Value}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="lang?.errors?.required">
+              Sub- Kategory fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
       </div>
-    </div>
-    <div class="custom-input-container">
-      <div class="custom-label">
-        Sprache
+      <div class="custom-input-container">
+        <div class="custom-label">
+          Verlag
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <mat-select name="publisher" #publisher="ngModel" [(ngModel)]="articleDto.PublisherId" required
+                        ebsEnumSelection ebsInputValidation>
+              <mat-option [value]="">
+                wählen
+              </mat-option>
+              <mat-option *ngFor="let publr of publishers" [value]="publr.Id">
+                {{publr.Value}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="publisher?.errors?.required">
+              Verlag fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
       </div>
-      <div class="custom-input">
-        <mat-form-field appearance="outline" [color]="'primary'">
-          <mat-select name="lang" #lang="ngModel" [(ngModel)]="articleDto.LanguageId" required
-                      ebsEnumSelection ebsInputValidation>
-            <mat-option [value]="'wählen'">
-              wählen
-            </mat-option>
-            <mat-option *ngFor="let language of languages" [value]="language.Id">
-              {{language.Value}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="lang?.errors?.required">
-            Sub- Kategory fehlt.
-          </mat-error>
-        </mat-form-field>
+      <div class="custom-input-container">
+        <div class="custom-label">
+          Author
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <mat-select name="author" #author="ngModel" [(ngModel)]="articleDto.AuthorId" required
+                        ebsEnumSelection ebsInputValidation>
+              <mat-option [value]="">
+                wählen
+              </mat-option>
+              <mat-option *ngFor="let autr of authors" [value]="autr.Id">
+                {{autr.Value}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="author?.errors?.required">
+              Author fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
       </div>
-    </div>
-    <div class="custom-input-container">
-      <div class="custom-label">
-        Titel
+      <div class="custom-input-container">
+        <div class="custom-label">
+          Titel
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <input matInput name="title" #title="ngModel" [(ngModel)]="articleDto.Title" type="text" required
+                   ebsInputValidation/>
+            <mat-error *ngIf="title?.errors?.required">
+              Titel fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
       </div>
-      <div class="custom-input">
-        <mat-form-field appearance="outline" [color]="'primary'">
-          <input matInput name="title" #title="ngModel" [(ngModel)]="articleDto.Title" type="text" required
-                 ebsInputValidation/>
-          <mat-error *ngIf="title?.errors?.required">
-            Titel fehlt.
-          </mat-error>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="custom-input-container">
-      <div class="custom-label">
-        Beschreibung
-      </div>
-      <div class="custom-input">
-        <mat-form-field appearance="outline" [color]="'primary'">
-          <textarea matInput name="description" #description="ngModel" [(ngModel)]="articleDto.Title" type="text"
+      <div class="custom-input-container">
+        <div class="custom-label">
+          Beschreibung
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+          <textarea matInput name="description" #description="ngModel" [(ngModel)]="articleDto.Description" type="text"
                     required ebsInputValidation></textarea>
-          <mat-error *ngIf="description?.errors?.required">
-            Beschreibung fehlt.
-          </mat-error>
-        </mat-form-field>
+            <mat-error *ngIf="description?.errors?.required">
+              Beschreibung fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
       </div>
     </div>
-    <!--    <div class="custom-input-container">-->
-    <!--      <div class="custom-label required">-->
-    <!--        Organisation <span>*</span>-->
-    <!--      </div>-->
-    <!--      <div class="custom-input">-->
-    <!--        <mat-form-field appearance="outline" [color]="'primary'">-->
-    <!--          <input matInput name="organisation" #organisation="ngModel" [(ngModel)]="profileDto.Organisation"-->
-    <!--                 type="text" required ebsInputValidation/>-->
-    <!--          <mat-error *ngIf="organisation?.errors?.required">-->
-    <!--            Organisation fehlt.-->
-    <!--          </mat-error>-->
-    <!--        </mat-form-field>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div class="custom-input-container">-->
-    <!--      <div class="custom-label required">-->
-    <!--        Strasse & Haus-Nr. <span>*</span>-->
-    <!--      </div>-->
-    <!--      <div class="custom-input">-->
-    <!--        <div class="left big">-->
-    <!--          <mat-form-field appearance="outline" [color]="'primary'">-->
-    <!--            <i matPrefix class="fal fa-location"></i>-->
-    <!--            <input matInput name="street" #street="ngModel" [(ngModel)]="profileDto.Street" type="text" required-->
-    <!--                   matGoogleMapsAutocomplete (onGermanAddressMapped)="onGermanAddressMapped($event)"-->
-    <!--                   ebsInputValidation/>-->
-    <!--            <mat-error *ngIf="street?.errors?.required">-->
-    <!--              Strasse fehlt.-->
-    <!--            </mat-error>-->
-    <!--          </mat-form-field>-->
-    <!--        </div>-->
-    <!--        <div class="right sml">-->
-    <!--          <mat-form-field appearance="outline" [color]="'primary'">-->
-    <!--            <input matInput name="streetno" #streetno="ngModel" [(ngModel)]="profileDto.StreetNo" type="text"-->
-    <!--                   [update]="updateAddress" required ebsInputValidation/>-->
-    <!--            <mat-error *ngIf="streetno?.errors?.required">-->
-    <!--              Haus-Nr. fehlt.-->
-    <!--            </mat-error>-->
-    <!--          </mat-form-field>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div class="custom-input-container">-->
-    <!--      <div class="custom-label required">-->
-    <!--        PLZ & Ort <span>*</span>-->
-    <!--      </div>-->
-    <!--      <div class="custom-input">-->
-    <!--        <div class="left sml">-->
-    <!--          <mat-form-field appearance="outline" [color]="'primary'">-->
-    <!--            <input matInput name="zip" #zip="ngModel" [(ngModel)]="profileDto.Zip" type="text" required-->
-    <!--                   [update]="updateAddress" ebsInputValidation/>-->
-    <!--            <mat-error *ngIf="zip?.errors?.required">-->
-    <!--              PLZ fehlt.-->
-    <!--            </mat-error>-->
-    <!--          </mat-form-field>-->
-    <!--        </div>-->
-    <!--        <div class="right big">-->
-    <!--          <mat-form-field appearance="outline" [color]="'primary'">-->
-    <!--            <input matInput name="place" #place="ngModel" [(ngModel)]="profileDto.Location" type="text"-->
-    <!--                   [update]="updateAddress" required ebsInputValidation/>-->
-    <!--            <mat-error *ngIf="place?.errors?.required">-->
-    <!--              Ort fehlt.-->
-    <!--            </mat-error>-->
-    <!--          </mat-form-field>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <div class="custom-title"></div>
-    <!--    <div class="custom-input-container">-->
-    <!--      <div class="custom-label aligntop">-->
-    <!--        E- Mail-->
-    <!--      </div>-->
-    <!--      <div class="custom-input onlytext">-->
-    <!--        {{profileDto.EMail}}-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div class="custom-input-container">-->
-    <!--      <div class="custom-label">-->
-    <!--        Telefon- Nr.-->
-    <!--      </div>-->
-    <!--      <div class="custom-input">-->
-    <!--        <mat-form-field appearance="outline" [color]="'primary'">-->
-    <!--          <i matPrefix class="fal fa-phone"></i>-->
-    <!--          <input matInput name="phone" #phone="ngModel" [(ngModel)]="profileDto.Phone"-->
-    <!--                 prefix="+41 " mask="(00) 000 00 00" [showMaskTyped]="true" [validation]="true"-->
-    <!--                 type="text" ebsInputValidation/>-->
-    <!--          <mat-error *ngIf="phone?.invalid">-->
-    <!--            Telefon- Nummer ist invalid.-->
-    <!--          </mat-error>-->
-    <!--        </mat-form-field>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div class="custom-input-container">-->
-    <!--      <div class="custom-label">-->
-    <!--        Mobile-->
-    <!--      </div>-->
-    <!--      <div class="custom-input">-->
-    <!--        <mat-form-field appearance="outline" [color]="'primary'">-->
-    <!--          <i matPrefix class="fal fa-mobile"></i>-->
-    <!--          <input matInput name="mobile" #mobile="ngModel" [(ngModel)]="profileDto.Mobile"-->
-    <!--                 prefix="+41 " mask="(00) 000 00 00" [showMaskTyped]="true" [validation]="true"-->
-    <!--                 type="text" ebsInputValidation/>-->
-    <!--        </mat-form-field>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div class="custom-input-container">-->
-    <!--      <div class="custom-label">-->
-    <!--        Web-->
-    <!--      </div>-->
-    <!--      <div class="custom-input">-->
-    <!--        <mat-form-field appearance="outline" [color]="'primary'">-->
-    <!--          <i matPrefix class="fal fa-globe"></i>-->
-    <!--          <input matInput name="website" #website="ngModel" [(ngModel)]="profileDto.Web" type="text" valid/>-->
-    <!--        </mat-form-field>-->
-    <!--      </div>-->
-    <!--    </div>-->
+    <div class="right">
+      <div class="custom-input-container">
+        <div class="custom-label">
+          Preis
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <input matInput name="price" #price="ngModel" [(ngModel)]="articleDto.Price" type="string" required
+                   ebsInputValidation/>
+            <span matSuffix> CHF</span>
+            <mat-error *ngIf="price?.errors?.required">
+              Preis fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="custom-input-container">
+        <div class="custom-label">
+          EAN
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <input matInput name="ean" #ean="ngModel" [(ngModel)]="articleDto.EAN" type="text" required
+                   ebsInputValidation/>
+            <mat-error *ngIf="ean?.errors?.required">
+              EAN- Nummer fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="custom-input-container">
+        <div class="custom-label">
+          Erscheinungsjahr
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <input matInput name="release" #release="ngModel" [(ngModel)]="articleDto.ReleaseYear" type="number"
+                   ebsInputValidation/>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="custom-input-container">
+        <div class="custom-label">
+          Anzahl Seiten
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <input matInput name="sites" #sites="ngModel" [(ngModel)]="articleDto.Sites" type="number"
+                   ebsInputValidation/>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="custom-input-container">
+        <div class="custom-label">
+          Lagerbestand
+        </div>
+        <div class="custom-input">
+          <mat-form-field appearance="outline" [color]="'primary'">
+            <input matInput name="stock" #stock="ngModel" [(ngModel)]="articleDto.Stock" type="number" required
+                   ebsInputValidation/>
+            <mat-error *ngIf="ean?.errors?.required">
+              Lagerbestand fehlt.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="custom-title">Bilder zum Artikel</div>
+    <div class="images">
+      <ebs-image-uploader [acceptedTypes]="['image/png', 'image/jpeg', 'image/gif']"
+                          [maxSize]="5000000" (infoUpload)="setFiles($event)"></ebs-image-uploader>
+    </div>
   </form>
 </div>

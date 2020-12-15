@@ -1,0 +1,27 @@
+<div class="custom-form-groupbox">
+  <div class="order">
+    <div class="custom-title">Details zur Bestellung</div>
+    <p><b>Id</b>: {{buyDetails?.Id}}</p>
+    <p><b>Kaufdatum</b>: {{buyDetails?.BuyDate | date: 'dd.MM.yyyy'}}</p>
+
+    <p><b>Total Bestellwert</b>: {{buyDetails?.TotalPrice | currency: 'CHF '}}</p>
+
+    <p><b>Erstellt am</b>: {{buyDetails?.CreatedOn | date: 'dd.MM.yyyy HH:mm:ss'}}</p>
+    <p><b>Geändert am</b>: {{buyDetails?.ModifiedOn | date: 'dd.MM.yyyy HH:mm:ss'}}</p>
+  </div>
+  <div class="customer">
+    <div class="custom-title">Kunde</div>
+    <p *ngIf="buyDetails?.Customer?.Organisation">{{buyDetails?.Customer?.Organisation}}</p>
+    <p>{{buyDetails?.Customer?.Lastname}} {{buyDetails?.Customer?.Firstname}}</p>
+    <p>{{buyDetails?.Customer?.Street}} {{buyDetails?.Customer?.StreetNo}}</p>
+    <p>{{buyDetails?.Customer?.Zip}} {{buyDetails?.Customer?.Location}}</p>
+  </div>
+
+  <div class="articles">
+    <div class="custom-title pt-4">Gekaufte Artikel</div>
+
+    <div class="artitem" *ngFor="let bDet of buyDetails?.Articles; let i = index;">
+      {{bDet?.Id}} -  {{bDet?.Title}} - {{bDet?.Price | currency: 'CHF ' }}
+    </div>
+  </div>
+</div>

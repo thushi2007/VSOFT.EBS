@@ -1,25 +1,27 @@
 package ebs.api.dto.article;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("ArticleDto")
 public class ArticleDto {
-    private Long id;
+    private Integer id;
     private String Language;
     private String Publisher;
     private String Title;
     private String Description;
     private double Price;
     private String EAN;
-    private int ReleaseYear;
-    private int Sites;
-    private int Stock;
+    private Integer ReleaseYear;
+    private Integer Sites;
+    private Integer Stock;
 
     @JsonProperty("Id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -78,29 +80,29 @@ public class ArticleDto {
     }
 
     @JsonProperty("ReleaseYear")
-    public int getReleaseYear() {
+    public Integer getReleaseYear() {
         return ReleaseYear;
     }
 
-    public void setReleaseYear(int releaseYear) {
+    public void setReleaseYear(Integer releaseYear) {
         ReleaseYear = releaseYear;
     }
 
     @JsonProperty("Sites")
-    public int getSites() {
+    public Integer getSites() {
         return Sites;
     }
 
-    public void setSites(int sites) {
+    public void setSites(Integer sites) {
         Sites = sites;
     }
 
     @JsonProperty("Stock")
-    public int getStock() {
+    public Integer getStock() {
         return Stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         Stock = stock;
     }
 }

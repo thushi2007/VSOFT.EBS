@@ -4,23 +4,23 @@ import {CommonModule} from '@angular/common';
 
 // own modules
 import {
-  TotopModule,
-  PromiseButtonModule,
-  SubmenuModule,
-  PageHeaderModule,
-  MessagerModule,
+  AccordionModule,
   ImageSliderModule,
+  ImageUploaderModule,
+  MessagerModule,
+  PageHeaderModule,
+  PromiseButtonModule,
   PwdcheckerModule,
   StepperModule,
-  AccordionModule,
-  NumberSpinnerModule,
-  ImageUploaderModule
+  SubmenuModule,
+  TotopModule
 } from '@core/components';
 
 import {DialogerModule} from '@core/components/dialoger/dialoger.module';
 
 // own directives
 import {
+  DndDirective,
   EnumSelectionDirective,
   FormValidationDirective,
   InputMatchValidationDirective,
@@ -28,20 +28,14 @@ import {
   InputValidationDirective,
   InputValidationIfDirective,
   MenueSelectedDirective,
+  OnlyNumberDirective,
   ScrollonDirective,
   UserExistValidationDirective,
-  UserNotExistValidationDirective,
-  OnlyNumberDirective,
-  DndDirective
+  UserNotExistValidationDirective
 } from '@core/directives';
 
 // own services
-import {
-  StorageService,
-  MenuService,
-  AuthService,
-  DialogerService
-} from '@core/services';
+import {AuthService, CartService, DialogerService, MenuService, StorageService} from '@core/services';
 
 // guards
 import {AuthGuardService} from '@core/guards/auth-guard.service';
@@ -75,7 +69,6 @@ import {AuthGuardService} from '@core/guards/auth-guard.service';
     PwdcheckerModule,
     StepperModule,
     AccordionModule,
-    NumberSpinnerModule,
     ImageUploaderModule
   ],
   exports: [
@@ -90,7 +83,6 @@ import {AuthGuardService} from '@core/guards/auth-guard.service';
     PwdcheckerModule,
     StepperModule,
     AccordionModule,
-    NumberSpinnerModule,
     ImageUploaderModule,
     // own directives
     EnumSelectionDirective,
@@ -117,6 +109,7 @@ export class CoreModule {
         DialogerService,
         AuthService,
         MenuService,
+        CartService
       ]
     };
   }

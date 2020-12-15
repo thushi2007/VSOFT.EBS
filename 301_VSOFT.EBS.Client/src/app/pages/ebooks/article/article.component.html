@@ -1,5 +1,7 @@
 <div class="line">
-  <div class="image" [style.background-image]="'url(/assets/images/buch.jpg)'"></div>
+  <div class="image" *ngIf="imageObject.length === 0" [style.background-image]="'url(/assets/images/buch.jpg)'"></div>
+  <ng-image-slider class="imageBox" (click)="openImagePopup()" *ngIf="imageObject.length > 0" [images]="imageObject"
+                   [slideImage]="0" [imagePopup]="false" #nav></ng-image-slider>
 </div>
 <div class="line prices">
   <div class="title">
@@ -18,7 +20,8 @@
   <p><b>EAN</b>: {{article.EAN}}</p>
   <p><b>Ausgabejahr</b>: {{article.ReleaseYear}}</p>
   <p><b>Anzahl Seiten</b>: {{article.Sites}}</p>
+  <p><b>Im Lager</b>: {{article.Stock}}</p>
 </div>
 <div class="line warenkorb aligncenter">
-  <button mat-raised-button [color]="'primary'">in den Warenkorb</button>
+  <button mat-raised-button [color]="'primary'" (click)="insertIntoCart()">in den Warenkorb</button>
 </div>

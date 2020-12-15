@@ -12,7 +12,7 @@ public class UserRegisterDto {
 
     private String Street;
     private String StreetNo;
-    private int ZIP;
+    private Integer ZIP;
     private String Location;
 
     private String EMail;
@@ -75,11 +75,11 @@ public class UserRegisterDto {
     }
 
     @JsonProperty("ZIP")
-    public int getZIP() {
+    public Integer getZIP() {
         return ZIP;
     }
 
-    public void setZIP(int ZIP) {
+    public void setZIP(Integer ZIP) {
         this.ZIP = ZIP;
     }
 

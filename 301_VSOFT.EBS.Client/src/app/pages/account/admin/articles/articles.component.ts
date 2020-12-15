@@ -21,6 +21,8 @@ export class ArticlesComponent implements OnInit, AfterViewInit {
 
   paths: any;
 
+  isloading = true;
+
   constructor(private dialoger: DialogerService,
               private apiService: ApiService) {
     this.paths = {
@@ -36,8 +38,14 @@ export class ArticlesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.loaddata();
+  }
+
+  loaddata(): void {
+    this.isloading = true;
     this.apiService.get('/article/list').toPromise().then((rstl) => {
       this.dataSource.data = rstl;
+      this.isloading = false;
     });
   }
 
@@ -60,16 +68,15 @@ export class ArticlesComponent implements OnInit, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): any {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   openDialog(template: TemplateRef<any>): void {
-    this.dialoger.openDialog(template);
-    // subscribe(async () => {
-    //   //this.profileDto = await this.getFirmProfile();
-    // });
+    this.dialoger.openDialog(template).subscribe(() => {
+      this.loaddata();
+    });
   }
 
   ngAfterViewInit(): void {

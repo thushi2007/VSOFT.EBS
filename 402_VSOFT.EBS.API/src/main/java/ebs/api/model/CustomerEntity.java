@@ -9,12 +9,28 @@ import java.sql.Timestamp;
 import java.util.Collection;
 
 @Entity(
-        name = "CUSTOMER"
+        name = "Customer"
 )
 @Table(
         name = "VS_T_CUSTOMER",
         schema = "ebs"
 )
+@NamedQueries({
+        @NamedQuery(
+                name = "Customer.getAll",
+                query = "SELECT s FROM Customer s"
+        ),
+        @NamedQuery(
+                name = "Customer.findById",
+                query = "SELECT s FROM Customer s " +
+                        "WHERE s.id = :sid"
+        ),
+        @NamedQuery(
+                name = "Customer.findByUsername",
+                query = "SELECT s FROM Customer s " +
+                        "WHERE s.username = :uname"
+        )
+})
 public class CustomerEntity implements Serializable {
     private Integer id;
     private Integer salutationId;
@@ -149,13 +165,11 @@ public class CustomerEntity implements Serializable {
         CustomerEntity that = (CustomerEntity) o;
 
         if (id != that.id) return false;
-        if (salutationId != null ? !salutationId.equals(that.salutationId) : that.salutationId != null) return false;
         if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
         if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
         if (organisation != null ? !organisation.equals(that.organisation) : that.organisation != null) return false;
         if (street != null ? !street.equals(that.street) : that.street != null) return false;
         if (no != null ? !no.equals(that.no) : that.no != null) return false;
-        if (zip != null ? !zip.equals(that.zip) : that.zip != null) return false;
         if (place != null ? !place.equals(that.place) : that.place != null) return false;
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (createdOn != null ? !createdOn.equals(that.createdOn) : that.createdOn != null) return false;
@@ -166,14 +180,14 @@ public class CustomerEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int) id;
-        result = 31 * result + (salutationId != null ? salutationId.hashCode() : 0);
+        Integer result = (Integer) id;
+        result = 31 * result + salutationId;
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         result = 31 * result + (organisation != null ? organisation.hashCode() : 0);
         result = 31 * result + (street != null ? street.hashCode() : 0);
         result = 31 * result + (no != null ? no.hashCode() : 0);
-        result = 31 * result + (zip != null ? zip.hashCode() : 0);
+        result = 31 * result + zip;
         result = 31 * result + (place != null ? place.hashCode() : 0);
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);

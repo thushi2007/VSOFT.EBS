@@ -7,6 +7,8 @@ import {CategoryComponent} from './category/category.component';
 import {SubcategoryComponent} from './category/subcategory/subcategory.component';
 import { ArticleComponent } from './article/article.component';
 import {MatButtonModule} from '@angular/material/button';
+import {CoreModule} from '@core/core.module';
+import {NgImageSliderModule} from 'ng-image-slider';
 
 @NgModule({
   declarations: [
@@ -15,11 +17,13 @@ import {MatButtonModule} from '@angular/material/button';
     SubcategoryComponent,
     ArticleComponent
   ],
-  imports: [
-    CommonModule,
-    EbooksRoutingModule,
-    MatButtonModule
-  ]
+    imports: [
+        CommonModule,
+        EbooksRoutingModule,
+        MatButtonModule,
+        CoreModule,
+        NgImageSliderModule
+    ]
 })
 export class EbooksModule {
 }

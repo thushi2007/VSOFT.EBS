@@ -1,0 +1,8 @@
+<div class="page-container" [@showhidePageContent]>
+  <ebs-stepper [steps]="steps">
+  <div class="animationContainer" [@stepperAnimation]="animationParams(outlet)" #routerContainer>
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  </ebs-stepper>
+</div>
+

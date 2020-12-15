@@ -1,6 +1,6 @@
 :host {
   display: inline-block;
-  max-width: calc(33.3% - 20px);
+  width: calc(33.3% - 20px);
   vertical-align: top;
   margin-right: 20px;
   overflow: hidden;
@@ -15,6 +15,10 @@
   &:last-child {
     max-width: 33.3%;
     margin-right: 0px;
+  }
+
+  .imageBox {
+    cursor: pointer;
   }
 
   .line {

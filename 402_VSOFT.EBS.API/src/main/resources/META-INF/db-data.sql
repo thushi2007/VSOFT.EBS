@@ -38,6 +38,7 @@ insert into ebs.VS_T_ARTICLE(LanguageId, PublisherId, AuthorId, SubCategoryId, T
 insert into ebs.VS_T_ARTICLE(LanguageId, PublisherId, AuthorId, SubCategoryId, Title, Description, Price, EAN, ReleaseYear, Sites, Stock, CreatedOn, ModifiedOn) values (1, 3, 3, 10, 'Joe Biden', 'Das erste deutschsprachige Buch über den Präsidentschaftskandidaten Joe Biden', 18, '9783518769188', 2020, 263, 10, now(), now());
 
 
+insert into ebs.VS_T_CUSTOMER(SalutationId, Firstname, Lastname, Organisation, Street, No, ZIP, Place, Username, CreatedOn, ModifiedOn) VALUES (1, 'Thamilini', 'Vickneswaranathan', 'Immosketch GmbH', 'Chrummatt', '16', 3175, 'Flamatt', 'thushi2007@hotmail.com', now(), now());
 
   
   

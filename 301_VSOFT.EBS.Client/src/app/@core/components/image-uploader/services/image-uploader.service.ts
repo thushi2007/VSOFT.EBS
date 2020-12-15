@@ -16,11 +16,10 @@ export class ImageUploaderService implements OnDestroy {
   constructor() {
   }
 
-  getimagesDataList() {
-    let lst = [];
+  getimagesDataList(): any {
+    const lst = [];
 
     for (let index = 0; index < this.files.length; index++) {
-
       const album = {
         src: this.files[index].url,
         caption: this.files[index].name,

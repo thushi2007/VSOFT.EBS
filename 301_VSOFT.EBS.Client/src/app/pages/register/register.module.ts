@@ -10,22 +10,27 @@ import {MatSelectModule} from '@angular/material/select';
 import {NgxMaskModule} from 'ngx-mask';
 import {MatInputModule} from '@angular/material/input';
 import {MatGoogleMapsAutocompleteModule} from '@angular-material-extensions/google-maps-autocomplete';
+import {RegisterFormComponent} from './register-form/register-form.component';
 
 @NgModule({
   declarations: [
-    RegisterComponent
+    RegisterComponent,
+    RegisterFormComponent
   ],
-    imports: [
-        CommonModule,
-        CoreModule,
-        RegisterRoutingModule,
-        MatFormFieldModule,
-        MatInputModule,
-        FormsModule,
-        MatSelectModule,
-        NgxMaskModule,
-        MatGoogleMapsAutocompleteModule
-    ]
+  exports: [
+    RegisterFormComponent
+  ],
+  imports: [
+    CommonModule,
+    CoreModule,
+    RegisterRoutingModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatSelectModule,
+    NgxMaskModule,
+    MatGoogleMapsAutocompleteModule
+  ]
 })
 export class RegisterModule {
 }

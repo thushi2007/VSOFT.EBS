@@ -1,0 +1,91 @@
+<ebs-page-header [pagePath]="paths"></ebs-page-header>
+<div class="page-container">
+  <div class="page-sub-menu">
+    <ebs-submenu [url]="'/benutzerkonto/kunde'"></ebs-submenu>
+  </div>
+  <div class="page-content">
+    <div class="custom-form-groupbox">
+      <div class="example-table-container">
+        <mat-form-field appearance="outline">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Suchfilter" #input>
+        </mat-form-field>
+        <div class="load-overlay" *ngIf="isloading">
+          <mat-spinner [strokeWidth]="3" [diameter]="60"></mat-spinner>
+        </div>
+        <table mat-table [dataSource]="dataSource" class="example-table" matSort
+               matSortActive="Category" matSortDisableClear matSortDirection="asc">
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef class="customheader">
+              <mat-checkbox [color]="'primary'" (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                            [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox [color]="'primary'" (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)"
+                            [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
+            <td mat-footer-cell *matFooterCellDef class="customheader"></td>
+          </ng-container>
+          <ng-container matColumnDef="Id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="customheader">Id</th>
+            <td mat-cell *matCellDef="let row">{{row.Id}}</td>
+            <td mat-footer-cell *matFooterCellDef class="customheader">Id</td>
+          </ng-container>
+          <ng-container matColumnDef="TotalPrice">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="customheader">Total CHF</th>
+            <td mat-cell *matCellDef="let row" class="textalignend">{{row.TotalPrice | currency: 'CHF '}}</td>
+            <td mat-footer-cell *matFooterCellDef class="customheader">Total CHF</td>
+          </ng-container>
+          <ng-container matColumnDef="BuyDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="textalignend customheader">Kaufdatum</th>
+            <td mat-cell *matCellDef="let row" class="textalignend">{{row.BuyDate | date: 'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td mat-footer-cell *matFooterCellDef class="customheader">Kaufdatum</td>
+          </ng-container>
+          <ng-container matColumnDef="CreatedOn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="textalignend customheader">Erstellt am</th>
+            <td mat-cell *matCellDef="let row"
+                class="textalignend">{{row.CreatedOn | date : 'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td mat-footer-cell *matFooterCellDef class="textalignend customheader">Erstellt am</td>
+          </ng-container>
+          <ng-container matColumnDef="ModifiedOn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="textalignend customheader">Geändert am</th>
+            <td mat-cell *matCellDef="let row"
+                class="textalignend">{{row.ModifiedOn | date : 'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td mat-footer-cell *matFooterCellDef class="textalignend customheader">Geändert am</td>
+          </ng-container>
+          <ng-container matColumnDef="menu">
+            <th mat-header-cell *matHeaderCellDef class="customheader textalignend">Aktionen</th>
+            <td mat-cell *matCellDef="let row" class="menucell textalignend">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openDialog(buyDetails, row.Id)">Details anschauen</button>
+              </mat-menu>
+            </td>
+            <td mat-footer-cell *matFooterCellDef class="customheader textalignend">Aktionen</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        </table>
+      </div>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="100"></mat-paginator>
+      <br/>
+      <button mat-icon-button (click)="loaddata()" [matTooltip]="'Liste aktualisieren'">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #buyDetails>
+  <ebs-dialog-window [title]="'Bestellung- Details'">
+    <ebs-buy-kunde-details [buyId]="byId" #baseComp></ebs-buy-kunde-details>
+  </ebs-dialog-window>
+</ng-template>

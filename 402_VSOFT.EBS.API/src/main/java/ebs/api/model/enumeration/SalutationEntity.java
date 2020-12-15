@@ -101,7 +101,7 @@ public class SalutationEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = (int)id;
+        Integer result = (Integer)id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (value != null ? value.hashCode() : 0);
         result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);

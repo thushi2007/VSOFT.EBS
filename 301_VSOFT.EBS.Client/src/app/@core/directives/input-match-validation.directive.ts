@@ -9,7 +9,7 @@ import {AbstractControl, NG_VALIDATORS, Validator} from '@angular/forms';
     multi: true
   }]
 })
-export class InputMatchValidationDirective implements Validator  {
+export class InputMatchValidationDirective implements Validator {
 
   constructor(@Attribute('match') public validateEqual: string) {
   }

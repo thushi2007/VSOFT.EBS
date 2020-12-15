@@ -39,7 +39,7 @@ namespace VSOFT.EBS.BO
 
                     var rs = userManager.CreateAsync(user, "Arun0706!").Result;
                     rs = userManager.AddToRoleAsync(user, "Benutzer").Result;
-                    rs = userManager.AddToRoleAsync(user, "ADmin").Result;
+                    rs = userManager.AddToRoleAsync(user, "Admin").Result;
                 }
             }
         }

@@ -38,7 +38,13 @@ public class JWTService {
 
             if (jwt != null) {
                 Map<String, Object> claims = jwt.getClaims();
-                JSONArray jwtRoles = (JSONArray) claims.get("role");
+                JSONArray jwtRoles = new JSONArray();
+
+                if (claims.get("role") instanceof JSONArray) {
+                    jwtRoles.addAll((JSONArray) claims.get("role"));
+                } else {
+                    jwtRoles.add(claims.get("role").toString());
+                }
 
                 if (roles.length > 0) {
                     Boolean rolesOk = false;

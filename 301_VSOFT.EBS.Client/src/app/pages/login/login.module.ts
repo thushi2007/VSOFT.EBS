@@ -6,10 +6,11 @@ import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {LoginRoutingModule} from './login-routing.module';
 import {CoreModule} from '@core/core.module';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 @NgModule({
-  declarations: [LoginComponent],
-  exports: [LoginComponent],
+  declarations: [LoginComponent, LoginFormComponent],
+  exports: [LoginComponent, LoginFormComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,

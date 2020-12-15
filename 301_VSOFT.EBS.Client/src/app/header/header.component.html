@@ -2,15 +2,14 @@
   <div class="page-container">
     <div class="menu">
       <div class="item">
-        <a [routerLink]="'/home'">Home</a>
-      </div>
-      <div class="item">
         <a [routerLink]="'/ebooks'">eBooks</a>
       </div>
     </div>
     <div class="account">
-      <a [routerLink]="'/anmelden'"><span class="fal fa-user-circle"></span></a>
-      <a [routerLink]="'/warenkorb'"><span class="fal fa-shopping-cart"></span></a>
+      <a [routerLink]="'/anmelden'" *ngIf="!isUserLoggedIn()"><span class="fal fa-user-circle"></span></a>
+      <a [routerLink]="'/benutzerkonto/admin'" *ngIf="isUserLoggedIn() && isAdmin()"><span class="fas fa-user-circle"></span></a>
+      <a [routerLink]="'/benutzerkonto/kunde'" *ngIf="isUserLoggedIn() && !isAdmin()"><span class="fas fa-user-circle"></span></a>
+      <a [routerLink]="'/cart'"><span class="fal fa-shopping-cart"></span></a>
     </div>
   </div>
 </header>

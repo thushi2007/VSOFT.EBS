@@ -9,6 +9,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {MessageComponent} from '@core/components/messager/message/message.component';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'ebs-messager',
@@ -80,7 +81,6 @@ export class MessagerComponent implements OnDestroy {
    */
   private hideContainerTimer(cRef: ComponentRef<MessageComponent>): void {
     cRef.instance.hideContainer.subscribe(event => {
-
       if (this.onlyOneInstance) {
         this.container.clear();
       } else {
@@ -100,11 +100,9 @@ export class MessagerComponent implements OnDestroy {
   private destroyCompontentByTimer(cRef: ComponentRef<MessageComponent>): void {
     if (this.duration > 0) {
       setTimeout(() => {
-
         if (cRef != null) {
           cRef.destroy();
         }
-
       }, this.duration);
     }
   }

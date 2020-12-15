@@ -29,11 +29,11 @@ export class DialogerComponent implements OnInit, OnDestroy {
     });
   }
 
-  openDialog(templateRef: TemplateRef<any>) {
+  openDialog(templateRef: TemplateRef<any>): void {
     this.container.createEmbeddedView(templateRef);
   }
 
-  public closeDialog() {
+  public closeDialog(): void {
     this.container.clear();
   }
 
