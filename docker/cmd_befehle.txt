@@ -105,6 +105,8 @@ docker push thushi2007/ebsapi:v1
 
 docker run --name ebsapi --env IDP=http://178.128.134.209 --env IDPCLIENTURL=http://178.128.134.209 --env DB_URI=165.227.254.66:3306 -p 127.0.0.1:8080:8080 thushi2007/ebsapi:v1
 
+docker-compose up
+
 
 
 
