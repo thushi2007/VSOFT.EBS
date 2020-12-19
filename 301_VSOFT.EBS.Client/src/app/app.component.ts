@@ -12,6 +12,8 @@ export class AppComponent {
 
   public constructor(private oauthService: OAuthService) {
     this.oauthService.issuer = environment.idpUrl;
+    this.oauthService.tokenEndpoint = environment.idpUrl + '/connect/token';
+    this.oauthService.userinfoEndpoint = environment.idpUrl + '/connect/userinfo';
     this.oauthService.clientId = environment.idpUser;
     this.oauthService.scope = environment.apiScope;
     this.oauthService.responseType = 'id_token token';
@@ -19,6 +21,5 @@ export class AppComponent {
     this.oauthService.requireHttps = false;
     this.oauthService.clearHashAfterLogin = true;
     this.oauthService.dummyClientSecret = environment.idpPwd;
-    this.oauthService.loadDiscoveryDocument().then(() => {});
   }
 }

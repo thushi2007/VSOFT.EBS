@@ -76,3 +76,21 @@ services:
       - "mysql:db"
       - "ebsidp:idp"    
      restart: always
+     healthcheck:
+            test: curl --fail http://localhost:8080/ || exit 1
+            interval: 10s
+            timeout: 3s
+            retries: 10
+   ebsclient:
+     container_name: ebsclient     
+     build: 
+        context: ../../VSOFT.EBS/301_VSOFT.EBS.Client
+        dockerfile: ./Dockerfile
+     ports:
+      - "4200:80"
+     depends_on:
+         ebsapi:
+           condition: service_healthy
+         ebsidp:
+           condition: service_healthy  
+     restart: always
