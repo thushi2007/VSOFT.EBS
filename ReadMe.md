@@ -1,5 +1,5 @@
 
-# Prequeries
+# Preparation
 
 Following tools/software must be installed before you can install the ebs online shop application:
 
